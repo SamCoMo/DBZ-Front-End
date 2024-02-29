@@ -7,7 +7,7 @@ import InnerCon from "./components/common/InnerCon";
 import SignupPage from "./pages/SignupPage";
 
 interface AppProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const App = ({ children }: AppProps) => (
