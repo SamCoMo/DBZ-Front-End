@@ -1,18 +1,18 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import InnerCon from './components/common/InnerCon';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import { RecoilRoot } from "recoil";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import InnerCon from "./components/common/InnerCon";
 
 interface AppProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const App = ({ children }: AppProps) => (
   <RecoilRoot>
     <InnerCon>
-      {' '}
+      {" "}
       <Routes>
         <Route>
           <Route path="/" element={<HomePage />} />
