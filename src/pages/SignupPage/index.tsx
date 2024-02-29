@@ -1,5 +1,6 @@
 import Input from "@/components/common/Input";
 import useInput from "@/hooks/useInput";
+import { ValidCheckType } from "@/types/auth/ValidCheckType";
 import React, { useEffect, useState } from "react";
 
 const SignupPage = () => {
@@ -15,26 +16,21 @@ const SignupPage = () => {
 
   const [allCheck, setAllCheck] = useState<boolean>(false);
 
-  interface CheckType {
-    status: Boolean;
-    msg: string;
-  }
-
   const CheckInit = {
     status: false,
     msg: "",
   };
 
-  const [emailCheck, setEmailCheck] = useState<CheckType>(CheckInit);
+  const [emailCheck, setEmailCheck] = useState<ValidCheckType>(CheckInit);
   const [phoneNumberCheck, setPhoneNumberCheck] =
-    useState<CheckType>(CheckInit);
-  const [passwordCheck, setPasswordCheck] = useState<CheckType>(CheckInit);
+    useState<ValidCheckType>(CheckInit);
+  const [passwordCheck, setPasswordCheck] = useState<ValidCheckType>(CheckInit);
   const [confirmPasswordCheck, setConfirmPasswordCheck] =
-    useState<CheckType>(CheckInit);
+    useState<ValidCheckType>(CheckInit);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(email, nickname, phoneNumber, password, confirmPassword);
+    console.log(email, nickname, phoneNumber, password);
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -118,6 +114,7 @@ const SignupPage = () => {
     }
   }, [phoneNumber]);
 
+  // 비밀번호 확인
   useEffect(() => {
     if (!confirmPassword) return;
     if (confirmPassword === password) {
@@ -128,7 +125,7 @@ const SignupPage = () => {
         msg: "비밀번호가 일치하지 않습니다.",
       });
     }
-  }, [confirmPassword]);
+  }, [password, confirmPassword]);
 
   useEffect(() => {
     if (
@@ -233,7 +230,7 @@ const SignupPage = () => {
             </p>
           </div>
         </div>
-        {/* <button disabled={!allCheck}>제출</button> */}
+        <button disabled={!allCheck}>제출</button>
       </form>
     </>
   );
