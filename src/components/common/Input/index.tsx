@@ -10,7 +10,6 @@ const Input = ({ type, width }: InputProps) => (
     className={`bg-gray2 rounded-lg text-body2 placeholder-text-gray4 h-10 pl-3 ${
       width || "w-full"
     }`}
-    placeholder="예시입니다"
     type={type}
   />
 );
