@@ -1,4 +1,4 @@
-import * as todoHandler from './test';
+import { postSignUp } from "./auth/handler";
 
-const handlers = [...Object.values(todoHandler)];
+const handlers = [postSignUp];
 export default handlers;

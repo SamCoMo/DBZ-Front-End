@@ -1,4 +1,5 @@
 import Input from "@/components/common/Input";
+import useSignupQuery from "@/hooks/query/useSignupQuery";
 import useInput from "@/hooks/useInput";
 import { ValidCheckType } from "@/types/auth/ValidCheckType";
 import React, { useEffect, useState } from "react";
@@ -16,6 +17,8 @@ const SignupPage = () => {
 
   const [allCheck, setAllCheck] = useState<boolean>(false);
 
+  const { signUpMutate } = useSignupQuery();
+
   const CheckInit = {
     status: false,
     msg: "",
@@ -30,7 +33,7 @@ const SignupPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(email, nickname, phoneNumber, password);
+    signUpMutate({ email, nickname, phone: phoneNumber, password });
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -130,6 +133,7 @@ const SignupPage = () => {
   useEffect(() => {
     if (
       emailCheck.status &&
+      nickname &&
       phoneNumberCheck.status &&
       passwordCheck.status &&
       confirmPasswordCheck.status
@@ -140,6 +144,7 @@ const SignupPage = () => {
     }
   }, [
     emailCheck.status,
+    nickname,
     phoneNumberCheck.status,
     passwordCheck.status,
     confirmPasswordCheck.status,
@@ -211,9 +216,11 @@ const SignupPage = () => {
               onChange={handleChangePassword}
             />
             <p
-              className={`${passwordCheck.status ? "text-green-500" : "text-red-600"}`}
+              className={`${password ? (passwordCheck.status ? "text-green-500" : "text-red-600") : "text-gray-300"}`}
             >
-              {password && passwordCheck.msg}
+              {!password
+                ? "*영문자+특수문자+숫자를 포함하여 8자 이상 입력해주세요."
+                : passwordCheck.msg}
             </p>
           </div>
           <div className="mt-3">
