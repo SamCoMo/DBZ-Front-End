@@ -2,12 +2,12 @@ import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-interface TopTitleProps {
+interface HeaderTitleProps {
   title: string;
   back?: boolean;
 }
 
-const TopTitle = ({ title, back }: TopTitleProps) => {
+const HeaderTitle = ({ title, back }: HeaderTitleProps) => {
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1);
@@ -29,4 +29,4 @@ const TopTitle = ({ title, back }: TopTitleProps) => {
   );
 };
 
-export default TopTitle;
+export default HeaderTitle;
