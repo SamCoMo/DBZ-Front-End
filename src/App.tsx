@@ -4,6 +4,7 @@ import { RecoilRoot } from "recoil";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import InnerCon from "./components/common/InnerCon";
+import CreateReportPage from "./pages/CreateReportPage";
 
 interface AppProps {
   children?: React.ReactNode;
@@ -17,6 +18,7 @@ const App = ({ children }: AppProps) => (
         <Route>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/report" element={<CreateReportPage />} />
           {/* 404 처리 */}
           {/* <Route path="*" element={<NotFound />}></Route> */}
         </Route>
