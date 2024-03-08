@@ -1,19 +1,31 @@
-import React from "react";
-
 interface InputProps {
-  type: "text" | "select";
+  type: "text" | "email" | "password"| "select";
+  value: string;
   width?: string;
-  placeholder: string;
+  placeholder?: string;
+  disabled?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ type, width, placeholder }: InputProps) => (
-  <input
-    className={`bg-gray2 rounded-lg text-body2 placeholder-text-gray4 h-10 pl-3 mt-3 mb-3 ${
-      width || "w-full"
-    }`}
-    type={type}
-    placeholder={placeholder}
-  />
-);
+const Input = ({
+  type,
+  value,
+  width,
+  disabled,
+  placeholder,
+  onChange,
+}: InputProps) => {
+  return (
+    <input
+      type={type}
+      value={value}
+      className={`rounded-lg px-3 bg-gray-200 ${width || "w-full"} h-10`}
+      placeholder={placeholder}
+      disabled={disabled}
+      onChange={onChange}
+    />
+  );
+};
+
 
 export default Input;
