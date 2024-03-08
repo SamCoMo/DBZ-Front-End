@@ -2,6 +2,7 @@ import React from "react";
 import HeaderTitle from "@/components/common/HeaderTitle";
 import Input from "@/components/common/Input";
 import Addr from "@/components/Report/MapAddr";
+import WideButton from "@/components/common/Button/WideButton";
 
 const CreateReportPage = () => {
   return (
@@ -36,6 +37,7 @@ const CreateReportPage = () => {
           />
           <span>내 번호 표시하기</span>
         </div>
+        <WideButton type="button" text="등록하기" />
       </form>
     </>
   );

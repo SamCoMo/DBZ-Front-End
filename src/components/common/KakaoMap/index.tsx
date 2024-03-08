@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 declare global {
   interface Window {
@@ -6,64 +6,37 @@ declare global {
   }
 }
 
-// interface KakaoMapProps {
-//   coordi: {
-//     lat?: number;
-//     long?: number;
-//   };
-// }
-const KakaoMap = () => {
-  const [map, setMap] = useState<any>();
-  const [marker, setMarker] = useState<any>();
-
-  // 1) 카카오맵 불러오기
+interface KakaoMapProps {
+  coordi: {
+    lat?: number;
+    long?: number;
+  };
+}
+const KakaoMap = ({ coordi }: KakaoMapProps) => {
   useEffect(() => {
-    window.kakao.maps.load(() => {
-      const container = document.getElementById("map");
-      const options = {
-        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3,
-      };
-
-      setMap(new window.kakao.maps.Map(container, options));
-      setMarker(new window.kakao.maps.Marker());
+    const mapContainer = document.getElementById("map");
+    const mapOption = {
+      center: new window.kakao.maps.LatLng(coordi.long, coordi.lat), // 지도의 중심좌표
+      level: 3, // 지도의 확대 레벨
+    };
+    const map = new window.kakao.maps.Map(mapContainer, mapOption);
+    // 마커
+    const markerPosition = new window.kakao.maps.LatLng(
+      coordi.long,
+      coordi.lat
+    );
+    const marker = new window.kakao.maps.Marker({
+      position: markerPosition,
     });
-  }, []);
-
-  // 2) 현재 위치 함수
-  const getCurrentPosBtn = () => {
-    navigator.geolocation.getCurrentPosition(
-      getPosSuccess,
-      () => alert("위치 정보를 가져오는데 실패했습니다."),
-      {
-        enableHighAccuracy: true,
-        maximumAge: 30000,
-        timeout: 27000,
-      }
-    );
-  };
-
-  // 3) 정상적으로 현재위치 가져올 경우 실행
-  const getPosSuccess = (pos: GeolocationPosition) => {
-    // 현재 위치(위도, 경도) 가져온다.
-    var currentPos = new window.kakao.maps.LatLng(
-      pos.coords.latitude, // 위도
-      pos.coords.longitude // 경도
-    );
-    // 지도를 이동 시킨다.
-    map.panTo(currentPos);
-
-    // 기존 마커를 제거하고 새로운 마커를 넣는다.
-    marker.setMap(null);
-    marker.setPosition(currentPos);
+    // 마커가 지도 위에 표시되도록 설정
     marker.setMap(map);
-  };
+  }, []);
 
   return (
     <div>
-      <div id="map" style={{ width: "100%", height: "300px" }}></div>
-      <div onClick={getCurrentPosBtn}>현재 위치</div>
+      <div id="map" className="w-full h-56" />
     </div>
   );
 };
+
 export default KakaoMap;
