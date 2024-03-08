@@ -8,7 +8,7 @@ interface InputProps {
 
 const Input = ({ type, width, placeholder }: InputProps) => (
   <input
-    className={`bg-gray2 rounded-lg text-body2 placeholder-text-gray4 h-10 pl-3 ${
+    className={`bg-gray2 rounded-lg text-body2 placeholder-text-gray4 h-10 pl-3 mt-3 mb-3 ${
       width || "w-full"
     }`}
     type={type}
