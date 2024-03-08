@@ -1,5 +1,5 @@
 interface InputProps {
-  type: "text" | "email" | "password";
+  type: "text" | "email" | "password"| "select";
   value: string;
   width?: string;
   placeholder?: string;
@@ -26,5 +26,6 @@ const Input = ({
     />
   );
 };
+
 
 export default Input;
