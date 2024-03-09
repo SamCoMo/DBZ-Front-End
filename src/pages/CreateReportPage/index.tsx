@@ -5,6 +5,7 @@ import Addr from "@/components/Report/MapAddr";
 import WideButton from "@/components/common/Button/WideButton";
 import { BsCameraFill } from "react-icons/bs";
 
+
 const CreateReportPage = () => {
   return (
     <>
