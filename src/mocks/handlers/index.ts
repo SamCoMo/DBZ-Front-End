@@ -1,4 +1,4 @@
-import { postLogin, postSignUp } from "./auth/handler";
+import { getUserProfile, postLogin, postSignUp } from "./auth/handler";
 
-const handlers = [postSignUp, postLogin];
+const handlers = [postSignUp, postLogin, getUserProfile];
 export default handlers;

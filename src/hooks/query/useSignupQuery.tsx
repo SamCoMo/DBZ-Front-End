@@ -1,7 +1,7 @@
 import { SignupDataType } from "@/types/auth/SignupDataType";
 import { useMutation } from "@tanstack/react-query";
 
-const fetchAPI = async (data: SignupDataType) => {
+const memberRegister = async (data: SignupDataType) => {
   const { email, nickname, phone, password } = data;
   const res = await fetch("/member/register", {
     method: "POST",
@@ -23,7 +23,7 @@ const useSignupQuery = () => {
   const { mutate: signUpMutate } = useMutation({
     mutationKey: ["join"],
     mutationFn: ({ email, nickname, phone, password }: SignupDataType) =>
-      fetchAPI({ email, nickname, phone, password }),
+      memberRegister({ email, nickname, phone, password }),
   });
 
   return {
