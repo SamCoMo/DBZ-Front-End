@@ -1,3 +1,5 @@
+import { UserDataType } from "./UserDataType";
+
 export interface LoginDataType {
   email: string;
   password: string;
@@ -9,4 +11,5 @@ export interface TokenType {
 
 export interface LoginResponseType {
   headers: TokenType;
+  userInfo: UserDataType;
 }

@@ -2,14 +2,14 @@ import axios from "axios";
 
 export const BASE_URL = "http://localhost:5173";
 
-export const instance = axios.create({
+export const axiosDefault = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-export const instanceAuth = axios.create({
+export const axiosAuth = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
@@ -17,7 +17,7 @@ export const instanceAuth = axios.create({
   withCredentials: true,
 });
 
-instanceAuth.interceptors.request.use(
+axiosAuth.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("Access-Token");
     if (accessToken) {
@@ -32,4 +32,4 @@ instanceAuth.interceptors.request.use(
 );
 
 // access-token 만료시 refresh-token 사용해서 재발급
-instanceAuth.interceptors.response.use();
+axiosAuth.interceptors.response.use();

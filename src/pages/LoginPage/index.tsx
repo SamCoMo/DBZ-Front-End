@@ -3,11 +3,12 @@ import HeaderTitle from "@/components/common/HeaderTitle";
 import Input from "@/components/common/Input";
 import useLoginQuery from "@/hooks/query/useLoginQuery";
 import useInput from "@/hooks/useInput";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const LoginPage = () => {
   const [email, , handleChangeEmail] = useInput("");
   const [password, , handleChangePassword] = useInput("");
+  const [allCheck, setAllCheck] = useState<boolean>(false);
 
   const { loginMutate, loginError } = useLoginQuery();
 
@@ -15,6 +16,14 @@ const LoginPage = () => {
     e.preventDefault();
     loginMutate({ email, password });
   };
+
+  useEffect(() => {
+    if (email && password) {
+      setAllCheck(true);
+    } else {
+      setAllCheck(false);
+    }
+  }, [email, password]);
 
   return (
     <>
@@ -36,7 +45,7 @@ const LoginPage = () => {
             onChange={handleChangePassword}
           />
         </div>
-        <WideButton text="시작하기" />
+        <WideButton text="시작하기" disabled={!allCheck} />
       </form>
     </>
   );
