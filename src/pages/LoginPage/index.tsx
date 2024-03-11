@@ -45,7 +45,7 @@ const LoginPage = () => {
             onChange={handleChangePassword}
           />
         </div>
-        <WideButton text="시작하기" disabled={!allCheck} />
+        <WideButton text="시작하기" status={allCheck} />
       </form>
     </>
   );
