@@ -4,6 +4,7 @@ import Input from "@/components/common/Input";
 import Addr from "@/components/Report/MapAddr";
 import WideButton from "@/components/common/Button/WideButton";
 import { BsCameraFill } from "react-icons/bs";
+import usePostCreateReportQuery from "@/hooks/query/usePostReportQuery";
 
 const CreateReportPage = () => {
   return (
@@ -18,11 +19,25 @@ const CreateReportPage = () => {
         </div>
         <div>
           <p>제목</p>
-          <Input type="text" placeholder="제목을 입력해주세요" />
+          <Input
+            type="text"
+            placeholder="제목을 입력해주세요"
+            value={""}
+            onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
         </div>
         <div>
           <p>종</p>
-          <Input type="select" placeholder="종을 선택해주세요" />
+          <Input
+            type="select"
+            placeholder="종을 선택해주세요"
+            value={""}
+            onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
         </div>
         <div>
           <p className="mt-3 mb-3">실종 위치</p>
@@ -43,7 +58,7 @@ const CreateReportPage = () => {
           />
           <span>내 번호 표시하기</span>
         </div>
-        <WideButton type="button" text="등록하기" />
+        <WideButton type="button" text="등록하기" status={false} />
       </form>
     </>
   );
