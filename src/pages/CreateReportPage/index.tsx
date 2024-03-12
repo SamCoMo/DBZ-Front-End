@@ -5,9 +5,25 @@ import Addr from "@/components/Report/MapAddr";
 import WideButton from "@/components/common/Button/WideButton";
 import { BsCameraFill } from "react-icons/bs";
 import usePostCreateReportQuery from "@/hooks/query/usePostReportQuery";
+import { CreateReportType } from "@/types/Report/CreateReportType";
 
 const CreateReportPage = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [petType, setPetType] = useState("");
+  const [species, setSpicies] = useState("");
+  const [petName, setPetName] = useState("");
+  const [reportAddress, setReportAddress] = useState({
+    address: "",
+    latitude: 0,
+    longitude: 0,
+  });
+  const [showsPhone, setShowsPhone] = useState(false);
+  const postCreateReportQuery = usePostCreateReportQuery();
+  const handleTitleChange = () => {
+    setTitle(title);
+  };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -15,19 +31,44 @@ const CreateReportPage = () => {
       setSelectedImages(images);
     }
   };
-
+  const handleContentChange = () => {
+    setContent(content);
+  };
+  const handlePetTypeChange = () => {
+    setPetType(petType);
+  };
+  const handleShowsPhoneCheckedChange = () => {
+    setShowsPhone(showsPhone);
+  };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // 선택된 이미지를 서버에 업로드하는 코드를 작성합니다.
-    // 이 코드는 서버와의 통신 및 이미지 업로드를 담당합니다.
+    // 게시글 생성에 필요한 데이터를 CreateReportType 타입에 맞춰 구성
+    const reportData: CreateReportType = {
+      reportId: 0, // reportId는 서버에서 생성될 것으로 가정
+      title: title,
+      pet_type: petType,
+      shows_phone: showsPhone,
+      species: species,
+      pet_name: petName,
+      feature: content,
+      street_address: reportAddress.address,
+      roadAddress: reportAddress.address,
+      latitude: reportAddress.latitude,
+      longitude: reportAddress.longitude,
+      image_list: [],
+    };
+
+    // usePostCreateReportQuery 훅을 사용하여 게시글 생성 요청
+    postCreateReportQuery.reportIsMutate(reportData);
   };
+
   return (
     <>
       <HeaderTitle title="게시글 작성" />
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <p className="mt-3 mb-3">사진</p>
+          <p className="my-3">사진</p>
           <label htmlFor="images" className="inline-block">
             <div className="w-32 h-32 border rounded-lg flex items-center justify-center cursor-pointer">
               <BsCameraFill className="text-defaultColor" />
@@ -43,47 +84,46 @@ const CreateReportPage = () => {
           </label>
         </div>
         <div>
-          <p>제목</p>
+          <p className="my-3">제목</p>
           <Input
             type="text"
             placeholder="제목을 입력해주세요"
-            value={""}
-            onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
-              throw new Error("Function not implemented.");
-            }}
+            value={title}
+            onChange={handleTitleChange}
           />
         </div>
         <div>
-          <p>종</p>
-          <Input
-            type="select"
-            placeholder="종을 선택해주세요"
-            value={""}
-            onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
-              throw new Error("Function not implemented.");
-            }}
-          />
-        </div>
-        <div>
-          <p className="mt-3 mb-3">실종 위치</p>
-          <Addr />
-        </div>
-        <div>
-          <p className="mt-3">내용 작성하기</p>
+          <div>
+            <p className="my-3">종</p>
+            <Input
+              type="select"
+              placeholder="종을 선택해주세요"
+              value={species}
+              onChange={handlePetTypeChange}
+            />
+          </div>
+          <p className="my-3">내용</p>
           <textarea
             className="w-full h-32 p-2 my-4 border rounded-md focus:outline-none bg-gray2 text-body2 placeholder-text-gray4"
             placeholder="내용을 입력해주세요"
-          ></textarea>
+            value={content}
+            onChange={handleContentChange}
+          />
+        </div>
+        <div>
+          <p className="my-3">실종 위치</p>
+          <Addr />
         </div>
         <div>
           <input
             type="checkbox"
-            defaultChecked
-            className=" checked:border-white [--chkbg:198, 60%, 76%)] [--chkfg:white] mr-3"
+            defaultChecked={showsPhone}
+            onChange={handleShowsPhoneCheckedChange}
+            className="my-3 checked:border-white [--chkbg:198, 60%, 76%)] [--chkfg:white] mr-3"
           />
           <span>내 번호 표시하기</span>
         </div>
-        <WideButton type="button" text="등록하기" status={false} />
+        <WideButton type="submit" text="등록하기" status={false} />
       </form>
     </>
   );
