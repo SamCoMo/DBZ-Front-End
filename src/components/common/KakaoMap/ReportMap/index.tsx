@@ -44,16 +44,21 @@ const ReportKakaoMap = ({ onMarkerClick }: ReportKakaoMapProps) => {
 
             // 좌표를 주소로 변환하여 인포윈도우에 표시
             const geocoder = new window.kakao.maps.services.Geocoder();
-            geocoder.coord2Address(latlng, function (result: any, status: any) {
-              if (status === window.kakao.maps.services.Status.OK) {
-                const address = result[0].address.address_name;
-                // 인포윈도우에 주소 정보 표시
-                infowindow.setContent(`<div>${address}</div>`);
-                infowindow.open(map, marker);
-              } else {
-                console.error("Geocoder failed due to: " + status);
+            geocoder.coord2Address(
+              lng,
+              lat,
+
+              function (result: any, status: any) {
+                if (status === window.kakao.maps.services.Status.OK) {
+                  const address = result[0].address.address_name;
+                  // 인포윈도우에 주소 정보 표시
+                  infowindow.setContent(`<div>${address}</div>`);
+                  infowindow.open(map, marker);
+                } else {
+                  console.error("Geocoder failed due to: " + status);
+                }
               }
-            });
+            );
 
             // 마커의 위치를 클릭한 위치로 변경합니다
             marker.setPosition(latlng);
