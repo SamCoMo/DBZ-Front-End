@@ -6,6 +6,7 @@ import WideButton from "@/components/common/Button/WideButton";
 import { BsCameraFill } from "react-icons/bs";
 import usePostCreateReportQuery from "@/hooks/query/usePostReportQuery";
 import { CreateReportType } from "@/types/Report/CreateReportType";
+import SelectSpecies from "@/components/common/Select/SelectOptions";
 
 const CreateReportPage = () => {
   const [title, setTitle] = useState("");
@@ -16,13 +17,15 @@ const CreateReportPage = () => {
   const [petName, setPetName] = useState("");
   const [reportAddress, setReportAddress] = useState({
     address: "",
-    latitude: 37.5665,
-    longitude: 126.978,
+    latitude: 0,
+    longitude: 0,
   });
   const [showsPhone, setShowsPhone] = useState(false);
   const postCreateReportQuery = usePostCreateReportQuery();
-  const handleTitleChange = () => {
-    setTitle(title);
+  // 게시글 생성에 필요한 데이터를 CreateReportType 타입에 맞춰 구성
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
   };
 
   const coordi = {
@@ -36,14 +39,18 @@ const CreateReportPage = () => {
       setSelectedImages(images);
     }
   };
-  const handleContentChange = () => {
-    setContent(content);
+  const handleContentChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setContent(event.target.value);
   };
-  const handlePetTypeChange = () => {
-    setPetType(petType);
+  const handlePetTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setPetType(event.target.value);
   };
-  const handleShowsPhoneCheckedChange = () => {
-    setShowsPhone(showsPhone);
+  const handleShowsPhoneCheckedChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setShowsPhone(event.target.checked);
   };
   const handleMarkerClick = (lat: number, lng: number) => {
     setReportAddress({
@@ -54,8 +61,6 @@ const CreateReportPage = () => {
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // 게시글 생성에 필요한 데이터를 CreateReportType 타입에 맞춰 구성
     const reportData: CreateReportType = {
       reportId: 0, // reportId는 서버에서 생성될 것으로 가정
       title: title,
@@ -107,11 +112,9 @@ const CreateReportPage = () => {
         <div>
           <div>
             <p className="my-3">종</p>
-            <Input
-              type="select"
-              placeholder="종을 선택해주세요"
-              value={species}
-              onChange={handlePetTypeChange}
+            <SelectSpecies
+              reportSelectedSpecies={petType}
+              handleSelected={handlePetTypeChange}
             />
           </div>
           <p className="my-3">내용</p>
