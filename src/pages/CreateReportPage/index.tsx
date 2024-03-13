@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import HeaderTitle from "@/components/common/HeaderTitle";
+import ReportKakaoMap from "@/components/common/KakaoMap/ReportMap";
 import Input from "@/components/common/Input";
-import Addr from "@/components/Report/MapAddr";
 import WideButton from "@/components/common/Button/WideButton";
 import { BsCameraFill } from "react-icons/bs";
 import usePostCreateReportQuery from "@/hooks/query/usePostReportQuery";
@@ -16,13 +16,18 @@ const CreateReportPage = () => {
   const [petName, setPetName] = useState("");
   const [reportAddress, setReportAddress] = useState({
     address: "",
-    latitude: 0,
-    longitude: 0,
+    latitude: 37.5665,
+    longitude: 126.978,
   });
   const [showsPhone, setShowsPhone] = useState(false);
   const postCreateReportQuery = usePostCreateReportQuery();
   const handleTitleChange = () => {
     setTitle(title);
+  };
+
+  const coordi = {
+    lat: reportAddress.latitude,
+    long: reportAddress.longitude,
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +44,13 @@ const CreateReportPage = () => {
   };
   const handleShowsPhoneCheckedChange = () => {
     setShowsPhone(showsPhone);
+  };
+  const handleMarkerClick = (lat: number, lng: number) => {
+    setReportAddress({
+      ...reportAddress,
+      latitude: lat,
+      longitude: lng,
+    });
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -112,7 +124,7 @@ const CreateReportPage = () => {
         </div>
         <div>
           <p className="my-3">실종 위치</p>
-          <Addr />
+          <ReportKakaoMap onMarkerClick={handleMarkerClick} />
         </div>
         <div>
           <input
