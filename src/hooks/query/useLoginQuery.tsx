@@ -1,4 +1,4 @@
-import { axiosDefault } from "@/apis";
+import { axiosAuth, axiosDefault } from "@/apis";
 import { LoginDataType, LoginResponseType } from "@/types/auth/LoginDataType";
 
 import { useMutation } from "@tanstack/react-query";
@@ -23,8 +23,11 @@ const useLoginQuery = () => {
     mutationKey: ["login"],
     mutationFn: ({ email, password }: LoginDataType) =>
       memberLogin({ email, password }),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       localStorage.setItem("Access-Token", data.headers["access-token"]);
+      data.userInfo = await axiosAuth
+        .get("/member/info")
+        .then((res) => res.data);
       updateUser({
         ...data.userInfo,
         isLogin: true,
