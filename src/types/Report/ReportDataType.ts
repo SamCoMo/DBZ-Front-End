@@ -13,19 +13,20 @@ export interface ReportDataType {
   image_list: [];
 }
 export interface ReportDetailType {
-  writer?: boolean;
-  reportId: number;
+  feature: string;
   title: string;
   pet_type: string;
   shows_phone: boolean;
   species: string;
   pet_name: string;
-
-  scheduleAt: string;
-
   street_address: string;
   roadAddress: string;
   latitude: number;
   longitude: number;
   status?: string;
+  image_list: [];
+}
+export interface ReportDetailIdType {
+  reportId: string;
+  writer: boolean;
 }

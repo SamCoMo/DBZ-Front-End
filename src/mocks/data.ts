@@ -1,5 +1,5 @@
 //게시글 리스트
-export const schedulesList = [
+export const reportList = [
   {
     reportId: 1,
     title: "저희 먼지를 찾아주세요",
