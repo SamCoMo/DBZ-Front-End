@@ -1,7 +1,7 @@
 import { axiosAuth } from "@/apis";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useToast from "../useToast";
-import { CreateReportType } from "@/types/Report/CreateReportType";
+import { CreateReportType } from "@/types/Report/ReportDataType";
 
 const fetchAPI = async (data: CreateReportType): Promise<CreateReportType> => {
   const res = await axiosAuth.post("/report", data);

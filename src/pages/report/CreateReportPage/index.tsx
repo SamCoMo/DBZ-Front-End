@@ -5,7 +5,7 @@ import Input from "@/components/common/Input";
 import WideButton from "@/components/common/Button/WideButton";
 import { BsCameraFill } from "react-icons/bs";
 import usePostCreateReportQuery from "@/hooks/query/usePostReportQuery";
-import { CreateReportType } from "@/types/Report/CreateReportType";
+import { ReportDataType } from "@/types/Report/ReportDataType";
 import SelectSpecies from "@/components/common/Select/SelectOptions";
 
 const CreateReportPage = () => {
@@ -13,7 +13,7 @@ const CreateReportPage = () => {
   const [content, setContent] = useState("");
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [petType, setPetType] = useState("");
-  const [species, setSpicies] = useState("");
+  const [species, setSpecies] = useState("");
   const [petName, setPetName] = useState("");
   const [reportAddress, setReportAddress] = useState({
     address: "",
@@ -27,10 +27,12 @@ const CreateReportPage = () => {
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
+  const handleSpeciesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSpecies(event.target.value);
+  };
 
-  const coordi = {
-    lat: reportAddress.latitude,
-    long: reportAddress.longitude,
+  const handlePetNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPetName(event.target.value);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +63,7 @@ const CreateReportPage = () => {
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const reportData: CreateReportType = {
+    const reportData: ReportDataType = {
       reportId: 0, // reportId는 서버에서 생성될 것으로 가정
       title: title,
       pet_type: petType,
@@ -110,13 +112,31 @@ const CreateReportPage = () => {
           />
         </div>
         <div>
-          <div>
-            <p className="my-3">종</p>
-            <SelectSpecies
-              reportSelectedSpecies={petType}
-              handleSelected={handlePetTypeChange}
-            />
-          </div>
+          <p className="my-3">이름</p>
+          <Input
+            type="text"
+            placeholder="반려동물의 이름을 입력해주세요"
+            value={petName}
+            onChange={handlePetNameChange}
+          />
+        </div>
+        <div>
+          <p className="my-3">종</p>
+          <SelectSpecies
+            reportSelectedSpecies={petType}
+            handleSelected={handlePetTypeChange}
+          />
+        </div>
+        <div>
+          <p className="my-3">상세정보</p>
+          <Input
+            type="text"
+            placeholder="상세 견종/묘종 등을 입력해주세요"
+            value={species}
+            onChange={handleSpeciesChange}
+          />
+        </div>
+        <div>
           <p className="my-3">내용</p>
           <textarea
             className="w-full h-32 p-2 my-4 border rounded-md focus:outline-none bg-gray2 text-body2 placeholder-text-gray4"
