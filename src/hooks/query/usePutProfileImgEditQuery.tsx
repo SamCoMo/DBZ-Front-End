@@ -2,7 +2,11 @@ import { axiosAuth } from "@/apis";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const fetchAPI = async (formData: FormData) => {
-  const res = await axiosAuth.put("/member/profile-image", formData);
+  const res = await axiosAuth.put("/member/profile-image", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return res.data;
 };
 

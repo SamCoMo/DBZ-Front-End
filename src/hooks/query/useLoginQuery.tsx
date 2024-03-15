@@ -7,7 +7,17 @@ import useUserState from "../useUserState";
 
 const memberLogin = async (data: LoginDataType): Promise<LoginResponseType> => {
   const { email, password } = data;
-  return await axiosDefault.post("/member/login", { email, password });
+
+  const formData = new FormData();
+
+  formData.append("email", email);
+  formData.append("password", password);
+
+  return await axiosDefault.post("/member/login", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 const useLoginQuery = () => {
