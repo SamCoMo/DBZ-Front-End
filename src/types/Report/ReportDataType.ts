@@ -30,3 +30,10 @@ export interface ReportDetailIdType {
   reportId: string;
   writer: boolean;
 }
+export interface ReportPinDataType {
+  foundAt: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  pinImageDtoList: [];
+}
