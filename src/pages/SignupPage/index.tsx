@@ -267,7 +267,7 @@ const SignupPage = () => {
             </p>
           </div>
         </div>
-        <WideButton text="가입하기" disabled={!allCheck} />
+        <WideButton text="가입하기" status={allCheck} />
       </form>
     </>
   );
