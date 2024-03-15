@@ -1,6 +1,7 @@
 import WideButton from "@/components/common/Button/WideButton";
 import HeaderTitle from "@/components/common/HeaderTitle";
 import Input from "@/components/common/Input";
+import Logo from "@/components/common/Logo";
 import useLoginQuery from "@/hooks/query/useLoginQuery";
 import useInput from "@/hooks/useInput";
 import React, { useEffect, useState } from "react";
@@ -28,7 +29,8 @@ const LoginPage = () => {
   return (
     <>
       <HeaderTitle title="" back={true} />
-      <form onSubmit={handleSubmit}>
+      <Logo width={180} />
+      <form className="mt-6" onSubmit={handleSubmit}>
         <div>
           <Input
             type="email"

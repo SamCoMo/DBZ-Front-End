@@ -1,6 +1,7 @@
 import WideButton from "@/components/common/Button/WideButton";
 import HeaderTitle from "@/components/common/HeaderTitle";
 import Input from "@/components/common/Input";
+import Logo from "@/components/common/Logo";
 import useSignupQuery from "@/hooks/query/useSignupQuery";
 import useInput from "@/hooks/useInput";
 import { ValidCheckType } from "@/types/auth/ValidCheckType";
@@ -177,9 +178,10 @@ const SignupPage = () => {
   return (
     <>
       <HeaderTitle title="회원가입" back={true} />
-      <form onSubmit={handleSubmit}>
+      <Logo width={180} />
+      <form className="mt-6" onSubmit={handleSubmit}>
         <div>
-          <div className="mt-6">
+          <div>
             <div className="flex justify-between items-center">
               <Input
                 type="text"
