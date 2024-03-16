@@ -12,6 +12,7 @@ interface KakaoMapProps {
     long?: number;
   };
 }
+
 const KakaoMap = ({ coordi }: KakaoMapProps) => {
   useEffect(() => {
     const mapContainer = document.getElementById("map");
