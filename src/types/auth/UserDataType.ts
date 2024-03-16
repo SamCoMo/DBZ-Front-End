@@ -3,6 +3,6 @@ export interface UserDataType {
   email: string;
   nickname: string;
   phone: string;
-  profilImageUrl: string;
+  profile_image_url: string;
   isLogin: boolean;
 }

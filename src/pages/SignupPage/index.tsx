@@ -1,6 +1,7 @@
 import WideButton from "@/components/common/Button/WideButton";
 import HeaderTitle from "@/components/common/HeaderTitle";
 import Input from "@/components/common/Input";
+import Logo from "@/components/common/Logo";
 import useSignupQuery from "@/hooks/query/useSignupQuery";
 import useInput from "@/hooks/useInput";
 import { ValidCheckType } from "@/types/auth/ValidCheckType";
@@ -177,9 +178,10 @@ const SignupPage = () => {
   return (
     <>
       <HeaderTitle title="회원가입" back={true} />
-      <form onSubmit={handleSubmit}>
+      <Logo width={180} />
+      <form className="mt-6" onSubmit={handleSubmit}>
         <div>
-          <div className="mt-6">
+          <div>
             <div className="flex justify-between items-center">
               <Input
                 type="text"
@@ -204,6 +206,8 @@ const SignupPage = () => {
                 <option value="type">직접 입력</option>
                 <option value="naver.com">naver.com</option>
                 <option value="gmail.com">gmail.com</option>
+                <option value="kakao.com">kakao.com</option>
+                <option value="nate.com">nate.com</option>
               </select>
             </div>
             <p
@@ -267,7 +271,7 @@ const SignupPage = () => {
             </p>
           </div>
         </div>
-        <WideButton text="가입하기" disabled={!allCheck} />
+        <WideButton text="가입하기" status={allCheck} />
       </form>
     </>
   );
