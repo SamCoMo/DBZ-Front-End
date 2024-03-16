@@ -1,8 +1,5 @@
-
-import { postSignUp, getUserProfile, postLogin } from "./auth/handler";
-import { getReportDetail, postReport } from "./report/handler";
+import { getUserProfile, postLogin, postSignUp } from "./auth/handler";
 import { putProfileImg } from "./user/handler";
 
-const handlers = [postSignUp, postLogin, getUserProfile, putProfileImg, getReportDetail] ;
-
+const handlers = [postSignUp, postLogin, getUserProfile, putProfileImg];
 export default handlers;
