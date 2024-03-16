@@ -31,6 +31,7 @@ export interface ReportDetailIdType {
   writer: boolean;
 }
 export interface ReportPinDataType {
+  pinId: number;
   foundAt: string;
   address: string;
   latitude: number;

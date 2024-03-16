@@ -1,5 +1,8 @@
+import WideButton from "@/components/common/Button/WideButton";
 import HeaderTitle from "@/components/common/HeaderTitle";
 import ReportKakaoMap from "@/components/common/KakaoMap/ReportMap";
+import usePostReportPinQuery from "@/hooks/query/usePostReportPinQuery";
+import { ReportPinDataType } from "@/types/Report/ReportDataType";
 import React, { useState } from "react";
 import { BsCameraFill } from "react-icons/bs";
 
@@ -30,10 +33,26 @@ const PinPage = () => {
       longitude: lng,
     });
   };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const reportPinData: ReportPinDataType = {
+      pinId: 1,
+      address: reportAddress.address,
+      latitude: reportAddress.latitude,
+      longitude: reportAddress.longitude,
+      pinImageDtoList: [],
+      foundAt: "",
+    };
+
+    // 훅을 사용하여 핀 생성 요청
+    usePostReportPinQuery.pinIsMutate(reportPinData);
+  };
+
   return (
     <div>
       <HeaderTitle title="핀 생성하기" />
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <p className="my-3">사진</p>
           <label htmlFor="images" className="inline-block">
@@ -56,15 +75,16 @@ const PinPage = () => {
           <div>
             <p className="my-3">내용</p>
             <textarea
-              className="w-full h-5 p-2 my-4 border rounded-md focus:outline-none bg-gray2 text-body2 placeholder-text-gray4"
+              className="w-full  p-2 my-4 border rounded-md focus:outline-none bg-gray2 text-body2 placeholder-text-gray4"
               placeholder="내용을 입력해주세요"
               value={content}
               onChange={handleContentChange}
             />
           </div>
         </div>
-        <ReportKakaoMap onMarkerClick={} />
+        <ReportKakaoMap onMarkerClick={handleMarkerClick} />
       </form>
+      <WideButton text="등록하기" status={false} />
     </div>
   );
 };
