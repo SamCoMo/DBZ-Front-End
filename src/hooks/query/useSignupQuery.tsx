@@ -1,29 +1,24 @@
+import { axiosDefault } from "@/apis";
 import { SignupDataType } from "@/types/auth/SignupDataType";
 import { useMutation } from "@tanstack/react-query";
 
-const fetchAPI = async (data: SignupDataType) => {
+const memberRegister = async (data: SignupDataType) => {
   const { email, nickname, phone, password } = data;
-  const res = await fetch("/member/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email,
-      nickname: nickname,
-      phone: phone,
-      password: password,
-    }),
-  }).then((res) => res.json());
+  const res = await axiosDefault.post("/member/register", {
+    email,
+    nickname,
+    phone,
+    password,
+  });
 
-  return res;
+  return res.data;
 };
 
 const useSignupQuery = () => {
   const { mutate: signUpMutate } = useMutation({
     mutationKey: ["join"],
     mutationFn: ({ email, nickname, phone, password }: SignupDataType) =>
-      fetchAPI({ email, nickname, phone, password }),
+      memberRegister({ email, nickname, phone, password }),
   });
 
   return {

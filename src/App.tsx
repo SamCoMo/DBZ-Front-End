@@ -9,6 +9,10 @@ import SignupPage from "./pages/SignupPage";
 import ReportDetailPage from "./pages/report/ReportDetailPage";
 import ReportEditPage from "./pages/report/ReportEditPage";
 import PinPage from "./pages/report/Pinpage";
+import ProtectedRoute from "./ProtectedRoute";
+import MyPage from "./pages/MyPage";
+import AlarmPage from "./pages/AlarmPage";
+
 
 interface AppProps {
   children?: React.ReactNode;
@@ -29,6 +33,11 @@ const App = ({ children }: AppProps) => (
             <Route path=":id/pin" element={<PinPage />} />
           </Route>
           <Route path="/signup" element={<SignupPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/alarm" element={<AlarmPage />} />
+            <Route path="/report" element={<CreateReportPage />} />
+            <Route path="/mypage" element={<MyPage />} />
+          </Route>
           {/* 404 처리 */}
           {/* <Route path="*" element={<NotFound />}></Route> */}
         </Route>
