@@ -29,7 +29,7 @@ const LoginPage = () => {
   return (
     <>
       <HeaderTitle title="" back={true} />
-      <Logo width={180} />
+      <Logo width={180} addStyle="m-auto" />
       <form className="mt-6" onSubmit={handleSubmit}>
         <div>
           <Input
