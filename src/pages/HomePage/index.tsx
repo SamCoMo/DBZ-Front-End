@@ -18,7 +18,7 @@ const HomePage = ({}: HomePageProps) => {
       <div className="flex justify-between mb-5">
         <div>📌 현재 위치 - 오산동</div>
         <div className="flex items-center">
-          <p className="mr-1">진행중만 보기</p>
+          <p className="mr-1">진행중만 보기 </p>
           <input
             type="checkbox"
             defaultChecked
