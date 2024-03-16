@@ -99,7 +99,7 @@ const UserProfile = () => {
           </button>
         </div>
       )}
-      <div className="absolute bottom-20 left-0 w-full flex justify-center text-sm text-slate-300">
+      <div className="absolute bottom-32 left-0 w-full flex justify-center text-sm text-slate-300">
         <button type="button" onClick={handleLogout}>
           로그아웃
         </button>

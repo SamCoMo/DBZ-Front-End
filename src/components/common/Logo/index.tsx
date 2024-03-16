@@ -1,12 +1,13 @@
 interface LogoProps {
   width: number;
+  addStyle?: string;
 }
-const Logo = ({ width }: LogoProps) => {
+const Logo = ({ width, addStyle }: LogoProps) => {
   return (
     <img
       src="/image/logo.svg"
       width={width}
-      className="m-auto"
+      className={`${addStyle}`}
       alt="DBZ_logo"
     ></img>
   );
