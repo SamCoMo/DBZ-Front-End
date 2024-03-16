@@ -11,6 +11,7 @@ import ReportEditPage from "./pages/report/ReportEditPage";
 import PinPage from "./pages/report/Pinpage";
 import ProtectedRoute from "./ProtectedRoute";
 import MyPage from "./pages/MyPage";
+import MainPage from "./pages/MainPage";
 import AlarmPage from "./pages/AlarmPage";
 
 
@@ -24,7 +25,7 @@ const App = ({ children }: AppProps) => (
       {" "}
       <Routes>
         <Route>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/report" element={<Outlet />}>
             <Route path="create" element={<CreateReportPage />} />
@@ -34,6 +35,7 @@ const App = ({ children }: AppProps) => (
           </Route>
           <Route path="/signup" element={<SignupPage />} />
           <Route element={<ProtectedRoute />}>
+            <Route path="/home" element={<HomePage />} />
             <Route path="/alarm" element={<AlarmPage />} />
             <Route path="/report" element={<CreateReportPage />} />
             <Route path="/mypage" element={<MyPage />} />
