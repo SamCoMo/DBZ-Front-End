@@ -206,6 +206,8 @@ const SignupPage = () => {
                 <option value="type">직접 입력</option>
                 <option value="naver.com">naver.com</option>
                 <option value="gmail.com">gmail.com</option>
+                <option value="kakao.com">kakao.com</option>
+                <option value="nate.com">nate.com</option>
               </select>
             </div>
             <p
