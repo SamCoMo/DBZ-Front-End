@@ -1,9 +1,9 @@
 import { axiosAuth } from "@/apis";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useToast from "../useToast";
-import { CreateReportType } from "@/types/Report/ReportDataType";
+import { ReportDataType } from "@/types/Report/ReportDataType";
 
-const fetchAPI = async (data: CreateReportType): Promise<CreateReportType> => {
+const fetchAPI = async (data: ReportDataType): Promise<ReportDataType> => {
   const res = await axiosAuth.post("/report", data);
   return res.data;
 };
@@ -18,7 +18,7 @@ const usePostCreateReportQuery = () => {
     isSuccess: reportIsSuccess,
   } = useMutation({
     mutationKey: ["report"],
-    mutationFn: (data: CreateReportType) => fetchAPI(data),
+    mutationFn: (data: ReportDataType) => fetchAPI(data),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["reportList"] });
       toastSuccess("게시글이 등록되었습니다.");

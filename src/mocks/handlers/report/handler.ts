@@ -3,14 +3,15 @@ import { rest } from "msw";
 export const postReport = rest.post("/report", async (_, res, ctx) =>
   res(ctx.status(200), ctx.json({ isReportRequest: true }))
 );
-export const patchMySchedule = rest.patch(
+export const patchMyReport = rest.patch(
   "/reports/:reportId",
   async (_, res, ctx) => res(ctx.status(200), ctx.json({ reportId: true }))
 );
 export const getReportDetail = rest.get(
   "/reports/:reportId",
 
-  async (_, res, ctx) =>
+  async (_, res, ctx) => {
+    // const { reportId } = req.params;
     res(
       ctx.status(200),
       ctx.json({
@@ -43,5 +44,13 @@ export const getReportDetail = rest.get(
         ],
         writer: true,
       })
-    )
+    );
+  }
+);
+//핀 파트
+
+export const postPin = rest.post(
+  "/reports/pin?reportId={reportId}",
+  async (_, res, ctx) =>
+    res(ctx.status(200), ctx.json({ isReportRequest: true }))
 );
