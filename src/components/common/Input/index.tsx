@@ -1,5 +1,5 @@
 interface InputProps {
-  type: "text" | "email" | "password"| "select";
+  type: "text" | "email" | "password" | "select";
   value: string;
   width?: string;
   placeholder?: string;
@@ -19,13 +19,12 @@ const Input = ({
     <input
       type={type}
       value={value}
-      className={`rounded-lg px-3 bg-gray-200 ${width || "w-full"} h-10`}
+      className={`rounded-lg px-3 bg-gray2 ${width || "w-full"} h-10`}
       placeholder={placeholder}
       disabled={disabled}
       onChange={onChange}
     />
   );
 };
-
 
 export default Input;
