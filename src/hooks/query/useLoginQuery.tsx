@@ -42,7 +42,7 @@ const useLoginQuery = () => {
         ...data.userInfo,
         isLogin: true,
       });
-      navigate("/");
+      navigate("/home");
     },
     onError: (error) => console.log(error),
   });

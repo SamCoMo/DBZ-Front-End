@@ -8,6 +8,7 @@ import CreateReportPage from "./pages/CreateReportPage";
 import SignupPage from "./pages/SignupPage";
 import ProtectedRoute from "./ProtectedRoute";
 import MyPage from "./pages/MyPage";
+import MainPage from "./pages/MainPage";
 
 interface AppProps {
   children?: React.ReactNode;
@@ -19,10 +20,11 @@ const App = ({ children }: AppProps) => (
       {" "}
       <Routes>
         <Route>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route element={<ProtectedRoute />}>
+            <Route path="/home" element={<HomePage />} />
             <Route path="/report" element={<CreateReportPage />} />
             <Route path="/mypage" element={<MyPage />} />
           </Route>
