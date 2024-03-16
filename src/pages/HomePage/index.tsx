@@ -1,6 +1,7 @@
 import React from "react";
 
-const HomePage = () => {
+interface HomePageProps {}
+const HomePage = ({}: HomePageProps) => {
   return (
     <>
       <div>홈페이지</div>

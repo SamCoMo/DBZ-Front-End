@@ -14,7 +14,7 @@ export const userAtom = atom<UserDataType>({
     email: "",
     nickname: "",
     phone: "",
-    profilImageUrl: "",
+    profile_image_url: "",
     isLogin: false,
   },
   effects_UNSTABLE: [persistAtom],
