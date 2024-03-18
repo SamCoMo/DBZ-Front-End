@@ -47,6 +47,9 @@ const LoginPage = () => {
             onChange={handleChangePassword}
           />
         </div>
+        <p className="text-red-400 text-body3 mt-2">
+          {loginError && "아이디 또는 비밀번호가 일치하지 않습니다."}
+        </p>
         <WideButton text="시작하기" status={allCheck} />
       </form>
     </>

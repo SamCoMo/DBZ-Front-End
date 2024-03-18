@@ -1,3 +1,4 @@
+import { LoginDataType } from "@/types/auth/LoginDataType";
 import { rest } from "msw";
 
 export const postSignUp = rest.post("/member/register", async (_, res, ctx) => {
@@ -19,15 +20,23 @@ export const postSignUp = rest.post("/member/register", async (_, res, ctx) => {
   );
 });
 
-export const postLogin = rest.post("/member/login", async (_, res, ctx) => {
-  return res(
-    ctx.status(200),
-    ctx.set({
-      "Access-Token": "tokenString",
-      "Set-Cookie": "Refresh-Token=tokenString",
-    })
-  );
-});
+export const postLogin = rest.post<LoginDataType>(
+  "/member/login",
+  async (req, res, ctx) => {
+    const { email, password } = req.body;
+    if (email === "test@test.com" && password === "qwer123!") {
+      return res(
+        ctx.status(200),
+        ctx.set({
+          "Access-Token": "tokenString",
+          "Set-Cookie": "Refresh-Token=tokenString",
+        })
+      );
+    } else {
+      return res(ctx.status(400));
+    }
+  }
+);
 
 export const getUserProfile = rest.get("/member/info", async (_, res, ctx) => {
   return res(
