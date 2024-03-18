@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import HeaderTitle from "@/components/common/HeaderTitle";
 import ReportKakaoMap from "@/components/common/KakaoMap/ReportMap";
 import Input from "@/components/common/Input";
@@ -7,14 +7,16 @@ import { BsCameraFill } from "react-icons/bs";
 import usePostCreateReportQuery from "@/hooks/query/usePostReportQuery";
 import { ReportDataType } from "@/types/Report/ReportDataType";
 import SelectSpecies from "@/components/common/Select/SelectOptions";
+import { useNavigate } from "react-router-dom";
+
 
 const CreateReportPage = () => {
+  const navigate = useNavigate();
   const [allCheck, setAllCheck] = useState<boolean>(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
-
   const [petType, setPetType] = useState("");
   const [species, setSpecies] = useState("");
   const [petName, setPetName] = useState("");
@@ -24,7 +26,7 @@ const CreateReportPage = () => {
     longitude: 0,
   });
   const [showsPhone, setShowsPhone] = useState(false);
-  const postCreateReportQuery = usePostCreateReportQuery();
+  const {reportIsMutate}= usePostCreateReportQuery();
   // 게시글 생성에 필요한 데이터를 CreateReportType 타입에 맞춰 구성
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,14 +59,14 @@ const CreateReportPage = () => {
           setPreviews(newPreviews);
         };
         console.log(newPreviews);
-       
+
         // 파일 객체를 읽어 base64 형태의 문자열로 변환
         reader.readAsDataURL(file);
       }
     }
     setImages(newImages);
   };
- 
+
   const handleContentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -85,8 +87,8 @@ const CreateReportPage = () => {
       longitude: lng,
     });
   };
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit =(e: FormEvent) => {
+    e.preventDefault();
     const reportData: ReportDataType = {
       reportId: 0, // reportId는 서버에서 생성될 것으로 가정
       title: title,
@@ -95,30 +97,30 @@ const CreateReportPage = () => {
       species: species,
       pet_name: petName,
       descriptions: content,
-      street_address: reportAddress.address,
       roadAddress: reportAddress.address,
       latitude: reportAddress.latitude,
       longitude: reportAddress.longitude,
       image_list: [],
     };
+    reportIsMutate(reportData);
+    navigate("/home");
+    console.log(reportData);
 
-    // usePostCreateReportQuery 훅을 사용하여 게시글 생성 요청
-    postCreateReportQuery.reportIsMutate(reportData);
   };  
+  console.log(handleSubmit);
   useEffect(() => {
-    if (title && petType && showsPhone&&species&&petName&&content&&reportAddress&&[]) {
+    if (title && petType && showsPhone&&species&&petName&&content&&reportAddress) {
       setAllCheck(true);
     } else {
       setAllCheck(false);
     }
-  }, []);
+  }, [title, petType, showsPhone,species,petName,content,reportAddress]);
 
   return (
     <>
       <HeaderTitle title="게시글 작성" />
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <p className="my-3">사진</p>
           <label htmlFor="images" className="inline-block">
             <div className="w-32 h-32 border rounded-lg flex items-center justify-center cursor-pointer">
               <BsCameraFill className="text-defaultColor" />            
@@ -193,7 +195,7 @@ const CreateReportPage = () => {
           />
           <span>내 번호 표시하기</span>
         </div>
-        <WideButton type="submit" text="등록하기" status={allCheck} />
+        <WideButton type="submit" text="등록하기" status={allCheck}/>
       </form>
     </>
   );

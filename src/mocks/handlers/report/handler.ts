@@ -68,7 +68,9 @@ export const deleteMySchedule = rest.delete(
 //핀 파트
 
 export const postPin = rest.post(
-  "/reports/pin?reportId={reportId}",
-  async (_, res, ctx) =>
-    res(ctx.status(200), ctx.json({ isReportRequest: true }))
+  '/reports/pin',
+  async (req, res, ctx) =>
+{  const reportId = req.url.searchParams.get('reportId');
+
+    res(ctx.status(200), ctx.json({ isReportRequest: true }))}
 );
