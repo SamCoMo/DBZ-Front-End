@@ -15,16 +15,19 @@ export interface ReportDataType {
 export interface ReportDetailType {
   feature: string;
   title: string;
-  pet_type: string;
+  petType: string;
   shows_phone: boolean;
+  descriptions:string;
   species: string;
-  pet_name: string;
-  street_address: string;
+  petName: string;
   roadAddress: string;
   latitude: number;
   longitude: number;
   status?: string;
   image_list: [];
+  createdAt:string,
+  views: number;
+  phone:string;
 }
 export interface ReportDetailIdType {
   reportId: string;

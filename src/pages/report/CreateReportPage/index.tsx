@@ -54,9 +54,9 @@ const CreateReportPage = () => {
   ) => {
     setShowsPhone(event.target.checked);
   };
-  const handleMarkerClick = (lat: number, lng: number) => {
+  const handleMarkerClick = async (lat: number, lng: number, address: string) => {
     setReportAddress({
-      ...reportAddress,
+      address: address,
       latitude: lat,
       longitude: lng,
     });
