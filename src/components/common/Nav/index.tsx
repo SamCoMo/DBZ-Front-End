@@ -23,7 +23,7 @@ const navItem = [
 
 const Nav = () => {
   return (
-    <nav className="flex justify-evenly items-center max-w-default m-auto w-full h-14 fixed bottom-0 left-0 right-0">
+    <nav className="flex justify-evenly items-center max-w-default m-auto w-full h-14 fixed bottom-0 left-0 right-0 bg-white">
       {navItem.map((nav) => (
         <NavLink
           key={nav.id}
