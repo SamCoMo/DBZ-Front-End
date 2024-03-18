@@ -46,6 +46,25 @@ export const getReportDetail = rest.get(
     );
   }
 );
+export const deleteMySchedule = rest.delete(
+  "/reports/:reportId",
+  (req, res, ctx) => {
+    const { reportId } = req.params;
+    if (reportId) {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          isReportDelete: true
+        })
+      );
+    }
+    return res(
+      ctx.json({
+        errorMessage: '해당 게시물이 없습니다.'
+      })
+    );
+  }
+);
 //핀 파트
 
 export const postPin = rest.post(

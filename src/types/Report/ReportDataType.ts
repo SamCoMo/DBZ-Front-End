@@ -5,7 +5,7 @@ export interface ReportDataType {
   shows_phone: boolean;
   species: string;
   pet_name: string;
-  feature: string;
+  descriptions:string;
   street_address: string;
   roadAddress: string;
   latitude: number;
@@ -40,4 +40,12 @@ export interface ReportPinDataType {
   latitude: number;
   longitude: number;
   pinImageDtoList: [];
+}
+
+export interface ReportDeleteType {
+  isReportDelete: boolean;
+}
+export interface ReportEditDataType {
+  report: ReportDetailType;
+  reportId: number;
 }
