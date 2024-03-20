@@ -6,12 +6,13 @@ import { useNavigate } from "react-router-dom";
 import useUserState from "../useUserState";
 
 const memberLogin = async (data: LoginDataType): Promise<LoginResponseType> => {
-  const { email, password } = data;
+  const { email, password, token } = data;
 
   const formData = new FormData();
 
   formData.append("email", email);
   formData.append("password", password);
+  formData.append("token", token);
 
   return await axiosDefault.post("/member/login", formData, {
     headers: {
@@ -31,8 +32,8 @@ const useLoginQuery = () => {
     isError: loginError,
   } = useMutation({
     mutationKey: ["login"],
-    mutationFn: ({ email, password }: LoginDataType) =>
-      memberLogin({ email, password }),
+    mutationFn: ({ email, password, token }: LoginDataType) =>
+      memberLogin({ email, password, token }),
     onSuccess: async (data) => {
       localStorage.setItem("Access-Token", data.headers["access-token"]);
       data.userInfo = await axiosAuth
