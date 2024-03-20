@@ -1,4 +1,22 @@
 import { rest } from "msw";
+import { reportList } from "../../data";
+
+export const getReport = rest.get("/report/list", async (req, res, ctx) => {
+  const size = Number(req.url.searchParams.get("size")) || 10;
+  const latitude = Number(req.url.searchParams.get("lastlatitude")) || 1;
+  const longitude = Number(req.url.searchParams.get("lastlongitude")) || 1;
+
+  const currentIndex = reportList.findIndex(
+    (report) => report.latitude === latitude && report.longitude === longitude
+  );
+  // const lastDataIndex = currentIndex + size;
+  let startIndex = 0;
+  if (currentIndex !== 0) {
+    startIndex = currentIndex + 1;
+  }
+  const newReportList = reportList.slice(startIndex, startIndex + size);
+  return res(ctx.status(200), ctx.json(newReportList));
+});
 
 export const postReport = rest.post("/report", async (_, res, ctx) =>
   res(ctx.status(200), ctx.json({ isReportRequest: true }))

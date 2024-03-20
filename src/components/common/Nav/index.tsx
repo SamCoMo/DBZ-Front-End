@@ -12,7 +12,7 @@ const navItem = [
     path: "/chat",
     icon: <IoChatbubblesSharp size={25} />,
   },
-  { id: 3, path: "/report", icon: <FaCirclePlus size={25} /> },
+  { id: 3, path: "/report/create", icon: <FaCirclePlus size={25} /> },
   { id: 4, path: "/search", icon: <IoMdSearch size={25} /> },
   {
     id: 5,

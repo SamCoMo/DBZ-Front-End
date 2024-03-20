@@ -1,4 +1,4 @@
-import ReportItem from "@/components/Report/ReportList/ReportItem";
+import ReportList from "@/components/Report/ReportList";
 import Logo from "@/components/common/Logo";
 import Nav from "@/components/common/Nav";
 import React from "react";
@@ -29,8 +29,7 @@ const HomePage = ({}: HomePageProps) => {
         </div>
       </div>
       <div className="mt-32 mb-14">
-        <ReportItem />
-        <ReportItem />
+        <ReportList />
       </div>
       <Nav />
     </>
