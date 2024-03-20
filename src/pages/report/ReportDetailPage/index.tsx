@@ -3,8 +3,17 @@ import HeaderTitle from "@/components/common/HeaderTitle";
 import useGetReportDetailQuery from "@/hooks/query/useGetReportQuery";
 import { BsFillPinAngleFill, BsPhoneFill } from "react-icons/bs";
 import ReportDetailKakaoMap from "@/components/common/KakaoMap/ReportDetailMap";
+import { useParams } from "react-router-dom";
+import useDeleteReportQuery from "@/hooks/query/useDeleteReportQuery";
+import useUserState from "@/hooks/useUserState";
+import ModalInSelectEdit from "@/components/Report/ModalInSelectEdit";
+
 const ReportDetailPage = () => {
-  const { reportDetail } = useGetReportDetailQuery(1);
+  const { id } = useParams();
+  const reportId = Number(id);
+  const { reportDetail } = useGetReportDetailQuery(reportId);
+  const { userState } = useUserState(); // 현재 사용자 정보 가져오기
+  const { reportDeleteIsMutate } = useDeleteReportQuery();
 
   if (!reportDetail) {
     return <div>No report detail available.</div>;
@@ -17,9 +26,22 @@ const ReportDetailPage = () => {
     },
   ];
 
+  // 삭제하기
+  const handleReportDelete = () => {
+    const reportConfirmed = window.confirm("해당 일정을 삭제하시겠습니까?");
+    if (reportConfirmed) {
+      reportDeleteIsMutate(reportId);
+    }
+  };
+
   return (
     <div>
-      <HeaderTitle title={reportDetail.title} />
+      <div className="flex justify-center">
+        <HeaderTitle title={reportDetail.title} />
+        {userState && userState.memberId === reportDetail.organizedId && (
+          <ModalInSelectEdit />
+        )}
+      </div>
       <div className="w-full h-80 carousel align-center mx-auto flex ">
         <div className="carousel align-center mx-auto flex">
           {reportDetail.image_list &&
@@ -62,8 +84,13 @@ const ReportDetailPage = () => {
             실종 위치: {reportDetail.roadAddress}
           </p>
           {/* <지도> */}
-          <ReportDetailKakaoMap center={{ lat: reportDetail.latitude, lng: reportDetail.longitude }} markers={markers} />
-
+          <ReportDetailKakaoMap
+            center={{
+              lat: reportDetail.latitude,
+              lng: reportDetail.longitude,
+            }}
+            markers={markers}
+          />
         </div>
         <hr className="w-full border bg-gray-200" />
         <div className="my-2">
@@ -72,9 +99,7 @@ const ReportDetailPage = () => {
             {reportDetail.phone}
           </p>
         </div>
-        <div className="my-2">
-          {reportDetail.descriptions}
-        </div>
+        <div className="my-2">{reportDetail.descriptions}</div>
       </div>
       <div className="flex justify-evenly">
         <button className="btn w-36 bg-defaultColor text-white">핀 찍기</button>

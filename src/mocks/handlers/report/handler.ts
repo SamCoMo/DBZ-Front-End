@@ -46,7 +46,7 @@ export const getReportDetail = rest.get(
     );
   }
 );
-export const deleteMySchedule = rest.delete(
+export const deleteReport = rest.delete(
   "/reports/:reportId",
   (req, res, ctx) => {
     const { reportId } = req.params;

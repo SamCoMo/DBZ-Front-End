@@ -68,7 +68,7 @@ const ReportKakaoMap = ({ onMarkerClick }: ReportKakaoMapProps) => {
             // 마커의 위치를 클릭한 위치로 변경합니다
             marker.setPosition(latlng);
             // 클릭한 위치의 좌표와 주소를 부모 컴포넌트로 전달합니다
-            onMarkerClick(lat, lng, clickedAddress); // 주소 추가
+            onMarkerClick(lat, lng, clickedAddress); 
           }
         );
       },

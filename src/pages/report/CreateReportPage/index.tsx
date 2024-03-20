@@ -107,7 +107,7 @@ const CreateReportPage = () => {
     console.log(reportData);
 
   };  
-  console.log(handleSubmit);
+
   useEffect(() => {
     if (title && petType && showsPhone&&species&&petName&&content&&reportAddress) {
       setAllCheck(true);
@@ -195,7 +195,7 @@ const CreateReportPage = () => {
           />
           <span>내 번호 표시하기</span>
         </div>
-        <WideButton type="submit" text="등록하기" status={allCheck}/>
+        <WideButton text="등록하기" status={allCheck} />
       </form>
     </>
   );
