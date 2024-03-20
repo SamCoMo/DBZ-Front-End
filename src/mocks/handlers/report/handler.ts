@@ -9,7 +9,7 @@ export const getReport = rest.get("/report/list", async (req, res, ctx) => {
   const currentIndex = reportList.findIndex(
     (report) => report.latitude === latitude && report.longitude === longitude
   );
-  // const lastDataIndex = currentIndex + size;
+
   let startIndex = 0;
   if (currentIndex !== 0) {
     startIndex = currentIndex + 1;

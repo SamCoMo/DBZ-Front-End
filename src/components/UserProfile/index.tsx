@@ -51,6 +51,7 @@ const UserProfile = () => {
     if (checkLogout) {
       localStorage.removeItem("Access-Token");
       localStorage.removeItem("userInfo");
+      localStorage.removeItem("locationInfo");
       navigate("/", { replace: true });
     }
   };

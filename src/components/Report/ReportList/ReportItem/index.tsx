@@ -5,6 +5,7 @@ interface ReportItemType {
   title: string;
   petName: string;
   reportId: number;
+  reportStatus: string;
 }
 const ReportItem = (data: ReportItemType) => {
   return (
@@ -24,8 +25,14 @@ const ReportItem = (data: ReportItemType) => {
           <p>실종지역: 동탄 한림대병원 부근</p>
         </div>
       </div>
-      <div className="mt-2">
-        <span className="bg-yellow-200 rounded-xl px-2 py-1 mx-2">진행중</span>
+      <div className="mt-2 w-20 text-center">
+        {data.reportStatus === "PUBLISHED" ? (
+          <span className="bg-yellow-200 rounded-xl px-2 py-1 mx-2">
+            진행중
+          </span>
+        ) : (
+          <span className="bg-gray-200 rounded-xl px-2 py-1 mx-2">완료</span>
+        )}
       </div>
     </div>
   );

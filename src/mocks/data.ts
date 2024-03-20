@@ -28,7 +28,7 @@ export const reportList = [
     latitude: 37.58226,
     longitude: 127.00212,
     imageUrl: "string",
-    reportStatus: "PUBLISHED",
+    reportStatus: "FINISHED",
     createdAt: "2024-03-19T06:47:00.507Z",
     updatedAt: "2024-03-19T06:47:00.507Z",
   },

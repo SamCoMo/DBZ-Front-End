@@ -2,17 +2,26 @@ import useGetReportListQuery from "@/hooks/query/useGetReportListQuery";
 import ReportItem from "./ReportItem";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 
-const ReportList = () => {
+interface ReportListProps {
+  curlatitude: number | null;
+  curlongitude: number | null;
+  lastlatitude?: number | null;
+  lastlongitude?: number | null;
+  InProcessOnly: boolean;
+}
+
+const ReportList = (props: ReportListProps) => {
   const param = {
-    curlatitude: 37.58225,
-    curlongitude: 127.00211,
-    lastlatitude: 37.58225,
-    lastlongitude: 127.00211,
-    showsInprocessOnly: true,
+    curlatitude: props.curlatitude,
+    curlongitude: props.curlongitude,
+    lastlatitude: props.lastlatitude || props.curlatitude,
+    lastlongitude: props.lastlongitude || props.curlongitude,
+    showsInprocessOnly: props.InProcessOnly,
   };
 
   const { reportListData, reportListFetchNextPage, reportHasNextPage } =
     useGetReportListQuery(param);
+
   const { bottomDiv } = useInfiniteScroll(
     reportListFetchNextPage,
     reportHasNextPage
@@ -27,6 +36,7 @@ const ReportList = () => {
             reportId={list.reportId}
             title={list.title}
             petName={list.petName}
+            reportStatus={list.reportStatus}
           ></ReportItem>
         ))
       )}

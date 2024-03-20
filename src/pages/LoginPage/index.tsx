@@ -4,9 +4,19 @@ import Input from "@/components/common/Input";
 import Logo from "@/components/common/Logo";
 import useLoginQuery from "@/hooks/query/useLoginQuery";
 import useInput from "@/hooks/useInput";
+import useLocationState from "@/hooks/useLocationState";
 import React, { useEffect, useState } from "react";
 
 const LoginPage = () => {
+  const { updateLocation } = useLocationState();
+
+  navigator.geolocation.getCurrentPosition((pos) => {
+    const latitude = pos.coords.latitude;
+    const longitude = pos.coords.longitude;
+
+    updateLocation({ latitude, longitude });
+  });
+
   const [email, , handleChangeEmail] = useInput("");
   const [password, , handleChangePassword] = useInput("");
   const [allCheck, setAllCheck] = useState<boolean>(false);
@@ -48,6 +58,7 @@ const LoginPage = () => {
           />
         </div>
         <WideButton text="시작하기" status={allCheck} />
+        {loginError && <p>이메일 혹은 비밀번호가 올바르지 않습니다.</p>}
       </form>
     </>
   );
