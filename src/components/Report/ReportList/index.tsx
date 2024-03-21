@@ -2,6 +2,7 @@ import useGetReportListQuery from "@/hooks/query/useGetReportListQuery";
 import ReportItem from "./ReportItem";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import { useEffect, useState } from "react";
+import SkeletonReportList from "@/components/common/Skeleton/SkeletonReportList";
 
 interface locationType {
   latitude: number | null;
@@ -64,16 +65,22 @@ const ReportList = (props: inProcessOnlyType) => {
 
   return (
     <>
-      {reportListData?.pages.map((page) =>
-        page.map((list) => (
-          <ReportItem
-            key={list.reportId}
-            reportId={list.reportId}
-            title={list.title}
-            petName={list.petName}
-            reportStatus={list.reportStatus}
-          ></ReportItem>
-        ))
+      {reportListData ? (
+        reportListData?.pages.map((page) =>
+          page.map((list) => (
+            <ReportItem
+              key={list.reportId}
+              reportId={list.reportId}
+              title={list.title}
+              petName={list.petName}
+              reportStatus={list.reportStatus}
+            ></ReportItem>
+          ))
+        )
+      ) : (
+        <>
+          <SkeletonReportList />
+        </>
       )}
       {bottomDiv()}
     </>
