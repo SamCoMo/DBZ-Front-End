@@ -1,5 +1,6 @@
+import useToast from "@/hooks/useToast";
 import { initializeApp } from "firebase/app";
-import { getMessaging, getToken } from "firebase/messaging";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -18,9 +19,15 @@ export async function requestPermission() {
   const permission = await Notification.requestPermission();
 
   if (permission === "granted") {
-    const token = await getToken(messaging, {
+    await getToken(messaging, {
       vapidKey: import.meta.env.VITE_FIREBASE_VAPID_PUBLIC_KEY,
     });
-    console.log(token);
   }
 }
+
+const { toastSuccess } = useToast();
+
+onMessage(messaging, (payload) => {
+  toastSuccess(payload.notification?.body);
+  console.log("Message received. ", payload);
+});

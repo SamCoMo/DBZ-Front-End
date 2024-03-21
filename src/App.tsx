@@ -13,7 +13,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import MyPage from "./pages/MyPage";
 import MainPage from "./pages/MainPage";
 import AlarmPage from "./pages/AlarmPage";
-
+import { ToastContainer } from "react-toastify";
+import "./firebase/firebaseConfig";
 
 interface AppProps {
   children?: React.ReactNode;
@@ -44,6 +45,18 @@ const App = ({ children }: AppProps) => (
           {/* <Route path="*" element={<NotFound />}></Route> */}
         </Route>
       </Routes>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       {children}
     </InnerCon>
   </RecoilRoot>
