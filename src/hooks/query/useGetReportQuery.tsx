@@ -1,27 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosAuth } from "@/apis";
-import {
-  ReportDetailType,
-  ReportDetailIdType,
-} from "@/types/Report/ReportDataType";
-const fetchAPI = async (
-  data: ReportDetailIdType
-): Promise<ReportDetailType> => {
-  const reportId = data;
+import { ReportDetailType } from "@/types/Report/ReportDataType";
+
+
+const fetchAPI = async (reportId: number): Promise<ReportDetailType> => {
   const res = await axiosAuth.get(`/reports/${reportId}`);
   return res.data;
 };
 
-const useGetReportDetailQuery = (data: ReportDetailIdType) => {
+const useGetReportDetailQuery = (reportId: number) => {
   const {
     data: reportDetail,
     isLoading: reportDetailIsLoading,
     isSuccess: reportDetailIsSuccess,
     isError: reportDetailIsError,
   } = useQuery({
-    queryKey: ["reportDetail"],
-    queryFn: () => fetchAPI(data),
-
+    queryKey: ["reportDetail", reportId], // reportId를 쿼리 키에 포함
+    queryFn: () => fetchAPI(reportId),
     staleTime: Infinity,
   });
 
