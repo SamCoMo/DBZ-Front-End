@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { BsCameraFill } from "react-icons/bs";
 import usePutProfileImgEditQuery from "@/hooks/query/usePutProfileImgEditQuery";
 import usePostWithDrawQuery from "@/hooks/query/usePostWithDrawQuery";
+import useLocationState from "@/hooks/useLocationState";
 
 const UserProfile = () => {
   const { user } = useUserProfileQuery();
   const { userState, updateUser } = useUserState();
+  const { locationReset } = useLocationState();
   const [profileImgUrl, setProfileImgUrl] = useState<
     string | ArrayBuffer | null
   >(userState.profile_image_url);
@@ -51,6 +53,7 @@ const UserProfile = () => {
     if (checkLogout) {
       localStorage.removeItem("Access-Token");
       localStorage.removeItem("userInfo");
+      locationReset();
       localStorage.removeItem("locationInfo");
       navigate("/", { replace: true });
     }

@@ -1,4 +1,5 @@
 import { axiosAuth } from "@/apis";
+import { ReportListProps } from "@/components/Report/ReportList";
 import {
   ReportListDataType,
   ReportParamsType,
@@ -6,39 +7,46 @@ import {
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 const fetchAPI = async (
-  data: ReportParamsType
+  data: ReportListProps
 ): Promise<ReportListDataType[]> => {
-  const { curlatitude, curlongitude, showsInprocessOnly, pageParam } = data;
+  const {
+    curlatitude,
+    curlongitude,
+    lastlatitude,
+    lastlongitude,
+    InProcessOnly,
+  } = data;
   const res = await axiosAuth.get("/report/list", {
     params: {
       curlatitude,
       curlongitude,
-      lastlatitude: pageParam?.lastlatitude || curlatitude,
-      lastlongitude: pageParam?.lastlongitude || curlongitude,
-      showsInProcessOnly: showsInprocessOnly,
+      lastlatitude: lastlatitude || curlatitude,
+      lastlongitude: lastlongitude || curlongitude,
+      showsInProcessOnly: InProcessOnly,
       size: 10,
     },
   });
   return res.data;
 };
 
-const useGetReportListQuery = (params: ReportParamsType) => {
+const useGetReportListQuery = (params: ReportListProps) => {
   const {
     data: reportListData,
     fetchNextPage: reportListFetchNextPage,
     hasNextPage: reportHasNextPage,
+    refetch: reportListRefetch,
   } = useInfiniteQuery({
     queryKey: ["reports"],
     initialPageParam: {
       lastlatitude: params.curlatitude,
       lastlongitude: params.curlongitude,
     },
-    queryFn: ({
-      pageParam = {
-        lastlatitude: params.curlatitude,
-        lastlongitude: params.curlongitude,
-      },
-    }) => fetchAPI({ ...params, pageParam }),
+    queryFn: ({ pageParam }) =>
+      fetchAPI({
+        ...params,
+        lastlatitude: pageParam.lastlatitude,
+        lastlongitude: pageParam.lastlongitude,
+      }),
     getNextPageParam: (lastPage, allPages) => {
       const lastPost = lastPage[lastPage.length - 1];
       return lastPage.length === 0
@@ -54,6 +62,7 @@ const useGetReportListQuery = (params: ReportParamsType) => {
     reportListData,
     reportListFetchNextPage,
     reportHasNextPage,
+    reportListRefetch,
   };
 };
 

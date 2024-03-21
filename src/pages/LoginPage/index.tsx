@@ -12,12 +12,14 @@ import React, { useEffect, useState } from "react";
 const LoginPage = () => {
   const { updateLocation } = useLocationState();
 
-  navigator.geolocation.getCurrentPosition((pos) => {
-    const latitude = pos.coords.latitude;
-    const longitude = pos.coords.longitude;
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const latitude = pos.coords.latitude;
+      const longitude = pos.coords.longitude;
 
-    updateLocation({ latitude, longitude });
-  });
+      updateLocation({ latitude, longitude });
+    });
+  }, []);
 
   const [email, , handleChangeEmail] = useInput("");
   const [password, , handleChangePassword] = useInput("");

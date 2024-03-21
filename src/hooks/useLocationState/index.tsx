@@ -1,8 +1,9 @@
 import { LocationAtomType, locationAtom } from "@/recoil/atoms/location/atoms";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 
 const useLocationState = () => {
   const [locationState, setlocationState] = useRecoilState(locationAtom);
+  const locationReset = useResetRecoilState(locationAtom);
 
   const updateLocation = (locationInfo: LocationAtomType) => {
     setlocationState({
@@ -14,6 +15,7 @@ const useLocationState = () => {
     locationState,
     setlocationState,
     updateLocation,
+    locationReset,
   };
 };
 

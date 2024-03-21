@@ -1,8 +1,10 @@
 import useGetReportListQuery from "@/hooks/query/useGetReportListQuery";
 import ReportItem from "./ReportItem";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
+import { useEffect } from "react";
+import useLocationState from "@/hooks/useLocationState";
 
-interface ReportListProps {
+export interface ReportListProps {
   curlatitude: number | null;
   curlongitude: number | null;
   lastlatitude?: number | null;
@@ -11,21 +13,29 @@ interface ReportListProps {
 }
 
 const ReportList = (props: ReportListProps) => {
+  const { locationState } = useLocationState();
   const param = {
     curlatitude: props.curlatitude,
     curlongitude: props.curlongitude,
     lastlatitude: props.lastlatitude || props.curlatitude,
     lastlongitude: props.lastlongitude || props.curlongitude,
-    showsInprocessOnly: props.InProcessOnly,
+    InProcessOnly: props.InProcessOnly,
   };
-
-  const { reportListData, reportListFetchNextPage, reportHasNextPage } =
-    useGetReportListQuery(param);
+  const {
+    reportListData,
+    reportListFetchNextPage,
+    reportHasNextPage,
+    reportListRefetch,
+  } = useGetReportListQuery(param);
 
   const { bottomDiv } = useInfiniteScroll(
     reportListFetchNextPage,
     reportHasNextPage
   );
+
+  useEffect(() => {
+    reportListRefetch();
+  }, [locationState, props.InProcessOnly]);
 
   return (
     <>
