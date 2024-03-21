@@ -5,6 +5,7 @@ export const getReport = rest.get("/report/list", async (req, res, ctx) => {
   const size = Number(req.url.searchParams.get("size")) || 10;
   const latitude = Number(req.url.searchParams.get("lastlatitude")) || 1;
   const longitude = Number(req.url.searchParams.get("lastlongitude")) || 1;
+  const showsInProcessOnly = req.url.searchParams.get("showsInProcessOnly");
 
   const currentIndex = reportList.findIndex(
     (report) => report.latitude === latitude && report.longitude === longitude
@@ -15,7 +16,14 @@ export const getReport = rest.get("/report/list", async (req, res, ctx) => {
     startIndex = currentIndex + 1;
   }
   const newReportList = reportList.slice(startIndex, startIndex + size);
-  return res(ctx.status(200), ctx.json(newReportList));
+  if (showsInProcessOnly === "true") {
+    const filterList = newReportList.filter(
+      (report) => report.reportStatus === "PUBLISHED"
+    );
+    return res(ctx.status(200), ctx.json(filterList));
+  } else {
+    return res(ctx.status(200), ctx.json(newReportList));
+  }
 });
 
 export const postReport = rest.post("/report", async (_, res, ctx) =>
