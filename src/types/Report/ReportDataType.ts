@@ -6,13 +6,14 @@ export interface ReportDataType {
   species: string;
   pet_name: string;
   descriptions:string;
-  street_address: string;
   roadAddress: string;
   latitude: number;
   longitude: number;
   image_list: [];
+  pinId:number;
 }
 export interface ReportDetailType {
+  organizedId:number;
   feature: string;
   title: string;
   petType: string;
@@ -28,6 +29,7 @@ export interface ReportDetailType {
   createdAt:string,
   views: number;
   phone:string;
+
 }
 export interface ReportDetailIdType {
   reportId: string;
