@@ -1,26 +1,49 @@
 import useGetReportListQuery from "@/hooks/query/useGetReportListQuery";
 import ReportItem from "./ReportItem";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
-import { useEffect } from "react";
-import useLocationState from "@/hooks/useLocationState";
+import { useEffect, useState } from "react";
 
-export interface ReportListProps {
-  curlatitude: number | null;
-  curlongitude: number | null;
-  lastlatitude?: number | null;
-  lastlongitude?: number | null;
-  InProcessOnly: boolean;
+interface locationType {
+  latitude: number | null;
+  longitude: number | null;
 }
+type inProcessOnlyType = {
+  InProcessOnly: boolean;
+};
 
-const ReportList = (props: ReportListProps) => {
-  const { locationState } = useLocationState();
+const ReportList = (props: inProcessOnlyType) => {
+  const [location, setLocation] = useState<locationType>({
+    latitude: null,
+    longitude: null,
+  });
+
+  useEffect(() => {
+    const getLocation = async () => {
+      try {
+        const pos = await new Promise<GeolocationPosition>(
+          (resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+          }
+        );
+        setLocation({
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+        });
+      } catch (error) {
+        console.error("Error fetching location:", error);
+      }
+    };
+    getLocation();
+  }, []);
+
   const param = {
-    curlatitude: props.curlatitude,
-    curlongitude: props.curlongitude,
-    lastlatitude: props.lastlatitude || props.curlatitude,
-    lastlongitude: props.lastlongitude || props.curlongitude,
+    curlatitude: location.latitude,
+    curlongitude: location.longitude,
+    lastlatitude: location.latitude,
+    lastlongitude: location.longitude,
     InProcessOnly: props.InProcessOnly,
   };
+
   const {
     reportListData,
     reportListFetchNextPage,
@@ -34,8 +57,10 @@ const ReportList = (props: ReportListProps) => {
   );
 
   useEffect(() => {
-    reportListRefetch();
-  }, [locationState, props.InProcessOnly]);
+    if (location.latitude !== null && location.longitude !== null) {
+      reportListRefetch();
+    }
+  }, [location.latitude, location.longitude, props.InProcessOnly]);
 
   return (
     <>

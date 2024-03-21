@@ -8,6 +8,14 @@ export interface ReportParamsType {
   };
 }
 
+export interface ReportListProps {
+  curlatitude: number | null;
+  curlongitude: number | null;
+  lastlatitude?: number | null;
+  lastlongitude?: number | null;
+  InProcessOnly: boolean;
+}
+
 export interface ReportListDataType {
   reportId: number;
   memberId: number;

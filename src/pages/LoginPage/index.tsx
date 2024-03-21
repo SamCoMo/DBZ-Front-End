@@ -5,22 +5,10 @@ import Logo from "@/components/common/Logo";
 import { messaging } from "@/firebase/firebaseConfig";
 import useLoginQuery from "@/hooks/query/useLoginQuery";
 import useInput from "@/hooks/useInput";
-import useLocationState from "@/hooks/useLocationState";
 import { getToken } from "firebase/messaging";
 import React, { useEffect, useState } from "react";
 
 const LoginPage = () => {
-  const { updateLocation } = useLocationState();
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const latitude = pos.coords.latitude;
-      const longitude = pos.coords.longitude;
-
-      updateLocation({ latitude, longitude });
-    });
-  }, []);
-
   const [email, , handleChangeEmail] = useInput("");
   const [password, , handleChangePassword] = useInput("");
   const [fcmToken, setFcmToken] = useState<string>("");

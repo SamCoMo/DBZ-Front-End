@@ -1,8 +1,8 @@
 import { axiosAuth } from "@/apis";
-import { ReportListProps } from "@/components/Report/ReportList";
+
 import {
   ReportListDataType,
-  ReportParamsType,
+  ReportListProps,
 } from "@/types/Report/ReportDataType";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
@@ -35,6 +35,8 @@ const useGetReportListQuery = (params: ReportListProps) => {
     fetchNextPage: reportListFetchNextPage,
     hasNextPage: reportHasNextPage,
     refetch: reportListRefetch,
+    isLoading: reportListIsLoading,
+    isFetching: reportListIsFetching,
   } = useInfiniteQuery({
     queryKey: ["reports"],
     initialPageParam: {
@@ -56,6 +58,7 @@ const useGetReportListQuery = (params: ReportListProps) => {
             lastlongitude: lastPost.longitude,
           };
     },
+    enabled: false,
   });
 
   return {
@@ -63,6 +66,8 @@ const useGetReportListQuery = (params: ReportListProps) => {
     reportListFetchNextPage,
     reportHasNextPage,
     reportListRefetch,
+    reportListIsLoading,
+    reportListIsFetching,
   };
 };
 

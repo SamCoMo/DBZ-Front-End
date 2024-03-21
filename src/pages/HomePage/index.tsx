@@ -1,24 +1,13 @@
 import ReportList from "@/components/Report/ReportList";
 import Logo from "@/components/common/Logo";
 import Nav from "@/components/common/Nav";
-import useLocationState from "@/hooks/useLocationState";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BsBellFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
 interface HomePageProps {}
 const HomePage = ({}: HomePageProps) => {
-  const { locationState, updateLocation } = useLocationState();
   const [inProcessOnly, setInProcessOnly] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition((pos) => {
-  //     updateLocation({
-  //       latitude: pos.coords.latitude,
-  //       longitude: pos.coords.longitude,
-  //     });
-  //   });
-  // }, []);
 
   const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInProcessOnly(e.target.checked);
@@ -46,11 +35,7 @@ const HomePage = ({}: HomePageProps) => {
         </div>
       </div>
       <div className="mt-32 mb-14">
-        <ReportList
-          curlatitude={locationState.latitude}
-          curlongitude={locationState.longitude}
-          InProcessOnly={inProcessOnly}
-        />
+        <ReportList InProcessOnly={inProcessOnly} />
       </div>
       <Nav />
     </>
