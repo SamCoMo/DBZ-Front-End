@@ -5,16 +5,28 @@ import Logo from "@/components/common/Logo";
 import { messaging } from "@/firebase/firebaseConfig";
 import useLoginQuery from "@/hooks/query/useLoginQuery";
 import useInput from "@/hooks/useInput";
+import useLocationState from "@/hooks/useLocationState";
 import { getToken } from "firebase/messaging";
 import React, { useEffect, useState } from "react";
 
 const LoginPage = () => {
+  const { locationState, updateLocation } = useLocationState();
+
   const [email, , handleChangeEmail] = useInput("");
   const [password, , handleChangePassword] = useInput("");
   const [fcmToken, setFcmToken] = useState<string>("");
   const [allCheck, setAllCheck] = useState<boolean>(false);
 
   const { loginMutate, loginError } = useLoginQuery();
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      updateLocation({
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+      });
+    });
+  }, []);
 
   async function requestPermission() {
     const permission = await Notification.requestPermission();
@@ -36,12 +48,12 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (email && password && fcmToken) {
+    if (email && password && fcmToken && locationState) {
       setAllCheck(true);
     } else {
       setAllCheck(false);
     }
-  }, [email, password, fcmToken]);
+  }, [email, password, fcmToken, locationState]);
 
   return (
     <>

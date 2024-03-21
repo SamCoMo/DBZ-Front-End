@@ -38,7 +38,7 @@ const useGetReportListQuery = (params: ReportListProps) => {
     isLoading: reportListIsLoading,
     isFetching: reportListIsFetching,
   } = useInfiniteQuery({
-    queryKey: ["reports"],
+    queryKey: ["reports", params.curlatitude],
     initialPageParam: {
       lastlatitude: params.curlatitude,
       lastlongitude: params.curlongitude,
