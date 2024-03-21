@@ -3,11 +3,14 @@ import HeaderTitle from "@/components/common/HeaderTitle";
 import ReportKakaoMap from "@/components/common/KakaoMap/ReportMap";
 import usePostReportPinQuery from "@/hooks/query/usePostReportPinQuery";
 import { ReportPinDataType } from "@/types/Report/ReportDataType";
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { BsCameraFill } from "react-icons/bs";
 
 const PinPage = () => {
-  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const { pinIsMutate } = usePostReportPinQuery();
+  const [selectedImage, setSelectedImage] = useState<File[]>([]);
+  const [preview, setPreview] = useState<string[]>([]);
+  const [allCheck, setAllCheck] = useState<boolean>(false);
   const [reportAddress, setReportAddress] = useState({
     address: "",
     latitude: 0,
@@ -15,12 +18,25 @@ const PinPage = () => {
   });
   const [content, setContent] = useState("");
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const images: File[] = Array.from(event.target.files);
-      setSelectedImages(images);
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      // 첫 번째 이미지 파일만 선택
+      const newImage: File = e.target.files[0];
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        if (reader.readyState === FileReader.DONE) {
+          const newPreview: string = reader.result as string;
+          setPreview([newPreview]);
+        }
+      };
+  
+      // 파일 객체를 읽어 base64 형태의 문자열로 변환
+      reader.readAsDataURL(newImage);
+      setSelectedImage([newImage]);
     }
   };
+  
   const handleContentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -37,7 +53,7 @@ const PinPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const reportPinData: ReportPinDataType = {
-      pinId: 1,
+      pinId: 0,
       address: reportAddress.address,
       latitude: reportAddress.latitude,
       longitude: reportAddress.longitude,
@@ -46,8 +62,16 @@ const PinPage = () => {
     };
 
     // 훅을 사용하여 핀 생성 요청
-    usePostReportPinQuery.pinIsMutate(reportPinData);
+    pinIsMutate(reportPinData);  
   };
+  useEffect(() => {
+    if (content) {
+      setAllCheck(true);
+    } else {
+      setAllCheck(false);
+    }
+  }, [content]);
+
 
   return (
     <div>
@@ -58,6 +82,9 @@ const PinPage = () => {
           <label htmlFor="images" className="inline-block">
             <div className="w-32 h-32 border rounded-lg flex items-center justify-center cursor-pointer">
               <BsCameraFill className="text-defaultColor" />
+              {preview.map((preview, index) => (
+        <img className='w-32 h-32 border rounded-lg' key={index} src={preview} alt={`${preview} ${index}`} />
+      ))}
             </div>
             <input
               className="hidden"
@@ -67,6 +94,7 @@ const PinPage = () => {
               multiple
               onChange={handleImageChange}
             />
+
           </label>
           <div>
             <p className="my-3">목격 위치</p>
@@ -83,8 +111,9 @@ const PinPage = () => {
           </div>
         </div>
         <ReportKakaoMap onMarkerClick={handleMarkerClick} />
-      </form>
-      <WideButton text="등록하기" status={false} />
+
+      <WideButton text="등록하기" status={allCheck} />
+    </form>
     </div>
   );
 };
