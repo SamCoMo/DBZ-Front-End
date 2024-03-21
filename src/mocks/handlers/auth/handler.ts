@@ -38,7 +38,7 @@ export const postLogin = rest.post<LoginDataType>(
   }
 );
 
-export const getUserProfile = rest.get("/member/info", async (_, res, ctx) => {
+export const getUserProfile = rest.get("/member/my", async (_, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({
@@ -50,3 +50,14 @@ export const getUserProfile = rest.get("/member/info", async (_, res, ctx) => {
     })
   );
 });
+
+export const postLogout = rest.post("/member/logout", async (_, res, ctx) => {
+  return res(ctx.status(200));
+});
+
+export const postWithDraw = rest.post(
+  "/member/withdraw",
+  async (_, res, ctx) => {
+    return res(ctx.status(200));
+  }
+);

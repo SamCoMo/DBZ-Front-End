@@ -73,7 +73,7 @@ const SignupPage = () => {
   };
 
   const isValidNickname = (nickname: string) => {
-    const regExp = /^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$/;
+    const regExp = /^[ㄱ-ㅎ가-힣A-Za-z0-9-_]{2,10}$/;
     return regExp.test(nickname);
   };
 

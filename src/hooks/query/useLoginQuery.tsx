@@ -36,11 +36,11 @@ const useLoginQuery = () => {
       memberLogin({ email, password, token }),
     onSuccess: async (data) => {
       localStorage.setItem("Access-Token", data.headers["access-token"]);
-      data.userInfo = await axiosAuth
-        .get("/member/info")
+      const userInfo = await axiosAuth
+        .get("/member/my")
         .then((res) => res.data);
       updateUser({
-        ...data.userInfo,
+        ...userInfo,
         isLogin: true,
       });
       navigate("/home");

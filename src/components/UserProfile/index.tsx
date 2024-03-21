@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { BsCameraFill } from "react-icons/bs";
 import usePutProfileImgEditQuery from "@/hooks/query/usePutProfileImgEditQuery";
 import usePostWithDrawQuery from "@/hooks/query/usePostWithDrawQuery";
+import { axiosAuth } from "@/apis";
 import useLocationState from "@/hooks/useLocationState";
 
 const UserProfile = () => {
   const { user } = useUserProfileQuery();
   const { userState, updateUser } = useUserState();
-  const { locationReset } = useLocationState();
   const [profileImgUrl, setProfileImgUrl] = useState<
     string | ArrayBuffer | null
   >(userState.profile_image_url);
@@ -47,14 +47,17 @@ const UserProfile = () => {
   };
 
   const handleProfileImgDel = () => {};
+  const { locationReset } = useLocationState();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     const checkLogout = window.confirm("로그아웃을 하시겠습니까?");
     if (checkLogout) {
-      localStorage.removeItem("Access-Token");
-      localStorage.removeItem("userInfo");
-      locationReset();
-      localStorage.removeItem("locationInfo");
+      await axiosAuth.post("/member/logout").then(() => {
+        locationReset();
+        localStorage.removeItem("Access-Token");
+        localStorage.removeItem("userInfo");
+        localStorage.removeItem("locationInfo");
+      });
       navigate("/", { replace: true });
     }
   };
@@ -79,7 +82,7 @@ const UserProfile = () => {
           )}
           <label
             htmlFor="profileImgEdit"
-            className="absolute w-6 h-6 rounded-full bg-slate-300 right-0 flex justify-center items-center"
+            className="absolute w-6 h-6 rounded-full bg-slate-300 right-0 flex justify-center items-center hover:cursor-pointer"
           >
             <BsCameraFill />
           </label>

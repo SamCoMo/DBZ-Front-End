@@ -3,7 +3,7 @@ import useUserState from "../useUserState";
 import { useQuery } from "@tanstack/react-query";
 
 const getUserProfile = async () => {
-  const res = await axiosAuth.get("/member/info");
+  const res = await axiosAuth.get("/member/my");
   return res.data;
 };
 
