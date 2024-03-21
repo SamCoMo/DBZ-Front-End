@@ -7,16 +7,27 @@ import { modalAtom } from "@/recoil/atoms/modal/atom";
  */
 
 const useModalState = () => {
-  const [modalState, setModalstate] = useRecoilState(modalAtom);
+  const [modalState, setModalState] = useRecoilState(modalAtom);
 
   // 모달 오픈
   const openModal = () => {
     (document.getElementById("Modal") as HTMLDialogElement).showModal();
   };
+  const changeStatusState = (newStatus: string) => {
+    setModalState(newStatus);
+  };
+
+  // 모달 닫기
+  const closeModal = () => {
+    (document.getElementById('Modal') as HTMLDialogElement).close();
+  };
+
 
   return {
     openModal,
     modalState,
+    changeStatusState,
+    closeModal 
   };
 };
 

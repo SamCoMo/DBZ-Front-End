@@ -40,26 +40,31 @@ export interface ReportDataType {
   shows_phone: boolean;
   species: string;
   pet_name: string;
-  feature: string;
-  street_address: string;
+  descriptions:string;
   roadAddress: string;
   latitude: number;
   longitude: number;
   image_list: [];
+  pinId:number;
 }
 export interface ReportDetailType {
+  organizedId:number;
   feature: string;
   title: string;
-  pet_type: string;
+  petType: string;
   shows_phone: boolean;
+  descriptions:string;
   species: string;
-  pet_name: string;
-  street_address: string;
+  petName: string;
   roadAddress: string;
   latitude: number;
   longitude: number;
   status?: string;
   image_list: [];
+  createdAt:string,
+  views: number;
+  phone:string;
+
 }
 export interface ReportDetailIdType {
   reportId: string;
@@ -72,4 +77,12 @@ export interface ReportPinDataType {
   latitude: number;
   longitude: number;
   pinImageDtoList: [];
+}
+
+export interface ReportDeleteType {
+  isReportDelete: boolean;
+}
+export interface ReportEditDataType {
+  report: ReportDetailType;
+  reportId: number;
 }

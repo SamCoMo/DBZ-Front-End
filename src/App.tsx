@@ -1,9 +1,11 @@
 import React from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import InnerCon from "./components/common/InnerCon";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import InnerCon from "./components/common/InnerCon";
 import CreateReportPage from "./pages/report/CreateReportPage";
 import SignupPage from "./pages/SignupPage";
 import ReportDetailPage from "./pages/report/ReportDetailPage";
@@ -13,7 +15,6 @@ import ProtectedRoute from "./ProtectedRoute";
 import MyPage from "./pages/MyPage";
 import MainPage from "./pages/MainPage";
 import AlarmPage from "./pages/AlarmPage";
-import { ToastContainer } from "react-toastify";
 import "./firebase/firebaseConfig";
 
 interface AppProps {
@@ -23,7 +24,6 @@ interface AppProps {
 const App = ({ children }: AppProps) => (
   <RecoilRoot>
     <InnerCon>
-      {" "}
       <Routes>
         <Route>
           <Route path="/" element={<MainPage />} />
@@ -37,7 +37,6 @@ const App = ({ children }: AppProps) => (
           <Route path="/signup" element={<SignupPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<HomePage />} />
-            <Route path="/alarm" element={<AlarmPage />} />
             <Route path="/report" element={<CreateReportPage />} />
             <Route path="/mypage" element={<MyPage />} />
           </Route>
@@ -58,6 +57,8 @@ const App = ({ children }: AppProps) => (
         theme="colored"
       />
       {children}
+      {/* 토스트 컨테이너 */}
+      <ToastContainer position="top-center"/>
     </InnerCon>
   </RecoilRoot>
 );

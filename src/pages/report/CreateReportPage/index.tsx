@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import HeaderTitle from "@/components/common/HeaderTitle";
 import ReportKakaoMap from "@/components/common/KakaoMap/ReportMap";
 import Input from "@/components/common/Input";
@@ -7,11 +7,16 @@ import { BsCameraFill } from "react-icons/bs";
 import usePostCreateReportQuery from "@/hooks/query/usePostReportQuery";
 import { ReportDataType } from "@/types/Report/ReportDataType";
 import SelectSpecies from "@/components/common/Select/SelectOptions";
+import { useNavigate } from "react-router-dom";
+
 
 const CreateReportPage = () => {
+  const navigate = useNavigate();
+  const [allCheck, setAllCheck] = useState<boolean>(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [images, setImages] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
   const [petType, setPetType] = useState("");
   const [species, setSpecies] = useState("");
   const [petName, setPetName] = useState("");
@@ -21,7 +26,7 @@ const CreateReportPage = () => {
     longitude: 0,
   });
   const [showsPhone, setShowsPhone] = useState(false);
-  const postCreateReportQuery = usePostCreateReportQuery();
+  const {reportIsMutate}= usePostCreateReportQuery();
   // 게시글 생성에 필요한 데이터를 CreateReportType 타입에 맞춰 구성
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,12 +40,33 @@ const CreateReportPage = () => {
     setPetName(event.target.value);
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const images: File[] = Array.from(event.target.files);
-      setSelectedImages(images);
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newImages: File[] = [...images];
+    const newPreviews: string[] = [...previews];
+
+    for (let i = 0; i < e.target.files!.length; i++) {
+      const file = e.target.files![i];
+      // 이미지 파일 3개로 제한
+      if (newImages.length < 3) {
+        // 이벤트객체의 파일을 newImages에 담기
+        newImages.push(file);
+        // 파일리더 객체 생성
+        const reader = new FileReader();
+        // 파일 읽어온 후 실행되는 콜백함수
+        reader.onload = (e) => {
+          // 읽어온 값을 갱신하기
+          newPreviews.push(e.target!.result as string);
+          setPreviews(newPreviews);
+        };
+        console.log(newPreviews);
+
+        // 파일 객체를 읽어 base64 형태의 문자열로 변환
+        reader.readAsDataURL(file);
+      }
     }
+    setImages(newImages);
   };
+
   const handleContentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -54,15 +80,15 @@ const CreateReportPage = () => {
   ) => {
     setShowsPhone(event.target.checked);
   };
-  const handleMarkerClick = (lat: number, lng: number) => {
+  const handleMarkerClick = async (lat: number, lng: number, address: string) => {
     setReportAddress({
-      ...reportAddress,
+      address: address,
       latitude: lat,
       longitude: lng,
     });
   };
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit =(e: FormEvent) => {
+    e.preventDefault();
     const reportData: ReportDataType = {
       reportId: 0, // reportId는 서버에서 생성될 것으로 가정
       title: title,
@@ -70,37 +96,48 @@ const CreateReportPage = () => {
       shows_phone: showsPhone,
       species: species,
       pet_name: petName,
-      feature: content,
-      street_address: reportAddress.address,
+      descriptions: content,
       roadAddress: reportAddress.address,
       latitude: reportAddress.latitude,
       longitude: reportAddress.longitude,
       image_list: [],
     };
+    reportIsMutate(reportData);
+    navigate("/home");
+    console.log(reportData);
 
-    // usePostCreateReportQuery 훅을 사용하여 게시글 생성 요청
-    postCreateReportQuery.reportIsMutate(reportData);
-  };
+  };  
+
+  useEffect(() => {
+    if (title && petType && showsPhone&&species&&petName&&content&&reportAddress) {
+      setAllCheck(true);
+    } else {
+      setAllCheck(false);
+    }
+  }, [title, petType, showsPhone,species,petName,content,reportAddress]);
 
   return (
     <>
       <HeaderTitle title="게시글 작성" />
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <p className="my-3">사진</p>
           <label htmlFor="images" className="inline-block">
             <div className="w-32 h-32 border rounded-lg flex items-center justify-center cursor-pointer">
-              <BsCameraFill className="text-defaultColor" />
-            </div>
-            <input
+              <BsCameraFill className="text-defaultColor" />            
+              <input
               className="hidden"
               type="file"
               id="images"
               accept="image/*"
               multiple
               onChange={handleImageChange}
-            />
-          </label>
+            />        
+            {previews.map((preview, index) => (
+        <img className='w-32 h-32 border rounded-lg' key={index} src={preview} alt={`${preview} ${index}`} />
+      ))}
+          
+            </div>
+</label>
         </div>
         <div>
           <p className="my-3">제목</p>
@@ -158,7 +195,7 @@ const CreateReportPage = () => {
           />
           <span>내 번호 표시하기</span>
         </div>
-        <WideButton type="submit" text="등록하기" status={false} />
+        <WideButton text="등록하기" status={allCheck} />
       </form>
     </>
   );
