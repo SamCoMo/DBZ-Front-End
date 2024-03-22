@@ -1,10 +1,14 @@
+import { useEffect, useRef } from "react";
+
 interface InputProps {
   type: "text" | "email" | "password" | "select";
   value: string;
   width?: string;
   placeholder?: string;
   disabled?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  focus?: boolean;
+  addStyle?: string;
+  handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = ({
@@ -13,16 +17,26 @@ const Input = ({
   width,
   disabled,
   placeholder,
-  onChange,
+  focus,
+  addStyle,
+  handleChangeInput
 }: InputProps) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (focus && inputRef.current) inputRef.current.focus();
+  }, [focus]);
+
   return (
     <input
+      ref={inputRef}
       type={type}
       value={value}
-      className={`rounded-lg px-3 bg-gray2 ${width || "w-full"} h-10`}
+      className={`bg-gray2 rounded-lg text-body2 placeholder-text-gray4 h-10 pl-3 ${
+        addStyle || ''
+      }  ${width || 'w-full'}`}
       placeholder={placeholder}
       disabled={disabled}
-      onChange={onChange}
+      onChange={handleChangeInput}
     />
   );
 };
