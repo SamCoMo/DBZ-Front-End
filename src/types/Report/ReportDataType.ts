@@ -1,3 +1,38 @@
+export interface ReportParamsType {
+  curlatitude: number | null;
+  curlongitude: number | null;
+  showsInprocessOnly: boolean;
+  pageParam?: {
+    lastlatitude: number | null;
+    lastlongitude: number | null;
+  };
+}
+
+export interface ReportListProps {
+  curlatitude: number | null;
+  curlongitude: number | null;
+  lastlatitude?: number | null;
+  lastlongitude?: number | null;
+  InProcessOnly: boolean;
+}
+
+export interface ReportListDataType {
+  reportId: number;
+  memberId: number;
+  title: string;
+  petName: string;
+  petType: string;
+  species: string;
+  streetAddress: string;
+  roadAddress: string;
+  latitude: number;
+  longitude: number;
+  imageUrl: string;
+  reportStatus: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface ReportDataType {
   reportId: number;
   title: string;

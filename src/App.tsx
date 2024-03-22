@@ -14,6 +14,8 @@ import PinPage from "./pages/report/Pinpage";
 import ProtectedRoute from "./ProtectedRoute";
 import MyPage from "./pages/MyPage";
 import MainPage from "./pages/MainPage";
+import "./firebase/firebaseConfig";
+import AlarmPage from "./pages/AlarmPage";
 
 interface AppProps {
   children?: React.ReactNode;
@@ -26,15 +28,16 @@ const App = ({ children }: AppProps) => (
         <Route>
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route path="/report" element={<Outlet />}>
             <Route path="create" element={<CreateReportPage />} />
             <Route path=":id" element={<ReportDetailPage />} />
             <Route path=":id/edit" element={<ReportEditPage />} />
             <Route path=":id/pin" element={<PinPage />} />
           </Route>
-          <Route path="/signup" element={<SignupPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<HomePage />} />
+            <Route path="/alarm" element={<AlarmPage />} />
             <Route path="/report" element={<CreateReportPage />} />
             <Route path="/mypage" element={<MyPage />} />
           </Route>
@@ -44,7 +47,17 @@ const App = ({ children }: AppProps) => (
       </Routes>
       {children}
       {/* 토스트 컨테이너 */}
-      <ToastContainer position="top-center"/>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </InnerCon>
   </RecoilRoot>
 );

@@ -2,7 +2,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const useToast = () => {
-  const toastSuccess = (msg: string) => {
+  const toastSuccess = (msg: string | undefined) => {
     toast.success(msg);
   };
   const toastError = (msg: string) => {
