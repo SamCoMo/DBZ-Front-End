@@ -31,7 +31,27 @@ axiosAuth.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+export const axiosAcces = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+});
 
+axiosAcces.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem("Access-Token");
+    if (accessToken) {
+      config.headers["Access-Token"] = `${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
 // access-token 만료시 refresh-token 사용해서 재발급
 axiosAuth.interceptors.response.use(
   response => response,
