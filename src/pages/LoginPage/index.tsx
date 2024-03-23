@@ -48,7 +48,7 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (email && password.length === 8 && fcmToken && locationState) {
+    if (email && password && fcmToken && locationState) {
       setAllCheck(true);
     } else {
       setAllCheck(false);
