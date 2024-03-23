@@ -34,20 +34,22 @@ export interface ReportListDataType {
 }
 
 export interface ReportDataType {
-  reportId: number;
-  title: string;
-  pet_type: string;
-  shows_phone: boolean;
-  species: string;
-  pet_name: string;
-  descriptions:string;
-  roadAddress: string;
-  latitude: number;
-  longitude: number;
-  image_list: [];
-  pinId:number;
+  reportId?: number;
+  title?: string;
+  pet_type?: string;
+  shows_phone?: boolean;
+  species?: string;
+  pet_name?: string;
+  descriptions?:string;
+  roadAddress?: string;
+  latitude?: number;
+  longitude?: number;
+  image_list?: [];
+  pinId?:number;
+  pinList?:[];
 }
 export interface ReportDetailType {
+  pinId: any;
   organizedId:number;
   feature: string;
   title: string;

@@ -5,7 +5,7 @@ import ReportDetailKakaoMap from "@/components/common/KakaoMap/ReportDetailMap";
 import { useParams } from "react-router-dom";
 import useUserState from "@/hooks/useUserState";
 import ModalInSelectEdit from "@/components/Report/ModalInSelectEdit";
-import useGetReportPinListQuery from "@/hooks/query/useGetReportPinsQuery";
+// import useGetReportPinListQuery from "@/hooks/query/useGetReportPinsQuery";
 import useGetReportPinDetailQuery from "@/hooks/query/useGetReportPinDetailQuery";
 
 const ReportDetailPage = () => {
@@ -19,7 +19,7 @@ const ReportDetailPage = () => {
   const { userState } = useUserState();
 
   // 핀 리스트 쿼리 사용
-  const { reportPinList } = useGetReportPinListQuery(reportId);
+  // const { reportPinList } = useGetReportPinListQuery(reportId);
 
   // 각 핀에 대한 클릭 이벤트 핸들러
   const handlePinClick = async (pinId: number) => {
@@ -116,7 +116,7 @@ const ReportDetailPage = () => {
               lng: reportDetail.longitude,
             }}
             myPin={myPin}
-            otherPins={reportPinList ? reportPinList.pins : []}
+            otherPins={[]}
             onMarkerClick={handlePinClick}
           />
         </div>

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { BsChevronLeft } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +13,7 @@ interface SearchProps {
 const SearchBar = ({ object, showsInProgressOnly }: SearchProps) => {
   const navigate = useNavigate();
   const [searchObject, handleChangeSearchObject] = useInput(object || '');
-  const [showsInProgress, handleChangeShowsInProgress] = useState(false);
+  // const [showsInProgress, handleChangeShowsInProgress] = useState(false);
 
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -51,7 +50,7 @@ const SearchBar = ({ object, showsInProgressOnly }: SearchProps) => {
           value={searchObject}
           addStyle="pr-5"
           placeholder="검색어를 입력해주세요"
-          handleChangeInput={(e) => handleChangeSearchObject(e.target.value)}
+          onChange={(e) => handleChangeSearchObject(e.target.value)}
         />
       </button>
       <button
@@ -62,6 +61,7 @@ const SearchBar = ({ object, showsInProgressOnly }: SearchProps) => {
         <span className="sr-only">검색하기</span>{' '}
         <BsSearch className="text-2xl text-defaultColor"/>
       </button>
+      
     </form>
   );
 };

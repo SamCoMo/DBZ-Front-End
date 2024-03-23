@@ -19,9 +19,10 @@ const PinPage = () => {
   const [content, setContent] = useState("");
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const image =selectedImage;
     if (e.target.files && e.target.files.length > 0) {
       // 첫 번째 이미지 파일만 선택
-      const newImage: File = e.target.files[0];
+      const newImage: File =image[0];
       const reader = new FileReader();
   
       reader.onloadend = () => {

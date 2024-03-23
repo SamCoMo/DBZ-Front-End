@@ -101,6 +101,7 @@ const CreateReportPage = () => {
       latitude: reportAddress.latitude,
       longitude: reportAddress.longitude,
       image_list: [],
+      pinId: 0
     };
     reportIsMutate(reportData);
     navigate("/home");

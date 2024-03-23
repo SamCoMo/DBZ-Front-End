@@ -41,6 +41,7 @@ module.exports = {
       { allowConstantExport: true },
     ],
     quotes: [2, "single", { avoidEscape: true }],
+    "@typescript-eslint/no-explicit-any":0,
     "@typescript-eslint/quotes": [
       "error",
       "single",

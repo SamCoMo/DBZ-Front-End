@@ -19,7 +19,7 @@ const usePostCreateReportQuery = () => {
   } = useMutation({
     mutationKey: ["report"],
     mutationFn: (data: ReportDataType) => fetchAPI(data),
-    onSuccess: (data) => {
+    onSuccess: (_data) => {
       queryClient.invalidateQueries({ queryKey: ["report"] });
       toastSuccess("게시글이 등록되었습니다.");
     },

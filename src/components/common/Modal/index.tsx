@@ -6,7 +6,7 @@ interface ModalProps {
   title?: string;
 }
 const Modal = ({ children, title }: ModalProps) => {
-  const [open, close] = useState(true);
+  const [open, _close] = useState(false);
   return (
     <dialog id="Modal" className="modal">
       <div
