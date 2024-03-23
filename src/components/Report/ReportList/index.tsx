@@ -8,7 +8,7 @@ type ReportListProps = {
   latitude: number | null;
   longitude: number | null;
   InProcessOnly: boolean;
-  object:string;
+  object?: string;
 };
 
 const ReportList = (props: ReportListProps) => {

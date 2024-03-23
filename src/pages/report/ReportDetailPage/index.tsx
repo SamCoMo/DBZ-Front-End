@@ -1,4 +1,3 @@
-import React from "react";
 import HeaderTitle from "@/components/common/HeaderTitle";
 import useGetReportDetailQuery from "@/hooks/query/useGetReportQuery";
 import { BsFillPinAngleFill, BsPhoneFill } from "react-icons/bs";
@@ -12,10 +11,10 @@ import useGetReportPinDetailQuery from "@/hooks/query/useGetReportPinDetailQuery
 const ReportDetailPage = () => {
   const { id } = useParams();
   const reportId = Number(id);
-  
+
   // 상세 정보를 가져오는 훅 사용
   const { reportDetail } = useGetReportDetailQuery(reportId);
-  
+
   // 현재 사용자 정보 가져오기
   const { userState } = useUserState();
 
@@ -25,8 +24,11 @@ const ReportDetailPage = () => {
   // 각 핀에 대한 클릭 이벤트 핸들러
   const handlePinClick = async (pinId: number) => {
     // 해당 핀의 상세 정보를 가져오는 쿼리 호출
-    const { reportPinDetail } = await useGetReportPinDetailQuery(reportId, pinId);
-    
+    const { reportPinDetail } = await useGetReportPinDetailQuery(
+      reportId,
+      pinId
+    );
+
     // reportPinDetail을 활용하여 인포윈도우 표시
     if (reportPinDetail) {
       // 인포윈도우 내용 설정
@@ -37,12 +39,12 @@ const ReportDetailPage = () => {
           <img src="${reportPinDetail.pinImageDtoList}" alt="Report Image" />
         </div>
       `;
-      
+
       // 인포윈도우 생성
       const infoWindow = new window.kakao.maps.InfoWindow({
         content: content,
       });
-  
+
       // 해당 핀의 위치로 인포윈도우를 표시합니다.
       infoWindow.open();
     }
@@ -51,7 +53,7 @@ const ReportDetailPage = () => {
   if (!reportDetail) {
     return <div>No report detail available.</div>;
   }
-  
+
   const myPin = {
     lat: reportDetail.latitude,
     lng: reportDetail.longitude,

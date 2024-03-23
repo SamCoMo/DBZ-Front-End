@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import DaumPostcode, { Address } from "react-daum-postcode";
 
 const Addr = () => {

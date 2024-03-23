@@ -1,12 +1,10 @@
-import React from "react";
-
 interface WideButtonProps {
   text: string;
   status: boolean;
   onClick?: () => void;
 }
 
-const WideButton = ({text, status, onClick }: WideButtonProps) => (
+const WideButton = ({ text, status, onClick }: WideButtonProps) => (
   <button
     type="submit"
     disabled={!status}

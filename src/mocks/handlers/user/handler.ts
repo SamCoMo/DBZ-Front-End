@@ -26,7 +26,7 @@ export const patchLocation = rest.patch(
 
 export const getKaKaoAPI = rest.get(
   "https://dapi.kakao.com/v2/local/geo/coord2address.json",
-  async (req, res, ctx) => {
+  async (_, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({

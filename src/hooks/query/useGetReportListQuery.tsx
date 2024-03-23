@@ -49,7 +49,7 @@ const useGetReportListQuery = (params: ReportListProps) => {
         lastlatitude: pageParam.lastlatitude,
         lastlongitude: pageParam.lastlongitude,
       }),
-    getNextPageParam: (lastPage, allPages) => {
+    getNextPageParam: (lastPage) => {
       const lastPost = lastPage[lastPage.length - 1];
       return lastPage.length === 0
         ? undefined

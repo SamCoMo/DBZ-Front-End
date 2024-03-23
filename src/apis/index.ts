@@ -1,5 +1,4 @@
 import axios from "axios";
-import { response } from "msw";
 
 export const BASE_URL = "http://localhost:5173";
 
@@ -58,7 +57,7 @@ axiosAuth.interceptors.response.use(
   async error => {
     console.log(error);
     const errorCode = error.response.data.errorCode;
-    const errorStatus = error.reponse.status;
+    // const errorStatus = error.reponse.status;
 
     const req = error.config;
 

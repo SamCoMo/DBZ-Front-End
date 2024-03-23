@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import   { useEffect, useRef } from "react";
 import { ChatDataType } from "@/types/Chatting/ChatDataType";
 
 interface ChatBodyProps {
