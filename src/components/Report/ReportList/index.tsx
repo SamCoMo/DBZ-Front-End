@@ -8,7 +8,7 @@ type ReportListProps = {
   latitude: number | null;
   longitude: number | null;
   InProcessOnly: boolean;
-  object:string;
+  object?:string;
 };
 
 const ReportList = (props: ReportListProps) => {
@@ -41,7 +41,7 @@ const ReportList = (props: ReportListProps) => {
 
   return (
     <>
-      {reportListData?.pages.map((page) =>
+    {reportListData ? reportListData?.pages.map((page) =>
         page.map((list) => (
           <ReportItem
             key={list.reportId}
@@ -51,7 +51,18 @@ const ReportList = (props: ReportListProps) => {
             reportStatus={list.reportStatus}
           ></ReportItem>
         ))
-      )}
+      ):<div>데이터 없음</div>}
+      {/* {reportListData?.pages.map((page) =>
+        page.map((list) => (
+          <ReportItem
+            key={list.reportId}
+            reportId={list.reportId}
+            title={list.title}
+            petName={list.petName}
+            reportStatus={list.reportStatus}
+          ></ReportItem>
+        ))
+      )} */}
       {bottomDiv()}
     </>
   );
