@@ -1,9 +1,9 @@
-import { axiosAuth } from "@/apis";
+import { axiosAccess } from "@/apis";
 import useUserState from "../useUserState";
 import { useQuery } from "@tanstack/react-query";
 
 const getUserProfile = async () => {
-  const res = await axiosAuth.get("/member/my");
+  const res = await axiosAccess.get("/member/my");
   return res.data;
 };
 

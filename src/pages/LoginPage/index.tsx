@@ -44,11 +44,11 @@ const LoginPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    loginMutate({ email, password, token: fcmToken });
+    loginMutate({ email, password, fcmToken });
   };
 
   useEffect(() => {
-    if (email && password.length === 8 && fcmToken && locationState) {
+    if (email && password && fcmToken && locationState) {
       setAllCheck(true);
     } else {
       setAllCheck(false);

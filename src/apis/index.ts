@@ -1,5 +1,4 @@
 import axios from "axios";
-import { response } from "msw";
 
 export const BASE_URL ="http://ec2-43-201-206-210.ap-northeast-2.compute.amazonaws.com:8080";
 
@@ -8,6 +7,7 @@ export const axiosDefault = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export const axiosAuth = axios.create({
@@ -31,7 +31,7 @@ axiosAuth.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-export const axiosAcces = axios.create({
+export const axiosAccess = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export const axiosAcces = axios.create({
   withCredentials: true,
 });
 
-axiosAcces.interceptors.request.use(
+axiosAccess.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("Access-Token");
     if (accessToken) {

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { BsCameraFill } from "react-icons/bs";
 import usePutProfileImgEditQuery from "@/hooks/query/usePutProfileImgEditQuery";
 import usePostWithDrawQuery from "@/hooks/query/usePostWithDrawQuery";
-import { axiosAuth } from "@/apis";
+import { axiosAccess } from "@/apis";
 import useLocationState from "@/hooks/useLocationState";
 
 const UserProfile = () => {
@@ -52,7 +52,7 @@ const UserProfile = () => {
   const handleLogout = async () => {
     const checkLogout = window.confirm("로그아웃을 하시겠습니까?");
     if (checkLogout) {
-      await axiosAuth.post("/member/logout").then(() => {
+      await axiosAccess.post("/member/logout").then(() => {
         locationReset();
         localStorage.removeItem("Access-Token");
         localStorage.removeItem("userInfo");
