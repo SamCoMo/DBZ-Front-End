@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const BASE_URL ="http://ec2-43-201-206-210.ap-northeast-2.compute.amazonaws.com:8080";
+// export const BASE_URL =
+//   "http://ec2-43-201-206-210.ap-northeast-2.compute.amazonaws.com:8080";
+export const BASE_URL = "http://localhost:5173";
 
 export const axiosDefault = axios.create({
   baseURL: BASE_URL,
@@ -39,6 +41,33 @@ export const axiosAccess = axios.create({
   withCredentials: true,
 });
 
+// access-token 만료시 refresh-token 사용해서 재발급
+axiosAuth.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    console.log(error);
+    const errorCode = error.response.data.errorCode;
+    const errorStatus = error.response.status;
+
+    const req = error.config;
+
+    if (errorCode === "ACCESS_TOKEN_EXPIRED") {
+      try {
+        const res = await axiosAccess.post("/member/reissue");
+        const newACToken = res.headers["access-token"];
+        localStorage.setItem("Access-Token", newACToken);
+
+        req.headers.Authorization = `Bearer ${newACToken}`;
+        return await axios(req);
+      } catch (err) {
+        alert("로그인을 다시 진행해주세요.");
+        window.location.replace("/login");
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 axiosAccess.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("Access-Token");
@@ -52,27 +81,27 @@ axiosAccess.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-// access-token 만료시 refresh-token 사용해서 재발급
-axiosAuth.interceptors.response.use(
-  response => response,
-  async error => {
+
+axiosAccess.interceptors.response.use(
+  (response) => response,
+  async (error) => {
     console.log(error);
     const errorCode = error.response.data.errorCode;
-    const errorStatus = error.reponse.status;
+    const errorStatus = error.response.status;
 
     const req = error.config;
 
-    if (errorCode === 'ACCESS_TOKEN_EXPIRED') {
+    if (errorCode === "ACCESS_TOKEN_EXPIRED") {
       try {
-        const res = await axiosAuth.post('/member/reissue');
+        const res = await axiosAccess.post("/member/reissue");
         const newACToken = res.headers["access-token"];
         localStorage.setItem("Access-Token", newACToken);
 
         req.headers.Authorization = `Bearer ${newACToken}`;
         return await axios(req);
       } catch (err) {
-        alert('로그인을 다시 진행해주세요.');
-        window.location.replace('/login');
+        alert("로그인을 다시 진행해주세요.");
+        window.location.replace("/login");
       }
     }
     return Promise.reject(error);

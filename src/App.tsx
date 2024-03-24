@@ -36,12 +36,12 @@ const App = ({ children }: AppProps) => (
             <Route path=":id/edit" element={<ReportEditPage />} />
             <Route path=":id/pin" element={<PinPage />} />
           </Route>
-          <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<HomePage />} />
             <Route path="/alarm" element={<AlarmPage />} />
             <Route path="/report" element={<CreateReportPage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/search" element={<SearchPage />} />
+          <Route element={<ProtectedRoute />}>
           </Route>
           {/* 404 처리 */}
           {/* <Route path="*" element={<NotFound />}></Route> */}
