@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { axiosAuth } from "@/apis";
+import { axiosAccess } from "@/apis";
 import { ReportDetailType } from "@/types/Report/ReportDataType";
 
 
 const fetchAPI = async (reportId: number): Promise<ReportDetailType> => {
-  const res = await axiosAuth.get(`/reports/${reportId}`);
+  const res = await axiosAccess.get(`/report/${reportId}`);
   return res.data;
 };
 

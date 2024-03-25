@@ -8,15 +8,17 @@ import usePostCreateReportQuery from "@/hooks/query/usePostReportQuery";
 import { ReportDataType } from "@/types/Report/ReportDataType";
 import SelectSpecies from "@/components/common/Select/SelectOptions";
 import { useNavigate } from "react-router-dom";
+import useUserState from "@/hooks/useUserState";
 
 
 const CreateReportPage = () => {
+  const {userState} = useUserState();
   const navigate = useNavigate();
   const [allCheck, setAllCheck] = useState<boolean>(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState<File[]>([]);
-  const [previews, setPreviews] = useState<string[]>([]);
+  const [previews, setPreviews] = useState<string[]>();
   const [petType, setPetType] = useState("");
   const [species, setSpecies] = useState("");
   const [petName, setPetName] = useState("");
@@ -41,32 +43,16 @@ const CreateReportPage = () => {
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newImages: File[] = [...images];
-    const newPreviews: string[] = [...previews];
-
-    for (let i = 0; i < e.target.files!.length; i++) {
-      const file = e.target.files![i];
-      // 이미지 파일 3개로 제한
-      if (newImages.length < 3) {
-        // 이벤트객체의 파일을 newImages에 담기
-        newImages.push(file);
-        // 파일리더 객체 생성
-        const reader = new FileReader();
-        // 파일 읽어온 후 실행되는 콜백함수
-        reader.onload = (e) => {
-          // 읽어온 값을 갱신하기
-          newPreviews.push(e.target!.result as string);
-          setPreviews(newPreviews);
-        };
-        console.log(newPreviews);
-
-        // 파일 객체를 읽어 base64 형태의 문자열로 변환
-        reader.readAsDataURL(file);
-      }
+    const file = e.target.files?.[0]; // Get the first selected file
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPreviews([e.target!.result as string]); // Set preview
+      };
+      reader.readAsDataURL(file);
+      setImages([file]); // Set images
     }
-    setImages(newImages);
   };
-
   const handleContentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -90,17 +76,17 @@ const CreateReportPage = () => {
   const handleSubmit =(e: FormEvent) => {
     e.preventDefault();
     const reportData: ReportDataType = {
-      reportId: 0, // reportId는 서버에서 생성될 것으로 가정
       title: title,
-      pet_type: petType,
-      shows_phone: showsPhone,
+      petType: petType,
+      showsPhone: showsPhone,
       species: species,
-      pet_name: petName,
+      petName: petName,
       descriptions: content,
       roadAddress: reportAddress.address,
       latitude: reportAddress.latitude,
       longitude: reportAddress.longitude,
-      image_list: [],
+      imageList: images,
+
     };
     reportIsMutate(reportData);
     navigate("/home");
@@ -129,12 +115,9 @@ const CreateReportPage = () => {
               type="file"
               id="images"
               accept="image/*"
-              multiple
               onChange={handleImageChange}
             />        
-            {previews.map((preview, index) => (
-        <img className='w-32 h-32 border rounded-lg' key={index} src={preview} alt={`${preview} ${index}`} />
-      ))}
+        <img className='w-32 h-32 border rounded-lg'src={previews} alt={`${previews}`} />
           
         </div>
 </label>

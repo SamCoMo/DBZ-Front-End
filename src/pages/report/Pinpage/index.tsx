@@ -6,6 +6,8 @@ import { ReportPinDataType } from "@/types/Report/ReportDataType";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { BsCameraFill } from "react-icons/bs";
 import ImageUpload from "@/components/common/ImageUpload";
+import { ReportPinRequestDataType } from "@/types/Report/ReportDataType";
+
 
 const PinPage = () => {
   const { pinIsMutate } = usePostReportPinQuery();
@@ -52,7 +54,7 @@ const PinPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const reportPinData: ReportPinDataType = {
+    const reportPinData: ReportPinRequestDataType = {
       pinId: 0,
       address: reportAddress.address,
       latitude: reportAddress.latitude,
