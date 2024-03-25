@@ -13,7 +13,7 @@ const UserProfile = () => {
   const { userState, updateUser } = useUserState();
   const [profileImgUrl, setProfileImgUrl] = useState<
     string | ArrayBuffer | null
-  >(userState.profile_image_url);
+  >(user?.profile_image_url);
   const { profileImgEditMutate } = usePutProfileImgEditQuery();
   const { withDrawMutate } = usePostWithDrawQuery();
 
@@ -73,9 +73,9 @@ const UserProfile = () => {
     <>
       <div className="mt-5 flex justify-center">
         <div className="avatar flex-col relative items-center">
-          {profileImgUrl ? (
+          {user?.profile_image_url ? (
             <div className="w-24 rounded-full">
-              <img src={`${profileImgUrl}`} alt={userState?.nickname} />
+              <img src={`${profileImgUrl}`} alt={user?.nickname} />
             </div>
           ) : (
             <div className="w-24 rounded-full bg-gray3"></div>
@@ -95,11 +95,11 @@ const UserProfile = () => {
             className="hidden"
           />
           <div className="justify-center">
-            <p className="mt-5 font-medium">{userState?.nickname}</p>
+            <p className="mt-5 font-medium">{user?.nickname}</p>
           </div>
         </div>
       </div>
-      {userState?.profile_image_url && (
+      {user?.profile_image_url && (
         <div className="mt-4 text-center text-sm text-gray-500">
           <button type="button" onClick={handleProfileImgDel}>
             프로필 사진 삭제하기
