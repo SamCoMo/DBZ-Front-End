@@ -1,4 +1,4 @@
-import { axiosAccess, axiosDefault } from "@/apis";
+import { axiosDefault } from "@/apis";
 import { LoginDataType, LoginResponseType } from "@/types/auth/LoginDataType";
 
 import { useMutation } from "@tanstack/react-query";

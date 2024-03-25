@@ -8,15 +8,15 @@ type ReportListProps = {
   latitude: number | null;
   longitude: number | null;
   InProcessOnly: boolean;
-  object?:string;
+  object?: string;
 };
 
 const ReportList = (props: ReportListProps) => {
   const param = {
-    curlatitude: props.latitude,
-    curlongitude: props.longitude,
-    lastlatitude: props.latitude,
-    lastlongitude: props.longitude,
+    curLatitude: props.latitude,
+    curLongitude: props.longitude,
+    lastLatitude: props.latitude,
+    lastLongitude: props.longitude,
     InProcessOnly: props.InProcessOnly,
   };
 
@@ -37,11 +37,11 @@ const ReportList = (props: ReportListProps) => {
     reportListRefetch();
   }, [props.latitude, props.longitude, props.InProcessOnly]);
 
-  if (reportListIsFetching) return <SkeletonReportList />;
+  // if (reportListIsFetching) return <SkeletonReportList />;
 
   return (
     <>
-    {reportListData ? reportListData?.pages.map((page) =>
+      {reportListData?.pages.map((page) =>
         page.map((list) => (
           <ReportItem
             key={list.reportId}
@@ -51,7 +51,7 @@ const ReportList = (props: ReportListProps) => {
             reportStatus={list.reportStatus}
           ></ReportItem>
         ))
-      ):<div>데이터 없음</div>}
+      )}
       {/* {reportListData?.pages.map((page) =>
         page.map((list) => (
           <ReportItem

@@ -1,18 +1,18 @@
 export interface ReportParamsType {
-  curlatitude: number | null;
-  curlongitude: number | null;
+  curLatitude: number | null;
+  curLongitude: number | null;
   showsInprocessOnly: boolean;
   pageParam?: {
-    lastlatitude: number | null;
-    lastlongitude: number | null;
+    lastLatitude: number | null;
+    lastLongitude: number | null;
   };
 }
 
 export interface ReportListProps {
-  curlatitude: number | null;
-  curlongitude: number | null;
-  lastlatitude?: number | null;
-  lastlongitude?: number | null;
+  curLatitude: number | null;
+  curLongitude: number | null;
+  lastLatitude?: number | null;
+  lastLongitude?: number | null;
   InProcessOnly: boolean;
 }
 
@@ -40,20 +40,19 @@ export interface ReportDataType {
   shows_phone: boolean;
   species: string;
   pet_name: string;
-  descriptions:string;
+  descriptions: string;
   roadAddress: string;
   latitude: number;
   longitude: number;
   image_list: [];
-
 }
 export interface ReportDetailType {
-  organizedId:number;
+  organizedId: number;
   feature: string;
   title: string;
   petType: string;
   shows_phone: boolean;
-  descriptions:string;
+  descriptions: string;
   species: string;
   petName: string;
   roadAddress: string;
@@ -61,10 +60,9 @@ export interface ReportDetailType {
   longitude: number;
   status?: string;
   image_list: [];
-  createdAt:string,
+  createdAt: string;
   views: number;
-  phone:string;
-
+  phone: string;
 }
 export interface ReportDetailIdType {
   reportId: string;

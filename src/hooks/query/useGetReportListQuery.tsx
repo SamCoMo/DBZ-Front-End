@@ -1,4 +1,4 @@
-import { axiosAuth } from "@/apis";
+import { axiosAccess, axiosAuth } from "@/apis";
 
 import {
   ReportListDataType,
@@ -10,19 +10,20 @@ const fetchAPI = async (
   data: ReportListProps
 ): Promise<ReportListDataType[]> => {
   const {
-    curlatitude,
-    curlongitude,
-    lastlatitude,
-    lastlongitude,
+    curLatitude,
+    curLongitude,
+    lastLatitude,
+    lastLongitude,
     InProcessOnly,
   } = data;
-  const res = await axiosAuth.get("/report/list", {
+  const res = await axiosAccess.get("/report/list", {
     params: {
-      curlatitude,
-      curlongitude,
-      lastlatitude: lastlatitude || curlatitude,
-      lastlongitude: lastlongitude || curlongitude,
+      curLatitude,
+      curLongitude,
+      lastLatitude: lastLatitude || curLatitude,
+      lastLongitude: lastLongitude || curLongitude,
       showsInProcessOnly: InProcessOnly,
+      page: 0,
       size: 10,
     },
   });
@@ -38,24 +39,24 @@ const useGetReportListQuery = (params: ReportListProps) => {
     isLoading: reportListIsLoading,
     isFetching: reportListIsFetching,
   } = useInfiniteQuery({
-    queryKey: ["reports", params.curlatitude],
+    queryKey: ["reports", params.curLatitude],
     initialPageParam: {
-      lastlatitude: params.curlatitude,
-      lastlongitude: params.curlongitude,
+      lastLatitude: params.curLatitude,
+      lastLongitude: params.curLongitude,
     },
     queryFn: ({ pageParam }) =>
       fetchAPI({
         ...params,
-        lastlatitude: pageParam.lastlatitude,
-        lastlongitude: pageParam.lastlongitude,
+        lastLatitude: pageParam.lastLatitude,
+        lastLongitude: pageParam.lastLongitude,
       }),
-    getNextPageParam: (lastPage, allPages) => {
+    getNextPageParam: (lastPage) => {
       const lastPost = lastPage[lastPage.length - 1];
       return lastPage.length === 0
         ? undefined
         : {
-            lastlatitude: lastPost.latitude,
-            lastlongitude: lastPost.longitude,
+            lastLatitude: lastPost.latitude,
+            lastLongitude: lastPost.longitude,
           };
     },
     enabled: false,

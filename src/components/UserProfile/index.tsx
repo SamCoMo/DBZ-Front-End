@@ -73,7 +73,7 @@ const UserProfile = () => {
     <>
       <div className="mt-5 flex justify-center">
         <div className="avatar flex-col relative items-center">
-          {user?.profile_image_url ? (
+          {profileImgUrl ? (
             <div className="w-24 rounded-full">
               <img src={`${profileImgUrl}`} alt={user?.nickname} />
             </div>
