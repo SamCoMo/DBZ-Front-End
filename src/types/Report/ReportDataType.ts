@@ -47,6 +47,7 @@ export interface ReportDataType {
   image_list: [];
 }
 export interface ReportDetailType {
+  pinId: any;
   organizedId: number;
   feature: string;
   title: string;
@@ -75,6 +76,10 @@ export interface ReportPinDataType {
   latitude: number;
   longitude: number;
   pinImageDtoList: [];
+}
+export interface ReportPinRequestDataType {
+  reportId: number; // 보고서 ID
+  pinData: ReportPinDataType; // 핀 데이터
 }
 
 export interface ReportDeleteType {

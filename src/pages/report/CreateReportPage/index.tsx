@@ -170,7 +170,7 @@ const CreateReportPage = () => {
             type="text"
             placeholder="상세 견종/묘종 등을 입력해주세요"
             value={species}
-            handleChangeInput={handleSpeciesChange}
+            onChange={handleSpeciesChange}
           />
         </div>
         <div>

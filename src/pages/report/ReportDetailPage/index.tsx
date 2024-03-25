@@ -1,4 +1,3 @@
-import React from "react";
 import HeaderTitle from "@/components/common/HeaderTitle";
 import useGetReportDetailQuery from "@/hooks/query/useGetReportQuery";
 import { BsFillPinAngleFill, BsPhoneFill } from "react-icons/bs";
@@ -81,10 +80,10 @@ const ReportDetailPage = () => {
         </div>
       </div>
       <div className="flex align-middle mx-3 my-3">
-        <img
+        {/* <img
           className="w-14 h-14 rounded-full "
           src="/Users/pinn/Desktop/스크린샷 2024-03-15 오후 9.44.15.png"
-        />
+        /> */}
         <div className="mx-2">
           <p></p>
           <p>{reportDetail.createdAt}</p>
@@ -114,7 +113,7 @@ const ReportDetailPage = () => {
               lng: reportDetail.longitude,
             }}
             myPin={myPin}
-            otherPins={reportPinList ? reportPinList.pins : []}
+            otherPins={[]}
             onMarkerClick={handlePinClick}
           />
         </div>
