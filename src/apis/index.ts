@@ -1,8 +1,7 @@
 import axios from "axios";
 
-// export const BASE_URL =
-//   "http://ec2-43-201-206-210.ap-northeast-2.compute.amazonaws.com:8080";
-export const BASE_URL = "http://localhost:5173";
+export const BASE_URL = "https://www.samcomo.site";
+// export const BASE_URL = "http://localhost:5173";
 
 export const axiosDefault = axios.create({
   baseURL: BASE_URL,
@@ -13,6 +12,14 @@ export const axiosDefault = axios.create({
 });
 
 export const axiosAuth = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+});
+
+export const axiosAccess = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
@@ -33,13 +40,6 @@ axiosAuth.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-export const axiosAccess = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-  withCredentials: true,
-});
 
 // access-token 만료시 refresh-token 사용해서 재발급
 axiosAuth.interceptors.response.use(

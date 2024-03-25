@@ -16,8 +16,8 @@ const memberLogin = async (data: LoginDataType): Promise<LoginResponseType> => {
 
   return await axiosDefault.post("/member/login", formData, {
     headers: {
-      'Content-Type': 'multipart/form-data'
-    }
+      "Content-Type": "multipart/form-data",
+    },
   });
 };
 
@@ -34,16 +34,13 @@ const useLoginQuery = () => {
     mutationKey: ["login"],
     mutationFn: ({ email, password, fcmToken }: LoginDataType) =>
       memberLogin({ email, password, fcmToken }),
-    onSuccess: async (data) => {
+    onSuccess: (data) => {
       localStorage.setItem("Access-Token", data.headers["access-token"]);
-      const userInfo = await axiosAccess
-        .get("/member/my")
-        .then((res) => res.data);
       updateUser({
-        ...userInfo,
+        ...data.userInfo,
         isLogin: true,
       });
-      navigate("/home");
+      navigate("/home", { replace: true });
     },
     onError: (error) => console.log(error),
   });
