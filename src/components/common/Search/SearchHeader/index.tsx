@@ -51,7 +51,7 @@ const SearchBar = ({ object, showsInProgressOnly }: SearchProps) => {
           value={searchObject}
           addStyle="pr-5"
           placeholder="검색어를 입력해주세요"
-          handleChangeInput={(e) => handleChangeSearchObject(e.target.value)}
+          onChange={(e) => handleChangeSearchObject(e.target.value)}
         />
       </button>
       <button

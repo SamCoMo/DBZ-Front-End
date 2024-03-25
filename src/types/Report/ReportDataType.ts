@@ -45,7 +45,7 @@ export interface ReportDataType {
   latitude: number;
   longitude: number;
   image_list: [];
-  pinId:number;
+
 }
 export interface ReportDetailType {
   organizedId:number;

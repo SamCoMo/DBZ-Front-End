@@ -136,7 +136,7 @@ const CreateReportPage = () => {
         <img className='w-32 h-32 border rounded-lg' key={index} src={preview} alt={`${preview} ${index}`} />
       ))}
           
-            </div>
+        </div>
 </label>
         </div>
         <div>
@@ -170,7 +170,7 @@ const CreateReportPage = () => {
             type="text"
             placeholder="상세 견종/묘종 등을 입력해주세요"
             value={species}
-            onChange={handleSpeciesChange}
+            handleChangeInput={handleSpeciesChange}
           />
         </div>
         <div>

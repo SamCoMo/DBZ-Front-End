@@ -1,8 +1,7 @@
 import axios from "axios";
+// import { response } from "msw";
 
-// export const BASE_URL =
-//   "http://ec2-43-201-206-210.ap-northeast-2.compute.amazonaws.com:8080";
-export const BASE_URL = "http://localhost:5173";
+export const BASE_URL = "https://www.samcomo.site";
 
 export const axiosDefault = axios.create({
   baseURL: BASE_URL,
