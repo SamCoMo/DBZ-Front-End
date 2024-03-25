@@ -93,6 +93,6 @@ export const deleteReport = rest.delete(
 );
 //핀 파트
 
-export const postPin = rest.post("/reports/pin", async (_, res, ctx) =>
+export const postPin = rest.post("/pin?reportId={reportId}", async (_, res, ctx) =>
 res(ctx.status(200), ctx.json({ isReportRequest: true }))
 );

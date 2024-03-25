@@ -1,15 +1,14 @@
 import { axiosAuth } from "@/apis";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useToast from "../useToast";
-import { ReportPinDataType } from "@/types/Report/ReportDataType";
+import { ReportPinDataType, ReportPinRequestDataType } from "@/types/Report/ReportDataType";
 import { useNavigate } from "react-router-dom";
 
-
 const fetchAPI = async (
-  data: ReportPinDataType
+  data: ReportPinRequestDataType
 ): Promise<ReportPinDataType> => {
-  const res = await axiosAuth.post(`/reports/pin`, data);
-  return res.data;
+  const response = await axiosAuth.post(`/pin?reportId=${data.reportId}`, data.pinData);
+  return response.data;
 };
 
 const usePostReportPinQuery = () => {
@@ -22,8 +21,8 @@ const usePostReportPinQuery = () => {
     isError: pinIsError,
     isSuccess: pinIsSuccess,
   } = useMutation({
-    mutationKey: ["reportPin"],
-    mutationFn: (data: ReportPinDataType) => fetchAPI(data),
+      mutationKey: ['reportPin'],
+      mutationFn: (data: ReportPinRequestDataType) => fetchAPI(data),
     onSuccess: (_data) => {
       queryClient.invalidateQueries({ queryKey: ["pinList"] });
       toastSuccess("핀 게시물이 등록되었습니다.");
