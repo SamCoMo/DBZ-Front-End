@@ -37,7 +37,7 @@ const ReportList = (props: ReportListProps) => {
     reportListRefetch();
   }, [props.latitude, props.longitude, props.InProcessOnly]);
 
-  // if (reportListIsFetching) return <SkeletonReportList />;
+  if (reportListIsFetching) return <SkeletonReportList />;
 
   return (
     <>
