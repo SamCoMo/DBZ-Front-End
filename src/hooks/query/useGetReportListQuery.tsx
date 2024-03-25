@@ -27,7 +27,7 @@ const fetchAPI = async (
       size: 10,
     },
   });
-  return res.data.content;
+  return res.data;
 };
 
 const useGetReportListQuery = (params: ReportListProps) => {

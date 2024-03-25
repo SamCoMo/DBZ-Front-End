@@ -3,8 +3,8 @@ import { reportList } from "../../data";
 
 export const getReport = rest.get("/report/list", async (req, res, ctx) => {
   const size = Number(req.url.searchParams.get("size")) || 10;
-  const latitude = Number(req.url.searchParams.get("lastlatitude")) || 1;
-  const longitude = Number(req.url.searchParams.get("lastlongitude")) || 1;
+  const latitude = Number(req.url.searchParams.get("lastLatitude")) || 1;
+  const longitude = Number(req.url.searchParams.get("lastLongitude")) || 1;
   const showsInProcessOnly = req.url.searchParams.get("showsInProcessOnly");
 
   const currentIndex = reportList.findIndex(
@@ -80,19 +80,21 @@ export const deleteReport = rest.delete(
       return res(
         ctx.status(200),
         ctx.json({
-          isReportDelete: true
+          isReportDelete: true,
         })
       );
     }
     return res(
       ctx.json({
-        errorMessage: '해당 게시물이 없습니다.'
+        errorMessage: "해당 게시물이 없습니다.",
       })
     );
   }
 );
 //핀 파트
 
-export const postPin = rest.post("/pin?reportId={reportId}", async (_, res, ctx) =>
-res(ctx.status(200), ctx.json({ isReportRequest: true }))
+export const postPin = rest.post(
+  "/pin?reportId={reportId}",
+  async (_, res, ctx) =>
+    res(ctx.status(200), ctx.json({ isReportRequest: true }))
 );

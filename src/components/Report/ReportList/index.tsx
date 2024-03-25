@@ -37,7 +37,7 @@ const ReportList = (props: ReportListProps) => {
     reportListRefetch();
   }, [props.latitude, props.longitude, props.InProcessOnly]);
 
-  if (reportListIsFetching) return <SkeletonReportList />;
+  // if (reportListIsFetching) return <SkeletonReportList />;
 
   return (
     <>
@@ -45,6 +45,9 @@ const ReportList = (props: ReportListProps) => {
         page.map((list) => (
           <ReportItem
             key={list.reportId}
+            imageUrl={list.imageUrl}
+            roadAddress={list.roadAddress}
+            species={list.species}
             reportId={list.reportId}
             title={list.title}
             petName={list.petName}
