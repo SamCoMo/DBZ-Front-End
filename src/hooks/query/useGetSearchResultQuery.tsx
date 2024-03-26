@@ -39,7 +39,7 @@ const useGetSearchReportListQuery = (params: SearchReportListProps) => {
     isFetching: searchReportListIsFetching,
   } = useQuery({
     queryKey: ["reports", params.object],
-    queryFn: () =>
+    queryFn: ({}) =>
       fetchAPI({
         ...params,
       })});

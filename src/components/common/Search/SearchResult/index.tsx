@@ -1,6 +1,6 @@
+import useGetSearchReportListQuery from '@/hooks/query/useGetSearchResultQuery';
 import ReportList from '@/components/Report/ReportList';
 import SkeletonReportListItem from '../../Skeleton/SkeletonReportList/SkeletonReportListItem';
-import useGetSearchReportListQuery from '@/hooks/query/useGetSearchResultQuery';
 import ReportItem from '@/components/Report/ReportList/ReportItem';
 
 interface SearchResultListProps {

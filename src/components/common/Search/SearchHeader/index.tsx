@@ -18,7 +18,7 @@ const SearchBar = ({ searchObject }: SearchProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate(`/search?showsInProgressOnly=${showsInProgress}&${searchInput}`);
+    navigate(`/search?showsInProgressOnly=${handleChangeShowsInProgress}&object=${searchObject}&page=1&size=10`);
     console.log(searchObject);
   };
 
