@@ -2,12 +2,20 @@ import useGetReportListQuery from "@/hooks/query/useGetReportListQuery";
 import ReportItem from "./ReportItem";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import { useEffect } from "react";
+<<<<<<< Updated upstream
 import SkeletonReportList from "@/components/common/Skeleton/SkeletonReportList";
+=======
+// import SkeletonReportList from "@/components/common/Skeleton/SkeletonReportList";
+>>>>>>> Stashed changes
 
 type ReportListProps = {
   latitude: number | null;
   longitude: number | null;
   InProcessOnly: boolean;
+<<<<<<< Updated upstream
+=======
+  object?: string;
+>>>>>>> Stashed changes
 };
 
 const ReportList = (props: ReportListProps) => {
@@ -36,7 +44,7 @@ const ReportList = (props: ReportListProps) => {
     reportListRefetch();
   }, [props.latitude, props.longitude, props.InProcessOnly]);
 
-  if (reportListIsFetching) return <SkeletonReportList />;
+  // if (reportListIsFetching) return <SkeletonReportList />;
 
   return (
     <>
