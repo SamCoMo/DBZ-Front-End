@@ -3,15 +3,11 @@ import ReportItem from "./ReportItem";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import { useEffect } from "react";
 import SkeletonReportList from "@/components/common/Skeleton/SkeletonReportList";
-import { InfiniteData } from "@tanstack/react-query";
-import { ReportListDataType } from "@/types/Report/ReportDataType";
 
 type ReportListProps = {
-  latitude: number;
-  longitude: number;
+  latitude: number | null;
+  longitude: number | null;
   InProcessOnly: boolean;
-  lists: InfiniteData<ReportListDataType[], unknown>;
-  
 };
 
 const ReportList = (props: ReportListProps) => {
@@ -38,7 +34,7 @@ const ReportList = (props: ReportListProps) => {
 
   useEffect(() => {
     reportListRefetch();
-  }, [props.latitude, props.longitude, props.InProcessOnly, props.lists]);
+  }, [props.latitude, props.longitude, props.InProcessOnly]);
 
   if (reportListIsFetching) return <SkeletonReportList />;
 
