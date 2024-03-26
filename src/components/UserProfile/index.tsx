@@ -7,13 +7,14 @@ import usePutProfileImgEditQuery from "@/hooks/query/usePutProfileImgEditQuery";
 import usePostWithDrawQuery from "@/hooks/query/usePostWithDrawQuery";
 import { axiosAccess } from "@/apis";
 import useLocationState from "@/hooks/useLocationState";
+import DefaultProfile from "../common/DefaultProfile";
 
 const UserProfile = () => {
   const { user } = useUserProfileQuery();
   const { userState, updateUser } = useUserState();
   const [profileImgUrl, setProfileImgUrl] = useState<
     string | ArrayBuffer | null
-  >(user?.profile_image_url);
+  >(userState.profileImageUrl);
   const { profileImgEditMutate } = usePutProfileImgEditQuery();
   const { withDrawMutate } = usePostWithDrawQuery();
 
@@ -34,7 +35,7 @@ const UserProfile = () => {
 
     if (!file) return;
 
-    formData.append("profile_image_url", file);
+    formData.append("profileImage", file);
 
     // 이미지 미리보기 처리
     const reader = new FileReader();
@@ -73,12 +74,12 @@ const UserProfile = () => {
     <>
       <div className="mt-5 flex justify-center">
         <div className="avatar flex-col relative items-center">
-          {profileImgUrl ? (
+          {user?.profileImageUrl !== "defaultImageUrl.jpg" ? (
             <div className="w-24 rounded-full">
               <img src={`${profileImgUrl}`} alt={user?.nickname} />
             </div>
           ) : (
-            <div className="w-24 rounded-full bg-gray3"></div>
+            <DefaultProfile />
           )}
           <label
             htmlFor="profileImgEdit"
@@ -99,7 +100,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      {user?.profile_image_url && (
+      {user?.profileImageUrl && (
         <div className="mt-4 text-center text-sm text-gray-500">
           <button type="button" onClick={handleProfileImgDel}>
             프로필 사진 삭제하기
