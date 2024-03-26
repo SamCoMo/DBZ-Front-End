@@ -12,13 +12,13 @@ interface SearchProps {
 
 const SearchBar = ({ searchObject }: SearchProps) => {
   const navigate = useNavigate();
-  const [searchInput, setSearchInput] = useInput(searchObject || '');
-  // const [showsInProgress, handleChangeShowsInProgress] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const [showsInProgress, handleChangeShowsInProgress] = useState(false);
 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate(`/search/result?object=${searchObject}`);
+    navigate(`/search?showsInProgressOnly=${showsInProgress}&${searchInput}`);
     console.log(searchObject);
   };
 

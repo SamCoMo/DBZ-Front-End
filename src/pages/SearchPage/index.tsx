@@ -4,9 +4,7 @@ import SearchBar from '@/components/common/Search/SearchHeader';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-interface SearchProps {} 
-
-const SearchPage = ({}:SearchProps) => {
+const SearchPage = () => {
   const [inProcessOnly, setInProcessOnly] = useState<boolean>(false);
 
   const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +13,7 @@ const SearchPage = ({}:SearchProps) => {
   return (
     <div>
       <HeaderTitle title='검색' />
-      <SearchBar object=''/>
+      <SearchBar searchObject={''} />
       <div className="flex items-center">
             <p className="flex ml-auto mr-1 mt-2">진행중만 보기</p>
             <input
