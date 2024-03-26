@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsChevronLeft } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
@@ -6,28 +6,28 @@ import Input from '@/components/common/Input';
 import useInput from '@/hooks/useInput';
 
 interface SearchProps {
-  object:string;
-  showsInProgressOnly:boolean;
+  searchObject:string;
 
 }
 
-const SearchBar = ({ object, showsInProgressOnly }: SearchProps) => {
+const SearchBar = ({ searchObject }: SearchProps) => {
   const navigate = useNavigate();
-  const [searchObject, handleChangeSearchObject] = useInput(object || '');
-  const [showsInProgress, handleChangeShowsInProgress] = useState(false);
+  const [searchInput, setSearchInput] = useInput(searchObject || '');
+  // const [showsInProgress, handleChangeShowsInProgress] = useState(false);
 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate(`/search?showsInProgressOnly=${showsInProgressOnly}&object=${object}`);
+    navigate(`/search/result?object=${searchObject}`);
+    console.log(searchObject);
   };
 
   const handleBack = (back: boolean | null) => {
     if (back) {
       navigate(-1);
     }
-    if (!searchObject) return;
-    if (searchObject) navigate('/search');
+    if (!searchInput) return;
+    if (searchInput) navigate('/search');
   };
   
 
@@ -48,10 +48,10 @@ const SearchBar = ({ object, showsInProgressOnly }: SearchProps) => {
         <span className="sr-only">검색창으로 이동</span>
         <Input
           type="text"
-          value={searchObject}
+          value={searchInput}
           addStyle="pr-5"
           placeholder="검색어를 입력해주세요"
-          onChange={(e) => handleChangeSearchObject(e.target.value)}
+          onChange={(e) => setSearchInput(e.target.value)}
         />
       </button>
       <button
@@ -62,6 +62,7 @@ const SearchBar = ({ object, showsInProgressOnly }: SearchProps) => {
         <span className="sr-only">검색하기</span>{' '}
         <BsSearch className="text-2xl text-defaultColor"/>
       </button>
+      
     </form>
   );
 };

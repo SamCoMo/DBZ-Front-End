@@ -9,6 +9,7 @@ import { ReportDataType } from "@/types/Report/ReportDataType";
 import SelectSpecies from "@/components/common/Select/SelectOptions";
 import { useNavigate } from "react-router-dom";
 import useUserState from "@/hooks/useUserState";
+import ImageUpload from "@/components/common/ImageUpload";
 
 
 const CreateReportPage = () => {
@@ -18,7 +19,7 @@ const CreateReportPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState<File[]>([]);
-  const [previews, setPreviews] = useState<string[]>();
+  const [previews, setPreviews] = useState<string[]>([]);
   const [petType, setPetType] = useState("");
   const [species, setSpecies] = useState("");
   const [petName, setPetName] = useState("");
@@ -41,16 +42,13 @@ const CreateReportPage = () => {
   const handlePetNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPetName(event.target.value);
   };
-
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]; // Get the first selected file
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setPreviews([e.target!.result as string]); // Set preview
-      };
-      reader.readAsDataURL(file);
-      setImages([file]); // Set images
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const fileList = event.target.files;
+    if (fileList) {
+      const fileArray = Array.from(fileList);
+      setImages(fileArray);
+      const previewsArray = fileArray.map(file => URL.createObjectURL(file));
+      setPreviews(previewsArray);
     }
   };
   const handleContentChange = (
@@ -75,6 +73,20 @@ const CreateReportPage = () => {
   };
   const handleSubmit =(e: FormEvent) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("petType", petType);
+    formData.append("showsPhone", showsPhone.toString());
+    formData.append("species", species);
+    formData.append("petName", petName);
+    formData.append("descriptions", content);
+    formData.append("roadAddress", reportAddress.address);
+    formData.append("latitude", reportAddress.latitude.toString());
+    formData.append("longitude", reportAddress.longitude.toString());
+    images.forEach((image, index) => {
+      formData.append(`imageList[${index}]`, image);
+    });
+
     const reportData: ReportDataType = {
       title: title,
       petType: petType,
@@ -86,13 +98,12 @@ const CreateReportPage = () => {
       latitude: reportAddress.latitude,
       longitude: reportAddress.longitude,
       imageList: images,
-
     };
+
     reportIsMutate(reportData);
     navigate("/home");
     console.log(reportData);
-
-  };  
+  };
 
   useEffect(() => {
     if (title && petType && showsPhone&&species&&petName&&content&&reportAddress) {
@@ -107,20 +118,22 @@ const CreateReportPage = () => {
       <HeaderTitle title="게시글 작성" />
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="images" className="inline-block">
-            <div className="w-32 h-32 border rounded-lg flex items-center justify-center cursor-pointer">
-              <BsCameraFill className="text-defaultColor" />            
-              <input
-              className="hidden"
-              type="file"
-              id="images"
-              accept="image/*"
-              onChange={handleImageChange}
-            />        
-        <img className='w-32 h-32 border rounded-lg'src={previews} alt={`${previews}`} />
-          
-        </div>
+        <label htmlFor="images" className="inline-block">
+  <div className="w-32 h-32 border rounded-lg flex items-center justify-center cursor-pointer relative">                 
+    <input
+      className="hidden"
+      type="file"
+      id="images"
+      accept="image/*"
+      onChange={handleImageChange}
+    />      
+    {previews.length === 0 && <BsCameraFill className="text-defaultColor" />}  
+    {previews.map((preview, index) => (
+      <img className='w-32 h-32 border rounded-lg' key={index} src={preview} alt={`${preview} ${index}`} />
+    ))}         
+  </div>
 </label>
+
         </div>
         <div>
           <p className="my-3">제목</p>
