@@ -37,35 +37,22 @@ const ReportList = (props: ReportListProps) => {
     reportListRefetch();
   }, [props.latitude, props.longitude, props.InProcessOnly]);
 
-  // if (reportListIsFetching) return <SkeletonReportList />;
+  if (reportListIsFetching) return <SkeletonReportList />;
 
   return (
     <>
-      {reportListData?.pages.map((page) =>
-        page.map((list) => (
-          <ReportItem
-            key={list.reportId}
-            imageUrl={list.imageUrl}
-            roadAddress={list.roadAddress}
-            species={list.species}
-            reportId={list.reportId}
-            title={list.title}
-            petName={list.petName}
-            reportStatus={list.reportStatus}
-          ></ReportItem>
-        ))
-      )}
-      {/* {reportListData?.pages.map((page) =>
-        page.map((list) => (
-          <ReportItem
-            key={list.reportId}
-            reportId={list.reportId}
-            title={list.title}
-            petName={list.petName}
-            reportStatus={list.reportStatus}
-          ></ReportItem>
-        ))
-      )} */}
+      {reportListData?.pages[0].content.map((list) => (
+        <ReportItem
+          key={list.reportId}
+          imageUrl={list.imageUrl}
+          roadAddress={list.roadAddress}
+          species={list.species}
+          reportId={list.reportId}
+          title={list.title}
+          petName={list.petName}
+          reportStatus={list.reportStatus}
+        ></ReportItem>
+      ))}
       {bottomDiv()}
     </>
   );

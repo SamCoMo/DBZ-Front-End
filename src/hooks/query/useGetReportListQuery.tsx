@@ -1,4 +1,4 @@
-import { axiosAccess, axiosAuth } from "@/apis";
+import { axiosAccess } from "@/apis";
 
 import {
   ReportListDataType,
@@ -6,9 +6,7 @@ import {
 } from "@/types/Report/ReportDataType";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-const fetchAPI = async (
-  data: ReportListProps
-): Promise<ReportListDataType[]> => {
+const fetchAPI = async (data: ReportListProps): Promise<ReportListDataType> => {
   const {
     curLatitude,
     curLongitude,
@@ -51,8 +49,8 @@ const useGetReportListQuery = (params: ReportListProps) => {
         lastLongitude: pageParam.lastLongitude,
       }),
     getNextPageParam: (lastPage) => {
-      const lastPost = lastPage[lastPage.length - 1];
-      return lastPage.length === 0
+      const lastPost = lastPage.content[lastPage.content.length - 1];
+      return lastPage.last
         ? undefined
         : {
             lastLatitude: lastPost.latitude,

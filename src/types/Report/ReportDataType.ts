@@ -17,20 +17,23 @@ export interface ReportListProps {
 }
 
 export interface ReportListDataType {
-  reportId: number;
-  memberId: number;
-  title: string;
-  petName: string;
-  petType: string;
-  species: string;
-  streetAddress: string;
-  roadAddress: string;
-  latitude: number;
-  longitude: number;
-  imageUrl: string;
-  reportStatus: string;
-  createdAt: string;
-  updatedAt: string;
+  content: {
+    reportId: number;
+    memberId: number;
+    title: string;
+    petName: string;
+    petType: string;
+    species: string;
+    streetAddress: string;
+    roadAddress: string;
+    latitude: number;
+    longitude: number;
+    imageUrl: string;
+    reportStatus: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  last: boolean;
 }
 
 export interface ReportDataType {
