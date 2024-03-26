@@ -17,6 +17,7 @@ import MainPage from "./pages/MainPage";
 import "./firebase/firebaseConfig";
 import AlarmPage from "./pages/AlarmPage";
 import SearchPage from "./pages/SearchPage";
+import SearchResultPage from "./pages/SearchPage/SearchResultPage";
 
 interface AppProps {
   children?: React.ReactNode;
@@ -41,6 +42,8 @@ const App = ({ children }: AppProps) => (
             <Route path="/report" element={<CreateReportPage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/search/result" element={<SearchResultPage />} />
+
           <Route element={<ProtectedRoute />}>
           </Route>
           {/* 404 처리 */}
