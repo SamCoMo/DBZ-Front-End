@@ -8,7 +8,7 @@ export const reportList = [
     petType: "DOG",
     species: "단모치와와",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 월드컵로 164",
     latitude: 37.58225,
     longitude: 127.00211,
     imageUrl:
@@ -25,7 +25,7 @@ export const reportList = [
     petType: "DOG",
     species: "포메라니안",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 월드컵로179번길",
     latitude: 37.58226,
     longitude: 127.00212,
     imageUrl:
@@ -42,7 +42,7 @@ export const reportList = [
     petType: "DOG",
     species: "슈나우저",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 동수원로537번길",
     latitude: 37.58275,
     longitude: 127.00311,
     imageUrl:
@@ -59,7 +59,7 @@ export const reportList = [
     petType: "DOG",
     species: "말티즈",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 중부대로 314",
     latitude: 37.58025,
     longitude: 127.20211,
     imageUrl:
@@ -76,7 +76,7 @@ export const reportList = [
     petType: "DOG",
     species: "푸들",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 중부대로 339",
     latitude: 37.58255,
     longitude: 127.00911,
     imageUrl:
@@ -93,7 +93,7 @@ export const reportList = [
     petType: "DOG",
     species: "먼치킨",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 매봉로27번길",
     latitude: 37.58229,
     longitude: 127.00241,
     imageUrl:
@@ -110,7 +110,7 @@ export const reportList = [
     petType: "DOG",
     species: "브리티시 숏헤어",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 매탄동",
     latitude: 37.58195,
     longitude: 127.09211,
     imageUrl:
@@ -127,7 +127,7 @@ export const reportList = [
     petType: "DOG",
     species: "포메라니안",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 광교호수공원로 20",
     latitude: 37.53225,
     longitude: 127.00248,
     imageUrl:
@@ -144,7 +144,7 @@ export const reportList = [
     petType: "DOG",
     species: "푸들",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 광교호수공원로 80",
     latitude: 37.58475,
     longitude: 127.29211,
     imageUrl:
@@ -161,7 +161,7 @@ export const reportList = [
     petType: "DOG",
     species: "말티즈",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "용인시 기흥구 흥덕1로 43",
     latitude: 37.58249,
     longitude: 127.19211,
     imageUrl:
@@ -178,7 +178,7 @@ export const reportList = [
     petType: "DOG",
     species: "요크셔테리어",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 광교호수공원로 277",
     latitude: 37.58247,
     longitude: 127.00281,
     imageUrl:
@@ -195,7 +195,7 @@ export const reportList = [
     petType: "DOG",
     species: "시바견",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 센트럴타운로",
     latitude: 37.51825,
     longitude: 127.09111,
     imageUrl:
@@ -212,7 +212,7 @@ export const reportList = [
     petType: "DOG",
     species: "웰시코기",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 광교로 145",
     latitude: 37.58295,
     longitude: 127.03811,
     imageUrl:
@@ -229,7 +229,7 @@ export const reportList = [
     petType: "DOG",
     species: "골든 리트리버",
     streetAddress: "string",
-    roadAddress: "string",
+    roadAddress: "수원시 영통구 대학로 46",
     latitude: 37.53825,
     longitude: 127.05821,
     imageUrl:
