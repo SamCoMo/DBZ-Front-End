@@ -26,8 +26,3 @@ export async function requestPermission() {
 }
 
 const { toastSuccess } = useToast();
-
-onMessage(messaging, (payload) => {
-  toastSuccess(payload.notification?.body);
-  console.log("Message received. ", payload);
-});
