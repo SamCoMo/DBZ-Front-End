@@ -98,7 +98,7 @@ axiosAccess.interceptors.response.use(
         const newACToken = res.headers["access-token"];
         localStorage.setItem("Access-Token", newACToken);
 
-        req.headers.Authorization = `Bearer ${newACToken}`;
+        req.headers["Access-Token"] = `${newACToken}`;
         return await axios(req);
       } catch (err) {
         alert("로그인을 다시 진행해주세요.");
