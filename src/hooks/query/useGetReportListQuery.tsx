@@ -25,7 +25,7 @@ const fetchAPI = async (data: ReportListProps): Promise<ReportListDataType> => {
       size: 10,
     },
   });
-  return res.data.content;
+  return res.data;
 };
 
 const useGetReportListQuery = (params: ReportListProps) => {

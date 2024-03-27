@@ -1,4 +1,4 @@
-import { axiosAuth } from "@/apis";
+import { axiosAccess } from "@/apis";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useToast from "../useToast";
 import { ReportPinDataType, ReportPinRequestDataType } from "@/types/Report/ReportDataType";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const fetchAPI = async (
   data: ReportPinRequestDataType
 ): Promise<ReportPinDataType> => {
-  const response = await axiosAuth.post(`/pin?reportId=${data.reportId}`, data.pinData);
+  const response = await axiosAccess.post(`/pin?reportId=${data.reportId}`, data.pinData);
   return response.data;
 };
 
