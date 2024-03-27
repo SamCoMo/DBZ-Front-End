@@ -2,24 +2,26 @@ import HeaderTitle from "@/components/common/HeaderTitle";
 import useGetReportDetailQuery from "@/hooks/query/useGetReportQuery";
 import { BsFillPinAngleFill, BsPhoneFill } from "react-icons/bs";
 import ReportDetailKakaoMap from "@/components/common/KakaoMap/ReportDetailMap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useUserState from "@/hooks/useUserState";
 import ModalInSelectEdit from "@/components/Report/ModalInSelectEdit";
-import useGetReportPinListQuery from "@/hooks/query/useGetReportPinsQuery";
+// import useGetReportPinListQuery from "@/hooks/query/useGetReportPinsQuery";
 import useGetReportPinDetailQuery from "@/hooks/query/useGetReportPinDetailQuery";
 
 const ReportDetailPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const reportId = Number(id);
+
   
   // 상세 정보를 가져오는 훅 사용
   const { reportDetail } = useGetReportDetailQuery(reportId);
-  
+  const [date, time] = (reportDetail?.createdAt ?? '').split('T');  
   // 현재 사용자 정보 가져오기
   const { userState } = useUserState();
 
-  // 핀 리스트 쿼리 사용
-  const { reportPinList } = useGetReportPinListQuery(reportId);
+
+
 
   // 각 핀에 대한 클릭 이벤트 핸들러
   const handlePinClick = async (pinId: number) => {
@@ -27,36 +29,45 @@ const ReportDetailPage = () => {
     const { reportPinDetail } = await useGetReportPinDetailQuery(reportId, pinId);
     
     // reportPinDetail을 활용하여 인포윈도우 표시
-    if (reportPinDetail) {
+    if (reportPinDetail && Map) {
       // 인포윈도우 내용 설정
-      const content = `
-        <div className = "w-36 h-9 rounded">
-          <h3>${reportPinDetail.address}</h3>
-          <p>${reportPinDetail.foundAt}</p>
-          <img src="${reportPinDetail.pinImageDtoList}" alt="Report Image" />
+      const content = (
+        <div className="w-36 h-9 rounded">
+          <h3>{reportPinDetail.roadAddress}</h3>
+          <p>{reportPinDetail.foundAt}</p>
+          <img src={reportPinDetail.imageUrl} alt="Report Image" />
         </div>
-      `;
+      );
       
-      // 인포윈도우 생성
-      const infoWindow = new window.kakao.maps.InfoWindow({
-        content: content,
+      // 마커를 생성합니다
+      const marker = new window.kakao.maps.Marker({
+        position: new window.kakao.maps.LatLng(reportPinDetail.latitude, reportPinDetail.longitude),
+        map: Map,
       });
   
-      // 해당 핀의 위치로 인포윈도우를 표시합니다.
-      infoWindow.open();
+      // 인포윈도우를 생성합니다
+      const infowindow = new window.kakao.maps.InfoWindow({
+        content: content,
+      });
+    
+      // 마커를 클릭했을 때 인포윈도우를 표시합니다.
+      window.kakao.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(Map, marker);
+      });
     }
   };
-
+  
   if (!reportDetail) {
     return <div>No report detail available.</div>;
   }
   
-  const myPin = {
-    lat: reportDetail.latitude,
-    lng: reportDetail.longitude,
-    pinId: reportDetail.pinId,
-  };
 
+const handleClickPinBtn =() => {
+  navigate(`/pin?reportId=${reportId}`)
+}
+const handleClickChatBtn =() => {
+  navigate(`/chat/room`)
+}
   return (
     <div>
       <div className="flex justify-center">
@@ -65,10 +76,10 @@ const ReportDetailPage = () => {
           <ModalInSelectEdit />
         )}
       </div>
-      <div className="w-full h-80 carousel align-center mx-auto flex ">
-        <div className="carousel align-center mx-auto flex">
-          {reportDetail.image_list &&
-            reportDetail.image_list.map((imageUrl, index) => (
+      <div className="w-full h-80 align-center mx-auto flex ">
+        {/* <div className="carousel align-center mx-auto flex">
+          {reportDetail.imageList &&
+            reportDetail.imageList.map((imageUrl, index) => (
               <div className="carousel-item w-full" key={index}>
                 <img
                   src={imageUrl}
@@ -77,16 +88,17 @@ const ReportDetailPage = () => {
                 />
               </div>
             ))}
-        </div>
+        </div> */}
+      <img src={reportDetail.imageUrl} alt="Report Image" className="w-full" />
       </div>
       <div className="flex align-middle mx-3 my-3">
-        {/* <img
+        <img
           className="w-14 h-14 rounded-full "
-          src="/Users/pinn/Desktop/스크린샷 2024-03-15 오후 9.44.15.png"
-        /> */}
+          src={''}
+        />
         <div className="mx-2">
           <p></p>
-          <p>{reportDetail.createdAt}</p>
+          <p>📌 {date}&nbsp;&nbsp;{time.slice(0, -10)}</p>
         </div>
         <div className="ml-56 flex justify-end">
           <span>{reportDetail.views}</span>
@@ -112,9 +124,10 @@ const ReportDetailPage = () => {
               lat: reportDetail.latitude,
               lng: reportDetail.longitude,
             }}
-            myPin={myPin}
-            otherPins={[]}
-            onMarkerClick={handlePinClick}
+              reportId={reportDetail.reportId}
+              onMarkerClick={handlePinClick}
+            // otherPins={[]}
+            // onMarkerClick={handlePinClick}
           />
         </div>
         <hr className="w-full border bg-gray-200" />
@@ -127,8 +140,8 @@ const ReportDetailPage = () => {
         <div className="my-2">{reportDetail.descriptions}</div>
       </div>
       <div className="flex justify-evenly">
-        <button className="btn w-36 bg-defaultColor text-white">핀 찍기</button>
-        <button className="btn w-36 bg-defaultColor text-white">
+        <button className="btn w-36 bg-defaultColor text-white" onClick={handleClickPinBtn}>핀 찍기</button>
+        <button className="btn w-36 bg-defaultColor text-white"onClick={handleClickChatBtn}>
           채팅하기
         </button>
       </div>

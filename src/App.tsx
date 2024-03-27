@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import InnerCon from "./components/common/InnerCon";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -10,15 +10,13 @@ import CreateReportPage from "./pages/report/CreateReportPage";
 import SignupPage from "./pages/SignupPage";
 import ReportDetailPage from "./pages/report/ReportDetailPage";
 import ReportEditPage from "./pages/report/ReportEditPage";
-import PinPage from "./pages/report/Pinpage";
 import ProtectedRoute from "./ProtectedRoute";
 import MyPage from "./pages/MyPage";
 import MainPage from "./pages/MainPage";
 import "./firebase/firebaseConfig";
 import AlarmPage from "./pages/AlarmPage";
 import SearchPage from "./pages/SearchPage";
-import SearchResultPage from "./pages/SearchPage/SearchResultPage";
-// import SearchResultPage from "./pages/SearchPage/SearchResultPage";
+import CreatePinPage from "./pages/report/Pinpage";
 
 interface AppProps {
   children?: React.ReactNode;
@@ -36,19 +34,14 @@ const App = ({ children }: AppProps) => (
             <Route path="create" element={<CreateReportPage />} />
             <Route path=":id" element={<ReportDetailPage />} />
             <Route path=":id/edit" element={<ReportEditPage />} />
-            <Route path=":id/pin" element={<PinPage />} />
+            <Route path=":id/pin" element={<CreatePinPage />} />
           </Route>
-          <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<HomePage />} />
             <Route path="/alarm" element={<AlarmPage />} />
-            {/* <Route path="/report" element={<CreateReportPage />} /> */}
+            <Route path="/report" element={<CreateReportPage />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/search" element={<SearchPage />}>
-              <Route
-                path=":object/:InProcessOnly/:page"
-                element={<SearchResultPage />}
-              />
-            </Route>
+            <Route path="/search" element={<SearchPage />} />
+          <Route element={<ProtectedRoute />}>
           </Route>
           {/* 404 처리 */}
           {/* <Route path="*" element={<NotFound />}></Route> */}
