@@ -1,5 +1,6 @@
 interface AlarmItemProps {
-  body: string;
+  type: string;
+  message: string;
 }
 
 const AlarmItem = (data: AlarmItemProps) => {
@@ -12,7 +13,7 @@ const AlarmItem = (data: AlarmItemProps) => {
             className="rounded-full object-cover"
           ></img>
         </div>
-        <p className="flex-1 ml-4">{data.body}</p>
+        <p className="flex-1 ml-4">{data.message}</p>
       </div>
     </>
   );
