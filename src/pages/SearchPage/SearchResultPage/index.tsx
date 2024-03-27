@@ -1,21 +1,19 @@
-import { useSearchParams } from 'react-router-dom';
-import SearchBar from '@/components/common/Search/SearchHeader';
-import SearchResultList from '@/components/common/Search/SearchResult';
-import DataNull from '@/components/common/DataNull';
+import { useParams } from "react-router-dom";
+import SearchPage from "..";
+import SearchList from "@/components/common/Search/SearchList";
 
 const SearchResultPage = () => {
-  const [query] = useSearchParams();
-  const searchObject = query.get('searchObject');
+  const { object, InProcessOnly, page } = useParams();
+
+  let booleanValue = InProcessOnly === "false";
 
   return (
     <>
-      <SearchBar searchObject={searchObject || ''} />
-      {searchObject ? (
-        <SearchResultList searchObject={searchObject} />
-      ) : (
-        <DataNull text="검색결과가 없습니다." />
-      )}
+      <div className="mt-4">
+        <SearchList object={object} InProcessOnly={booleanValue} page={0} />
+      </div>
     </>
   );
 };
+
 export default SearchResultPage;
