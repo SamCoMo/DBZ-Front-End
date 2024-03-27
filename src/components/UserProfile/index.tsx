@@ -100,7 +100,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      {user?.profileImageUrl && (
+      {user?.profileImageUrl !== "defaultImageUrl.jpg" && (
         <div className="mt-4 text-center text-sm text-gray-500">
           <button type="button" onClick={handleProfileImgDel}>
             프로필 사진 삭제하기

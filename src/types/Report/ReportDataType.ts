@@ -33,7 +33,7 @@ export interface ReportListDataType {
     createdAt: string;
     updatedAt: string;
   }[];
-  last: boolean;
+  last?: boolean;
 }
 
 // export interface ReportDataType {
