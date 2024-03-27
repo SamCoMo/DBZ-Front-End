@@ -71,7 +71,7 @@ const ReportDetailKakaoMap: React.FC<Props> = ({ center, reportId, onMarkerClick
     setMarkers(newMarkers);
   }, [map, reportPinList, reportPinListIsLoading, onMarkerClick]);
   
-  return <div ref={mapRef} style={{ width: "100%", height: "250px" }} />;
+  return <div ref={mapRef} style={{ width: "100%", height: "250px" }}/>;
 };
 
 export default ReportDetailKakaoMap;

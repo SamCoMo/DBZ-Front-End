@@ -3,13 +3,16 @@ import HeaderTitle from "@/components/common/HeaderTitle";
 import ReportKakaoMap from "@/components/common/KakaoMap/ReportMap";
 import usePostReportPinQuery from "@/hooks/query/usePostReportPinQuery";
 import { ReportPinDataType } from "@/types/Report/ReportDataType";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { BsCameraFill } from "react-icons/bs";
+import { useParams } from "react-router-dom";
 
 
 
 const CreatePinPage = () => {
-  const { pinIsMutate } = usePostReportPinQuery();
+  const { id } = useParams();
+  const reportId = Number(id);
+  const { pinIsMutate } = usePostReportPinQuery(reportId);
   const [images, setImages] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [allCheck, setAllCheck] = useState<boolean>(false);
@@ -35,26 +38,27 @@ const CreatePinPage = () => {
   ) => {
     setContent(event.target.value);
   };
-  const handleMarkerClick = (lat: number, lng: number) => {
+  const handleMarkerClick = (lat: number, lng: number, address: string) => {
     setReportAddress({
-      ...reportAddress,
+      address: address,
       latitude: lat,
       longitude: lng,
     });
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     const reportPinData: ReportPinDataType = {
-      roadAddress: reportAddress.address,
+      address: reportAddress.address,
       latitude: reportAddress.latitude,
       longitude: reportAddress.longitude,
-      pinImageDtoList: [],
-      foundAt: "",
+      multipartFileList: images,
+      descriptions: content,
     };
 
     // 훅을 사용하여 핀 생성 요청
     pinIsMutate(reportPinData);  
+    console.log(reportPinData);
   };
   useEffect(() => {
     if (content) {

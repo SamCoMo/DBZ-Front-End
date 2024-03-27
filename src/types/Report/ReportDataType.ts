@@ -75,7 +75,7 @@ export interface ReportDetailType {
   longitude: number;
   reportStatus: string;
   imageUrl:string;
-  imageList: [];
+  imageList:File[];
   createdAt: string;
   views: number;
   phone: string;
@@ -85,13 +85,15 @@ export interface ReportDetailIdType {
 }
 
 export interface ReportPinDataType {
-  // reportId?:number;
-  foundAt: string;
-  roadAddress: string;
+  descriptions: string;
+  reportId?:number;
+  foundAt?: string;
+  address: string;
   latitude: number;
   longitude: number;
   imageUrl?:string;
-  pinImageDtoList: [];
+  multipartFileList:File[];
+  
 }
 export interface ReportPinRequestDataType {
   reportId: number; // 보고서 ID

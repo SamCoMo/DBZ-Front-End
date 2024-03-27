@@ -33,8 +33,9 @@ const ReportDetailPage = () => {
       // 인포윈도우 내용 설정
       const content = (
         <div className="w-36 h-9 rounded">
-          <h3>{reportPinDetail.roadAddress}</h3>
+          <h3>{reportPinDetail.address}</h3>
           <p>{reportPinDetail.foundAt}</p>
+          <p>{reportDetail?.descriptions}</p>
           <img src={reportPinDetail.imageUrl} alt="Report Image" />
         </div>
       );
