@@ -48,6 +48,7 @@ export interface ReportDefaultDataType {
   imageList: File[];
 }
 export interface ReportDataType {
+  map?: any;
   title: string;
   petType: string;
   showsPhone: boolean;
@@ -57,9 +58,11 @@ export interface ReportDataType {
   roadAddress: string;
   latitude: number;
   longitude: number;
+  imageUrl?:string;
   imageList: File[];
 }
 export interface ReportDetailType {
+  reportId:number;
   organizedId: number;
   title: string;
   petType: string;
@@ -71,6 +74,7 @@ export interface ReportDetailType {
   latitude: number;
   longitude: number;
   reportStatus: string;
+  imageUrl:string;
   imageList: [];
   createdAt: string;
   views: number;
@@ -81,11 +85,12 @@ export interface ReportDetailIdType {
 }
 
 export interface ReportPinDataType {
-  pinId: number;
+  // reportId?:number;
   foundAt: string;
-  address: string;
+  roadAddress: string;
   latitude: number;
   longitude: number;
+  imageUrl?:string;
   pinImageDtoList: [];
 }
 export interface ReportPinRequestDataType {
