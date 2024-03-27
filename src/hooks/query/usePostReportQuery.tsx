@@ -6,25 +6,22 @@ import { ReportDataType,ReportDetailIdType } from "@/types/Report/ReportDataType
 
 const fetchAPI = async (data: ReportDataType): Promise<ReportDetailIdType> => {
 
-  const {title, petName, petType, showsPhone, descriptions, species, roadAddress, latitude,longitude, imageList} = data;
+  const {title, petName, petType, showsPhone, descriptions, species, roadAddress, latitude,longitude,imageList} = data;
 
   const formData = new FormData();
-
-  formData.append('title', title);
-  formData.append('petName', petName);
-  formData.append('petType', petType);
-  formData.append('showsPhone', showsPhone.toString());
-  formData.append('descriptions', descriptions);
-  formData.append('species', species);
-  formData.append('roadAddress', roadAddress);
-  formData.append('latitude', latitude.toString());
-  formData.append('longitude', longitude.toString());
-  formData.append('imageList', imageList.toString());
-
-
-
-
-
+  formData.append("title", title);
+  formData.append("petType", petType);
+  formData.append("showsPhone", showsPhone.toString());
+  formData.append("species", species);
+  formData.append("petName", petName);
+  formData.append("descriptions", descriptions);
+  formData.append("roadAddress", roadAddress);
+  formData.append("latitude",latitude.toString());
+  formData.append("longitude",longitude.toString());
+  // formData.append("imageList",imageList[0]);
+  imageList.forEach((image, index) => {
+    formData.append("imageList", image);
+});
   return await axiosAccess.post("/report", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -44,7 +41,7 @@ const usePostCreateReportQuery = () => {
     isSuccess: reportIsSuccess,
   } = useMutation({
     mutationKey: ["report"],
-    mutationFn: (data: ReportDetailType) => fetchAPI(data),
+    mutationFn: (formdata: ReportDataType) => fetchAPI(formdata),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["report"] });
       toastSuccess("게시글이 등록되었습니다.");

@@ -35,22 +35,30 @@ export interface ReportListDataType {
   }[];
   last?: boolean;
 }
-
-// export interface ReportDataType {
-//   imageUrl: string;
-//   reportStatus: string;
-//   reportId: number;
-//   title: string;
-//   petType: string;
-//   showsPhone: boolean;
-//   species: string;
-//   petName: string;
-//   descriptions: string;
-//   roadAddress: string;
-//   latitude: number;
-//   longitude: number;
-//   imageList: File[];
-// }
+export interface ReportDefaultDataType {
+  title: string;
+  petType: string;
+  showsPhone: boolean;
+  species: string;
+  petName: string;
+  descriptions: string;
+  roadAddress: string;
+  latitude: number;
+  longitude: number;
+  imageList: File[];
+}
+export interface ReportDataType {
+  title: string;
+  petType: string;
+  showsPhone: boolean;
+  species: string;
+  petName: string;
+  descriptions: string;
+  roadAddress: string;
+  latitude: number;
+  longitude: number;
+  imageList: File[];
+}
 export interface ReportDetailType {
   organizedId: number;
   title: string;

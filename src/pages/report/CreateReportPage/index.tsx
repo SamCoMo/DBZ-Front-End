@@ -9,7 +9,7 @@ import { ReportDataType } from "@/types/Report/ReportDataType";
 import SelectSpecies from "@/components/common/Select/SelectOptions";
 import { useNavigate } from "react-router-dom";
 import useUserState from "@/hooks/useUserState";
-import ImageUpload from "@/components/common/ImageUpload";
+
 
 
 const CreateReportPage = () => {
@@ -73,19 +73,6 @@ const CreateReportPage = () => {
   };
   const handleSubmit =(e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("petType", petType);
-    formData.append("showsPhone", showsPhone.toString());
-    formData.append("species", species);
-    formData.append("petName", petName);
-    formData.append("descriptions", content);
-    formData.append("roadAddress", reportAddress.address);
-    formData.append("latitude", reportAddress.latitude.toString());
-    formData.append("longitude", reportAddress.longitude.toString());
-    images.forEach((image, index) => {
-      formData.append(`imageList[${index}]`, image);
-    });
 
     const reportData: ReportDataType = {
       title: title,
@@ -125,6 +112,7 @@ const CreateReportPage = () => {
       type="file"
       id="images"
       accept="image/*"
+      multiple
       onChange={handleImageChange}
     />      
     {previews.length === 0 && <BsCameraFill className="text-defaultColor" />}  
