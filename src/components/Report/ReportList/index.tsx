@@ -40,18 +40,20 @@ const ReportList = (props: ReportListProps) => {
 
   return (
     <>
-      {reportListData?.pages[0].content.map((list) => (
-        <ReportItem
-          key={list.reportId}
-          imageUrl={list.imageUrl}
-          roadAddress={list.roadAddress}
-          species={list.species}
-          reportId={list.reportId}
-          title={list.title}
-          petName={list.petName}
-          reportStatus={list.reportStatus}
-        ></ReportItem>
-      ))}
+      {reportListData?.pages.map((page) =>
+        page.content.map((item) => (
+          <ReportItem
+            key={item.reportId}
+            imageUrl={item.imageUrl}
+            roadAddress={item.roadAddress}
+            species={item.species}
+            reportId={item.reportId}
+            title={item.title}
+            petName={item.petName}
+            reportStatus={item.reportStatus}
+          ></ReportItem>
+        ))
+      )}
       {bottomDiv()}
     </>
   );
