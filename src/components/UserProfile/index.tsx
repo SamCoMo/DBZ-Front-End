@@ -74,7 +74,7 @@ const UserProfile = () => {
     <>
       <div className="mt-5 flex justify-center">
         <div className="avatar flex-col relative items-center">
-          {user?.profileImageUrl !== "defaultImageUrl.jpg" ? (
+          {user?.profileImageUrl ? (
             <div className="w-24 rounded-full">
               <img src={`${profileImgUrl}`} alt={user?.nickname} />
             </div>
@@ -100,7 +100,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      {user?.profileImageUrl !== "defaultImageUrl.jpg" && (
+      {user?.profileImageUrl && (
         <div className="mt-4 text-center text-sm text-gray-500">
           <button type="button" onClick={handleProfileImgDel}>
             프로필 사진 삭제하기
