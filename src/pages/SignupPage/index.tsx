@@ -4,7 +4,9 @@ import Input from "@/components/common/Input";
 import Logo from "@/components/common/Logo";
 import useSignupQuery from "@/hooks/query/useSignupQuery";
 import useInput from "@/hooks/useInput";
+import { LocationInitType } from "@/types/auth/SignupDataType";
 import { ValidCheckType } from "@/types/auth/ValidCheckType";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +22,14 @@ const SignupPage = () => {
   const [phoneNumber, setPhoneNumber, handleChangePhoneNumber] = useInput("");
   const [password, , handleChangePassword] = useInput("");
   const [confirmPassword, , handleChangeConfirmPassword] = useInput("");
+
+  const LocationInit = {
+    latitude: null,
+    longitude: null,
+    address: null,
+  };
+
+  const [location, setLocation] = useState<LocationInitType>(LocationInit);
 
   const [allCheck, setAllCheck] = useState<boolean>(false);
 
@@ -40,7 +50,15 @@ const SignupPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signUpMutate({ email, nickname, phone: phoneNumber, password });
+    signUpMutate({
+      email,
+      nickname,
+      phone: phoneNumber,
+      password,
+      latitude: location.latitude,
+      longitude: location.longitude,
+      address: location.address,
+    });
     navigate("/login", { replace: true });
   };
 
@@ -161,7 +179,8 @@ const SignupPage = () => {
       nicknameCheck.status &&
       phoneNumberCheck.status &&
       passwordCheck.status &&
-      confirmPasswordCheck.status
+      confirmPasswordCheck.status &&
+      location.latitude
     ) {
       setAllCheck(true);
     } else {
@@ -173,7 +192,37 @@ const SignupPage = () => {
     phoneNumberCheck.status,
     passwordCheck.status,
     confirmPasswordCheck.status,
+    location.latitude,
   ]);
+
+  function onSuccess(pos: GeolocationPosition) {
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
+
+    axios
+      .get(
+        `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${lon}&y=${lat}&input_coord=WGS84`,
+        {
+          headers: {
+            Authorization: `KakaoAK ${import.meta.env.VITE_KAKAO_REST_API_KEY}`,
+          },
+        }
+      )
+      .then((res) => {
+        // console.log(res.data.documents[0]);
+        setLocation({
+          address:
+            res.data.documents[0].road_address?.address_name ||
+            "주소지를 받아오지 못했습니다.",
+          latitude: lat,
+          longitude: lon,
+        });
+      });
+  }
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(onSuccess);
+  }, []);
 
   return (
     <>

@@ -3,4 +3,13 @@ export interface SignupDataType {
   nickname: string;
   phone: string;
   password: string;
+  latitude: number | null;
+  longitude: number | null;
+  address: string | null;
+}
+
+export interface LocationInitType {
+  latitude: number | null;
+  longitude: number | null;
+  address: string | null;
 }
