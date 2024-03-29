@@ -4,6 +4,7 @@ import Input from "@/components/common/Input";
 import Logo from "@/components/common/Logo";
 import useSignupQuery from "@/hooks/query/useSignupQuery";
 import useInput from "@/hooks/useInput";
+import useUserState from "@/hooks/useUserState";
 import { LocationInitType } from "@/types/auth/SignupDataType";
 import { ValidCheckType } from "@/types/auth/ValidCheckType";
 import axios from "axios";
@@ -12,6 +13,13 @@ import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
   const navigate = useNavigate();
+  const { userState } = useUserState();
+
+  useEffect(() => {
+    if (userState.isLogin) {
+      navigate("/home", { replace: true });
+    }
+  }, []);
 
   const [id, , handleChangeId] = useInput("");
   const [domain, setDomain, handleChangeDomain] = useInput("");

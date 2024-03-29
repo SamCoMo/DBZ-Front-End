@@ -11,7 +11,7 @@ import DefaultProfile from "../common/DefaultProfile";
 
 const UserProfile = () => {
   const { user } = useUserProfileQuery();
-  const { userState, updateUser } = useUserState();
+  const { userState, updateUser, userReset } = useUserState();
   const [profileImgUrl, setProfileImgUrl] = useState<
     string | ArrayBuffer | null
   >(userState.profileImageUrl);
@@ -48,6 +48,7 @@ const UserProfile = () => {
   };
 
   const handleProfileImgDel = () => {};
+
   const { locationReset } = useLocationState();
 
   const handleLogout = async () => {
@@ -55,9 +56,8 @@ const UserProfile = () => {
     if (checkLogout) {
       await axiosAccess.post("/member/logout").then(() => {
         locationReset();
+        userReset();
         localStorage.removeItem("Access-Token");
-        localStorage.removeItem("userInfo");
-        localStorage.removeItem("locationInfo");
       });
       navigate("/", { replace: true });
     }

@@ -1,7 +1,24 @@
 import Logo from "@/components/common/Logo";
-import { NavLink } from "react-router-dom";
+import useGetGoogleLoginQuery from "@/hooks/query/useGetGoogleLoginQuery";
+import useUserState from "@/hooks/useUserState";
+import { useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const MainPage = () => {
+  const { userState } = useUserState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userState.isLogin) {
+      navigate("/home", { replace: true });
+    }
+  }, []);
+
+  const { GoogleLoginMutate } = useGetGoogleLoginQuery();
+  const handleGoogleLogin = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    GoogleLoginMutate();
+  };
   return (
     <>
       <div className="mt-14">
@@ -13,7 +30,10 @@ const MainPage = () => {
         </div>
         <div className="flex justify-center">
           <div className="w-[300px] absolute bottom-0 mb-24">
-            <div className="border p-3 text-center rounded mb-3">
+            <div
+              className="border p-3 text-center rounded mb-3 hover:cursor-pointer"
+              onClick={handleGoogleLogin}
+            >
               구글 로그인
             </div>
             <div className="p-3 bg-yellow-300 text-center rounded mb-3">
