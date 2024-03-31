@@ -21,8 +21,6 @@ const ReportDetailPage = () => {
   const { userState } = useUserState();
 
 
-
-
   // 각 핀에 대한 클릭 이벤트 핸들러
   const handlePinClick = async (pinId: number) => {
     // 해당 핀의 상세 정보를 가져오는 쿼리 호출
@@ -34,7 +32,6 @@ const ReportDetailPage = () => {
       const content = (
         <div className="w-36 h-9 rounded">
           <h3>{reportPinDetail.address}</h3>
-          <p>{reportPinDetail.foundAt}</p>
           <p>{reportDetail?.descriptions}</p>
           <img src={reportPinDetail.imageUrl} alt="Report Image" />
         </div>
@@ -95,10 +92,10 @@ const handleClickChatBtn =() => {
       <div className="flex align-middle mx-3 my-3">
         <img
           className="w-14 h-14 rounded-full "
-          src={''}
+          src={userState.profileImageUrl}
         />
         <div className="mx-2">
-          <p></p>
+          <p>{userState.nickname}</p>
           <p>📌 {date}&nbsp;&nbsp;{time.slice(0, -10)}</p>
         </div>
         <div className="ml-56 flex justify-end">

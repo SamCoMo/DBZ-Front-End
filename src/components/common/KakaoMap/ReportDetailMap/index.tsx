@@ -47,7 +47,7 @@ const ReportDetailKakaoMap: React.FC<Props> = ({ center, reportId, onMarkerClick
     markers.forEach(marker => marker.setMap(null));
   
     // 새로운 마커를 추가하고 리스트 업데이트
-    const newMarkers = reportPinList.map(pin => {
+    const newMarkers = reportPinList.map((pin: { lat: any; lng: any; pinId: number; imageUrl: string; }) => {
       const marker = new window.kakao.maps.Marker({
         position: new window.kakao.maps.LatLng(pin.lat, pin.lng),
         map,

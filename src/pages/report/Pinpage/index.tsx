@@ -6,7 +6,7 @@ import { ReportPinDataType } from "@/types/Report/ReportDataType";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { BsCameraFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
-
+import PinDatePicker from "@/components/common/PinDatePIcker";
 
 
 const CreatePinPage = () => {
@@ -105,6 +105,7 @@ const CreatePinPage = () => {
           </div>
         </div>
         <ReportKakaoMap onMarkerClick={handleMarkerClick} />
+        <PinDatePicker />
 
       <WideButton text="등록하기" status={allCheck} />
     </form>
