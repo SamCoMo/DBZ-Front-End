@@ -36,7 +36,6 @@ const MyPage = () => {
         }
       )
       .then((res) => {
-        console.log(res.data.documents[0]);
         setNewLocation({
           address:
             res.data.documents[0].road_address?.address_name ||
