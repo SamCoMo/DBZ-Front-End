@@ -46,10 +46,7 @@ const App = ({ children }: AppProps) => (
             <Route path="/report" element={<CreateReportPage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/search" element={<SearchPage />}>
-              <Route
-                path=":object/:InProcessOnly/:page"
-                element={<SearchResultPage />}
-              />
+              <Route path="list" element={<SearchResultPage />} />
             </Route>
           </Route>
           {/* 404 처리 */}

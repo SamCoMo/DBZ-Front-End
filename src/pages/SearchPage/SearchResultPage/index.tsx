@@ -1,16 +1,19 @@
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import SearchPage from "..";
 import SearchList from "@/components/common/Search/SearchList";
 
 const SearchResultPage = () => {
-  const { object, InProcessOnly, page } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const object = searchParams.get("object");
+  const InProgressOnly = searchParams.get("showsInProgressOnly");
+  const page = Number(searchParams.get("page"));
 
-  let booleanValue = InProcessOnly === "false";
+  let booleanValue = InProgressOnly === "true";
 
   return (
     <>
       <div className="mt-4 mb-16">
-        <SearchList object={object} InProcessOnly={booleanValue} page={0} />
+        <SearchList object={object} InProcessOnly={booleanValue} page={page} />
       </div>
     </>
   );

@@ -7,7 +7,7 @@ import useGetSearchQuery from "@/hooks/query/useGetSearchQuery";
 import ReportItem from "@/components/Report/ReportList/ReportItem";
 
 type SearchListProps = {
-  object: string | undefined;
+  object: string | null;
   InProcessOnly: boolean;
   page: number;
 };
@@ -40,18 +40,20 @@ const SearchList = (props: SearchListProps) => {
 
   return (
     <>
-      {searchReportListData?.pages[0].content.map((list) => (
-        <ReportItem
-          key={list.reportId}
-          imageUrl={list.imageUrl}
-          roadAddress={list.roadAddress}
-          species={list.species}
-          reportId={list.reportId}
-          title={list.title}
-          petName={list.petName}
-          reportStatus={list.reportStatus}
-        ></ReportItem>
-      ))}
+      {searchReportListData?.pages.map((page) =>
+        page.content.map((list) => (
+          <ReportItem
+            key={list.reportId}
+            imageUrl={list.imageUrl}
+            roadAddress={list.roadAddress}
+            species={list.species}
+            reportId={list.reportId}
+            title={list.title}
+            petName={list.petName}
+            reportStatus={list.reportStatus}
+          ></ReportItem>
+        ))
+      )}
       {bottomDiv()}
     </>
   );

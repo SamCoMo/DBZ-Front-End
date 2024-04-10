@@ -1,13 +1,10 @@
 import { axiosAccess } from "@/apis";
 
-import {
-  ReportListDataType,
-  ReportListProps,
-} from "@/types/Report/ReportDataType";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { ReportListDataType } from "@/types/Report/ReportDataType";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 interface SearchProps {
-  object: string | undefined;
+  object: string | null;
   InProcessOnly: boolean;
   page: number;
 }

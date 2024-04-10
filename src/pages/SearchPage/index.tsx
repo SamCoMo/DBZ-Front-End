@@ -5,17 +5,25 @@ import useGetSearchQuery from "@/hooks/query/useGetSearchQuery";
 import useInput from "@/hooks/useInput";
 import { IoIosArrowBack } from "react-icons/io";
 import { BsSearch } from "react-icons/bs";
-import { Outlet, useNavigate } from "react-router-dom";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useState } from "react";
 
 const SearchPage = () => {
   const navigate = useNavigate();
+
   const [object, , handleChangeObject] = useInput("");
   const [inProcessOnly, setInProcessOnly] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate(`/search/${object}/${inProcessOnly}/0`);
+    navigate(
+      `/search/list?object=${object}&showsInProgressOnly=${inProcessOnly}&page=0`
+    );
   };
 
   const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +58,6 @@ const SearchPage = () => {
           />
         </div>
       </form>
-      {/* <SearchList object={object} InProcessOnly={false} page={0} /> */}
       <Outlet />
       <Nav />
     </>
