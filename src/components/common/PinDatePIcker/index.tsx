@@ -1,31 +1,34 @@
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 
-
-const PinDatePicker =() => {
-    const [startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 30), 16));
-  function setMinutes(arg0: Date, arg1: number): any {
-    throw new Error("Function not implemented.");
-  }
-
-    return (
-      <DatePicker
-      selected={startDate}
-      onChange={(date) => setStartDate(date)}
-      showTimeSelect
-      excludeTimes={[
-        setHours(setMinutes(new Date(), 0), 17),
-        setHours(setMinutes(new Date(), 30), 18),
-        setHours(setMinutes(new Date(), 30), 19),
-        setHours(setMinutes(new Date(), 30), 17),
-      ]}
-      dateFormat="MMMM d, yyyy h:mm aa"
-    />
-    );
-    };
-export default PinDatePicker;
-
-function setHours(arg0: any, arg1: number): any {
-  throw new Error("Function not implemented.");
+interface DateTimePickerProps {
+  setSelectedDateTime: (date: Date | null) => void;
 }
+
+const DateTimePicker: React.FC<DateTimePickerProps> = ({ setSelectedDateTime }) => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    setSelectedDateTime(date); // 선택한 날짜를 부모 컴포넌트로 전달
+  };
+
+  return (
+    <div>
+      <h2>Select Date and Time</h2>
+      <DatePicker
+        selected={selectedDate}
+        onChange={handleDateChange}
+        showTimeSelect
+        timeFormat="HH:mm"
+        timeIntervals={15}
+        timeCaption="Time"
+        dateFormat="MMMM d, yyyy h:mm aa"
+        placeholderText="Select date and time"
+      />
+    </div>
+  );
+};
+
+export default DateTimePicker;

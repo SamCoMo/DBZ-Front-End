@@ -11,7 +11,9 @@ import PinDatePicker from "@/components/common/PinDatePIcker";
 
 const CreatePinPage = () => {
   const { id } = useParams();
-  const reportId = Number(id);
+
+  const reportId = Number(id); 
+  console.log(reportId);  
   const { pinIsMutate } = usePostReportPinQuery(reportId);
   const [images, setImages] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
@@ -22,6 +24,7 @@ const CreatePinPage = () => {
     longitude: 0,
   });
   const [content, setContent] = useState("");
+  const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null); // 추가
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const fileList = event.target.files;
@@ -44,6 +47,7 @@ const CreatePinPage = () => {
       latitude: lat,
       longitude: lng,
     });
+    console.log();
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -54,6 +58,7 @@ const CreatePinPage = () => {
       longitude: reportAddress.longitude,
       multipartFileList: images,
       descriptions: content,
+      // foundAt: selectedDateTime, // 수정
     };
 
     // 훅을 사용하여 핀 생성 요청
@@ -105,7 +110,7 @@ const CreatePinPage = () => {
           </div>
         </div>
         <ReportKakaoMap onMarkerClick={handleMarkerClick} />
-        <PinDatePicker />
+        {/* <PinDatePicker setSelectedDateTime={setSelectedDateTime} />  */}
 
       <WideButton text="등록하기" status={allCheck} />
     </form>

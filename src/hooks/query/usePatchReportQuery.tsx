@@ -8,7 +8,7 @@ const fetchAPI = async (
 ): Promise<ReportDetailType> => {
   const { reportId, report } = editData;
 
-  const res = await axiosAuth.patch(`/reports/${reportId}`, {
+  const res = await axiosAuth.patch(`/report/${reportId}`, {
     ...report
   });
   return res.data;

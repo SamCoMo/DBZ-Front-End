@@ -1,5 +1,5 @@
 import Logo from "@/components/common/Logo";
-import useGetGoogleLoginQuery from "@/hooks/query/useGetGoogleLoginQuery";
+// import useGetGoogleLoginQuery from "@/hooks/query/useGetGoogleLoginQuery";
 import useUserState from "@/hooks/useUserState";
 import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -14,11 +14,11 @@ const MainPage = () => {
     }
   }, []);
 
-  const { GoogleLoginMutate } = useGetGoogleLoginQuery();
-  const handleGoogleLogin = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    GoogleLoginMutate();
-  };
+  // const { GoogleLoginMutate } = useGetGoogleLoginQuery();
+  // const handleGoogleLogin = (e: React.MouseEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  //   GoogleLoginMutate();
+  // };
   return (
     <>
       <div className="mt-14">
@@ -32,7 +32,7 @@ const MainPage = () => {
           <div className="w-[300px] absolute bottom-0 mb-24">
             <div
               className="border p-3 text-center rounded mb-3 hover:cursor-pointer"
-              onClick={handleGoogleLogin}
+              // onClick={handleGoogleLogin}
             >
               구글 로그인
             </div>

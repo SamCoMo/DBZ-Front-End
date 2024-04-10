@@ -3,7 +3,7 @@ import { axiosAccess } from "@/apis";
 import { ReportDataType } from "@/types/Report/ReportDataType";
 
 const fetchAPI = async (reportId: number): Promise<ReportDataType> => {
-  const res = await axiosAccess.get(`/pin/report/${reportId}/pin-list`);
+  const res = await axiosAccess.get(`/report/${reportId}/pin-list`);
   const data = res.data;
   data.isMapAvailable = true;
   return res.data;
