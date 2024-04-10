@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { axiosAuth } from '@/apis';
+import { axiosAccess } from '@/apis';
 import useToast from '@/hooks/useToast';
 import { ReportDeleteType } from '@/types/Report/ReportDataType';
 
 const fetchAPI = async (reportId: number): Promise<ReportDeleteType> => {
-  const res = await axiosAuth.delete(`/reports/${reportId}`);
+  const res = await axiosAccess.delete(`/reports/${reportId}`);
   return res.data;
 };
 
