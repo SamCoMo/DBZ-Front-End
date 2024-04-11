@@ -1,3 +1,4 @@
+import useUserState from "@/hooks/useUserState";
 import axios from "axios";
 // import { response } from "msw";
 
@@ -48,7 +49,8 @@ axiosAuth.interceptors.response.use(
   async (error) => {
     console.log(error);
     const errorCode = error.response.data.errorCode;
-    const errorStatus = error.response.status;
+
+    const { userState, updateUser } = useUserState();
 
     const req = error.config;
 
@@ -61,6 +63,10 @@ axiosAuth.interceptors.response.use(
         req.headers.Authorization = `Bearer ${newACToken}`;
         return await axios(req);
       } catch (err) {
+        updateUser({
+          ...userState,
+          isLogin: false
+        })
         alert("로그인을 다시 진행해주세요.");
         window.location.replace("/login");
       }
@@ -88,7 +94,8 @@ axiosAccess.interceptors.response.use(
   async (error) => {
     console.log(error);
     const errorCode = error.response.data.errorCode;
-    const errorStatus = error.response.status;
+
+    const { userState, updateUser } = useUserState();
 
     const req = error.config;
 
@@ -101,6 +108,10 @@ axiosAccess.interceptors.response.use(
         req.headers["Access-Token"] = `${newACToken}`;
         return await axios(req);
       } catch (err) {
+        updateUser({
+          ...userState,
+          isLogin: false
+        })
         alert("로그인을 다시 진행해주세요.");
         window.location.replace("/login");
       }

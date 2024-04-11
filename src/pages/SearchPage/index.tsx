@@ -1,15 +1,11 @@
 import Input from "@/components/common/Input";
 import Nav from "@/components/common/Nav";
-import SearchList from "@/components/common/Search/SearchList";
-import useGetSearchQuery from "@/hooks/query/useGetSearchQuery";
 import useInput from "@/hooks/useInput";
 import { IoIosArrowBack } from "react-icons/io";
 import { BsSearch } from "react-icons/bs";
 import {
   Outlet,
-  useLocation,
   useNavigate,
-  useSearchParams,
 } from "react-router-dom";
 import { useState } from "react";
 

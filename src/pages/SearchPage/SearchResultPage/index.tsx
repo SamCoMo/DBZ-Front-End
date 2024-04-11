@@ -1,5 +1,4 @@
-import { useParams, useSearchParams } from "react-router-dom";
-import SearchPage from "..";
+import { useSearchParams } from "react-router-dom";
 import SearchList from "@/components/common/Search/SearchList";
 
 const SearchResultPage = () => {
