@@ -58,7 +58,7 @@ export interface ReportDataType {
   roadAddress: string;
   latitude: number;
   longitude: number;
-  imageUrl?:string;
+  imageUrl:string;
   imageList: File[];
 }
 export interface ReportDetailType {

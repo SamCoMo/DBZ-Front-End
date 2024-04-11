@@ -5,7 +5,7 @@ import ReportDetailKakaoMap from "@/components/common/KakaoMap/ReportDetailMap";
 import { useNavigate, useParams } from "react-router-dom";
 import useUserState from "@/hooks/useUserState";
 import ModalInSelectEdit from "@/components/Report/ModalInSelectEdit";
-// import useGetReportPinListQuery from "@/hooks/query/useGetReportPinsQuery";
+import useGetReportPinListQuery from "@/hooks/query/useGetReportPinsQuery";
 import useGetReportPinDetailQuery from "@/hooks/query/useGetReportPinDetailQuery";
 
 const ReportDetailPage = () => {
@@ -20,7 +20,7 @@ const ReportDetailPage = () => {
   // 현재 사용자 정보 가져오기
   const { userState } = useUserState();
 
-
+  console.log(reportDetail);
   // 각 핀에 대한 클릭 이벤트 핸들러
   const handlePinClick = async (pinId: number) => {
     // 해당 핀의 상세 정보를 가져오는 쿼리 호출
@@ -87,7 +87,10 @@ const handleClickChatBtn =() => {
               </div>
             ))}
         </div> */}
-      <img src={reportDetail.imageUrl} alt="Report Image" className="w-full" />
+          {reportDetail.imageList && reportDetail.imageList.length > 0 && (
+            <img src={reportDetail.imageList[0].url} alt="Report Image" className="w-full h-auto" />
+          )}
+      {/* <img src={`${reportDetail.imageUrl}`} alt="Report Image" className="w-full" /> */}
       </div>
       <div className="flex align-middle mx-3 my-3">
         <img
@@ -96,7 +99,7 @@ const handleClickChatBtn =() => {
         />
         <div className="mx-2">
           <p>{userState.nickname}</p>
-          <p>📌 {date}&nbsp;&nbsp;{time.slice(0, -10)}</p>
+          <p>📌 {date}&nbsp;&nbsp;{time.slice(0, -9)}</p>
         </div>
         <div className="ml-56 flex justify-end">
           <span>{reportDetail.views}</span>
