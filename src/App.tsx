@@ -31,11 +31,14 @@ const App = ({ children }: AppProps) => (
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/pin" element={<CreatePinPage />} />
+
+
           <Route path="/report" element={<Outlet />}>
             <Route path="create" element={<CreateReportPage />} />
             <Route path=":id" element={<ReportDetailPage />} />
+            <Route path=":id/pin" element={<CreatePinPage />} />              
             <Route path=":id/edit" element={<ReportEditPage />} />
+            <Route path="pin" element={<CreatePinPage />} />
           </Route>
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<HomePage />} />

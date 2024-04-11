@@ -61,7 +61,7 @@ const ReportDetailPage = () => {
   
 
 const handleClickPinBtn =() => {
-  navigate(`/pin?reportId=${reportId}`)
+  navigate(`/report/${reportId}/pin`)
 }
 const handleClickChatBtn =() => {
   navigate(`/chat/room`)

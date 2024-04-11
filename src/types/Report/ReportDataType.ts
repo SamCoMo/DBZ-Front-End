@@ -87,7 +87,7 @@ export interface ReportDetailIdType {
 export interface ReportPinDataType {
   descriptions: string;
   reportId?:number;
-  foundAt?: string;
+  // foundAt: string;
   address: string;
   latitude: number;
   longitude: number;

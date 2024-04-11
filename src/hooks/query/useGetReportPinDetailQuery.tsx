@@ -4,7 +4,7 @@ import { ReportPinDataType } from "@/types/Report/ReportDataType";
 
 const useGetReportPinDetailQuery = (reportId: number, pinId: number) => {
   const fetchAPI = async (): Promise<ReportPinDataType> => {
-    const res = await axiosAccess.get(`/report/${reportId}/pin/${pinId}`);
+    const res = await axiosAccess.get(`/report/pin/${pinId}`);
     return res.data;
   };
 
