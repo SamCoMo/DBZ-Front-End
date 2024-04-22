@@ -8,15 +8,15 @@ const fetchAPI = async (
   reportId:number,
   data: ReportPinDataType
 ): Promise<ReportPinRequestDataType> => {
-  const { address, descriptions, latitude,longitude, multipartFileList} = data;
+  const { address, description, latitude,longitude, multipartFileList, foundAt } = data;
 
   const formData = new FormData();
   // formData.append("reportId", reportId); // reportId 추가
   formData.append("address", address);
   formData.append("latitude",latitude.toString());
-  formData.append("descriptions", descriptions);
+  formData.append("description", description);
   formData.append("longitude",longitude.toString());
-  // formData.append("foundAt", foundAt); 
+  formData.append("foundAt", foundAt); 
   formData.append("multipartFileList", multipartFileList[0]);
 //   multipartFileList.forEach((image, index) => {
 //     formData.append("multipartFileList", image);
