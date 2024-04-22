@@ -13,7 +13,7 @@ const HeaderTitle = ({ title, back }: HeaderTitleProps) => {
     navigate(-1);
   };
   return (
-    <div className="h-[60px] flex justify-center items-center relative">
+    <div className="h-[60px] flex justify-center items-center relative ">
       {back && (
         <button
           type="button"

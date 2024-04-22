@@ -5,47 +5,43 @@ import { BsPencilFill } from "react-icons/bs";
 import useDeleteReportQuery from '@/hooks/query/useDeleteReportQuery';
 import useGetReportDetailQuery from '@/hooks/query/useGetReportQuery';
 import { useNavigate, useParams } from 'react-router-dom';
-import usePatchReportQuery from '@/hooks/query/usePatchReportQuery';
+import usePatchReportStatusQuery from '@/hooks/query/usePatchStatusQuery';
 
-const ModalInSelectEdit =() =>{
+const ModalInSelectEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const reportId = Number(id);
   const { reportDetail } = useGetReportDetailQuery(reportId);
-  const { changeStatusState, openModal, closeModal } = useModalState();
-  const { reportDeleteIsMutate } = useDeleteReportQuery();
-  const { patchedReportIsMutate } = usePatchReportQuery();
+  const { modalState, closeModal, openModal } = useModalState();
+  const { reportDeleteIsMutate } = useDeleteReportQuery();  
+  const { patchedReportStatusIsMutate } = usePatchReportStatusQuery(); // API 훅 사용
 
   const handleEdit = () => {
-    // 수정 페이지로 이동
-    navigate(`/edit/${reportId}`);
-    closeModal(); // 모달 닫기
+    navigate(`/report/${reportId}/edit`);
+    closeModal();
   };
 
   const handleDelete = () => {
-    // 삭제하기
-    const reportConfirmed = window.confirm("해당 게시물을 삭제하시겠습니까?");
-    if (reportConfirmed) {
+    if (window.confirm("해당 게시물을 삭제하시겠습니까?")) {
       reportDeleteIsMutate(reportId);
-      closeModal(); // 모달 닫기
+      closeModal();
     }
   };
+
   const handleStatusChange = () => {
-    const reportConfirmed = window.confirm("해당 게시물을 완료 처리하시겠습니까?");
-    if (reportConfirmed) {
-      changeStatusState('completed');
-      closeModal(); // 모달 닫기
-      navigate('/home');
-  }
-}
+    if (window.confirm("해당 게시물을 완료 처리하시겠습니까?")) {
+      patchedReportStatusIsMutate({ reportId, status: 'COMPLETED' }); // 수정: 필요한 인수를 전달
+      closeModal();
+    }
+  };
 
   return (
     <>
-      <button onClick={openModal}><BsPencilFill className='text-defaultColor ml-64' /></button>
-      <Modal>
-        <p className='w-56 h-8 mx-auto my-3 flex justify-center'onClick={handleEdit}>수정하기</p>
-        <p className='w-56 h-8 mx-auto my-3 flex justify-center'onClick={handleDelete}>삭제하기</p>
-        <p className='w-56 h-8 mx-auto my-3 flex justify-center'onClick={handleStatusChange}>완료하기</p>
+      <button onClick={openModal}><BsPencilFill className='text-defaultColor ml-3' /></button>
+      <Modal isOpen={modalState.isOpen} onClose={closeModal}>
+        <button className='w-56 h-8 mx-auto my-3 flex justify-center' onClick={handleEdit}>수정하기</button>
+        <button className='w-56 h-8 mx-auto my-3 flex justify-center' onClick={handleDelete}>삭제하기</button>
+        <button className='w-56 h-8 mx-auto my-3 flex justify-center' onClick={handleStatusChange}>완료하기</button>
       </Modal>
     </>
   );

@@ -33,6 +33,10 @@ export const patchMyReport = rest.patch(
   "/reports/:reportId",
   async (_, res, ctx) => res(ctx.status(200), ctx.json({ reportId: true }))
 );
+
+export const patchStatus = rest.put("/report/${reportId}/complete",
+async (_, res, ctx) => res(ctx.status(200), ctx.json({ reportId: true })));
+
 export const getReportDetail = rest.get(
   "/reports/:reportId",
   async (req, res, ctx) => {

@@ -12,10 +12,12 @@ import {
   patchMyReport,
   postPin,
   postReport,
+  patchStatus,
 } from "./report/handler";
 import { getKaKaoAPI, patchLocation, putProfileImg } from "./user/handler";
 
 const handlers = [
+  patchStatus,
   postSignUp,
   postLogin,
   getUserProfile,
