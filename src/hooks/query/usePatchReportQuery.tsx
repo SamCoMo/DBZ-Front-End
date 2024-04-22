@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { axiosAuth } from '@/apis';
+import { axiosAccess } from '@/apis';
 import { ReportEditDataType, ReportDetailType } from '@/types/Report/ReportDataType';
 import useToast from '@/hooks/useToast';
 
 const fetchAPI = async (
   editData: ReportEditDataType
-): Promise<ReportDetailType> => {
+): Promise<ReportEditDataType> => {
   const { reportId, report } = editData;
 
-  const res = await axiosAuth.patch(`/report/${reportId}`, {
+  const res = await axiosAccess.put(`/report/${reportId}`, {
     ...report
   });
   return res.data;

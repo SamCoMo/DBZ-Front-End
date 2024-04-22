@@ -48,6 +48,8 @@ export interface ReportDefaultDataType {
   imageList: File[];
 }
 export interface ReportDataType {
+  organizedId:number;
+  forEach: any;
   map?: any;
   title: string;
   petType: string;
@@ -81,18 +83,20 @@ export interface ReportDetailType {
   phone: string;
 }
 export interface ReportDetailIdType {
-  reportId: string;
+  reportId: number;
 }
 
 export interface ReportPinDataType {
-  descriptions: string;
+  description: string;
+  pinId:number;
   reportId?:number;
-  // foundAt: string;
+  foundAt: string;
   address: string;
   latitude: number;
   longitude: number;
   imageUrl?:string;
   multipartFileList:File[];
+  pinImageDtoList:File[];
   
 }
 export interface ReportPinRequestDataType {
@@ -106,4 +110,8 @@ export interface ReportDeleteType {
 export interface ReportEditDataType {
   report: ReportDetailType;
   reportId: number;
+}
+export interface ReportEditStatusType {
+  reportId: number;
+  status:string;
 }
