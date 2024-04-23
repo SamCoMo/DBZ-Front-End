@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import HeaderTitle from "@/components/common/HeaderTitle";
 import useGetReportDetailQuery from "@/hooks/query/useGetReportQuery";
 import { BsFillPinAngleFill, BsPhoneFill } from "react-icons/bs";
@@ -10,6 +10,7 @@ import useGetReportPinDetailQuery from "@/hooks/query/useGetReportPinDetailQuery
 import Modal from "@/components/common/Modal";
 import useModalState from '@/hooks/useModalState';
 import { format } from 'date-fns';
+import usePostChatRoomQuery from '@/hooks/query/usePostChatRoomQuery';
 
 const ReportDetailPage = () => {
   const navigate = useNavigate();
@@ -24,13 +25,26 @@ const ReportDetailPage = () => {
   const { userState } = useUserState();
   const { reportPinDetail, reportPinDetailIsLoading } = useGetReportPinDetailQuery(reportId, selectedPinId);
 
+  // 채팅방 생성
+  const { chatRoomCreateIsMutate } = usePostChatRoomQuery();
+
   const handlePinClick = (pinId: number) => {
     setSelectedPinId(pinId);
     openModal();
     console.log('Modal should open now');
   };
 
-
+  const handleCreateChatRoom = useCallback(() => {
+    const recipientId = reportDetail.writerId; // 게시물 생성자 ID를 recipientId로 사용
+  
+    chatRoomCreateIsMutate({
+      recipientId  // recipientId를 payload 객체에 포함
+    }, {
+      onSuccess: (data) => {
+        navigate(`/chat/${data.chatRoomId}`); // 채팅방 생성 성공 후 해당 채팅방으로 이동
+      }
+    });
+  }, [chatRoomCreateIsMutate, navigate, reportDetail]);
 
   if (!reportDetail) {
     return <div>No report detail available.</div>;
@@ -42,7 +56,7 @@ const ReportDetailPage = () => {
     <div>
       <div className='flex justify-center'>
         <HeaderTitle title={reportDetail.title} />
-        {userState && userState.memberId === reportDetail.organizedId && <ModalInSelectEdit />}
+        {userState && userState.memberId === reportDetail.writerId && <ModalInSelectEdit />}
       </div>
       <div className="info-section">
         {reportDetail.imageList && reportDetail.imageList.length > 0 && (
@@ -89,7 +103,7 @@ const ReportDetailPage = () => {
       </div>
       <div className="flex justify-evenly my-4">
         <button className="btn bg-defaultColor text-white" onClick={() => navigate(`/report/${reportId}/pin`)}>핀 찍기</button>
-        <button className="btn bg-defaultColor text-white" onClick={() => navigate(`/chat/room`)}>채팅하기</button>
+        <button className="btn bg-defaultColor text-white" onClick={handleCreateChatRoom}>채팅하기</button>
       </div>
     </div>
   );

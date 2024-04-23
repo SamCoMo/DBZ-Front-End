@@ -65,7 +65,7 @@ export interface ReportDataType {
 }
 export interface ReportDetailType {
   reportId:number;
-  organizedId: number;
+  writerId: number;
   title: string;
   petType: string;
   showsPhone: boolean;

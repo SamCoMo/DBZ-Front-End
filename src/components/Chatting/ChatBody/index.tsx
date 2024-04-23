@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { ChatDataType } from "@/types/Chatting/ChatDataType";
-
+import { ChatNewDataType } from "@/types/Chatting/ChatDataType";
+import useUserState from "@/hooks/useUserState";
 interface ChatBodyProps {
-  messages: ChatDataType[];
+  messages: ChatNewDataType[];
 }
 
 const ChatBody = ({ messages }: ChatBodyProps) => {

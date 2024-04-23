@@ -4,10 +4,10 @@ import ChatBody from "@/components/Chatting/ChatBody";
 import ChatFooter from "@/components/Chatting/ChatFooter";
 import useWebsocket from "@/hooks/useWebSocket";
 import useInput from "@/hooks/useInput";
-import { ChatDataType } from "@/types/Chatting/ChatDataType";
+import { ChatNewDataType } from "@/types/Chatting/ChatDataType";
 
 const ChatDetail = () => {
-  const [messages, setMessages] = useState<ChatDataType[]>([]);
+  const [messages, setMessages] = useState<ChatNewDataType[]>([]);
   const [sendedMessage, setSendedMessage, handleInputChange] = useInput("");
   const { registerOnMessageCallback, send } = useWebsocket();
 
