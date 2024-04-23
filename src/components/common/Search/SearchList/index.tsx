@@ -1,5 +1,3 @@
-import useGetReportListQuery from "@/hooks/query/useGetReportListQuery";
-
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import { useEffect } from "react";
 import SkeletonReportList from "@/components/common/Skeleton/SkeletonReportList";

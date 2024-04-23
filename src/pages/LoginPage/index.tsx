@@ -16,11 +16,11 @@ const LoginPage = () => {
   const { userState } = useUserState();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (userState.isLogin) {
-      navigate("/home", { replace: true });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (userState.isLogin) {
+  //     navigate("/home", { replace: true });
+  //   }
+  // }, []);
 
   const [email, , handleChangeEmail] = useInput("");
   const [password, , handleChangePassword] = useInput("");
