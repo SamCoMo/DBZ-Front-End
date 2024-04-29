@@ -4,6 +4,7 @@ interface AlarmItemProps {
 }
 
 const AlarmItem = (data: AlarmItemProps) => {
+
   return (
     <>
       <div className="flex items-center my-5">
@@ -13,7 +14,7 @@ const AlarmItem = (data: AlarmItemProps) => {
             className="rounded-full object-cover"
           ></img>
         </div>
-        <p className="flex-1 ml-4">{data.message}</p>
+        <p className="flex-1 ml-4">{`${data.type} 알림이 왔습니다! ${data.message}`}</p>
       </div>
     </>
   );

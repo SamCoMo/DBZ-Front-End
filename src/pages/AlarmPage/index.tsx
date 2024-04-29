@@ -7,11 +7,12 @@ const AlarmPage = () => {
   const { AlarmListData } = useGetAlarmListQuery();
   return (
     <>
+    {console.log(AlarmListData)}
       <HeaderTitle title="알림" back={true} />
       <div className="mx-4">
         {AlarmListData?.length !== 0 ? (
-          AlarmListData?.map((item) => (
-            <AlarmItem type={item.type} message={item.message} />
+          AlarmListData?.map((item, index) => (
+            <AlarmItem key={index} type={item.type} message={item.message} />
           ))
         ) : (
           <div className="flex flex-col justify-center mt-10 text-slate-400">
