@@ -5,11 +5,10 @@ import Input from "@/components/common/Input";
 import WideButton from "@/components/common/Button/WideButton";
 import { BsCameraFill } from "react-icons/bs";
 import usePostCreateReportQuery from "@/hooks/query/usePostReportQuery";
-import { ReportDataType } from "@/types/Report/ReportDataType";
+import { ReportDataType, ReportDetailType } from "@/types/Report/ReportDataType";
 import SelectSpecies from "@/components/common/Select/SelectOptions";
 import { useNavigate } from "react-router-dom";
 import useUserState from "@/hooks/useUserState";
-
 
 
 const CreateReportPage = () => {
@@ -75,6 +74,7 @@ const CreateReportPage = () => {
     e.preventDefault();
 
     const reportData: ReportDataType = {
+      organizedId: userState.memberId,
       title: title,
       petType: petType,
       showsPhone: showsPhone,
@@ -169,6 +169,7 @@ const CreateReportPage = () => {
         <div>
           <p className="my-3">실종 위치</p>
           <ReportKakaoMap onMarkerClick={handleMarkerClick} />
+
         </div>
         <div>
           <input

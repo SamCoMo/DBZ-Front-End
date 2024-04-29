@@ -18,6 +18,8 @@ import AlarmPage from "./pages/AlarmPage";
 import SearchPage from "./pages/SearchPage";
 import CreatePinPage from "./pages/report/Pinpage";
 import SearchResultPage from "./pages/SearchPage/SearchResultPage";
+import ChatPage from "./pages/ChatPage";
+import ChatDetail from "./pages/ChatPage/ChatDetail";
 
 interface AppProps {
   children?: React.ReactNode;
@@ -31,7 +33,7 @@ const App = ({ children }: AppProps) => (
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-
+          <Route path="/chat" element={<ChatPage />} />
 
           <Route path="/report" element={<Outlet />}>
             <Route path="create" element={<CreateReportPage />} />
@@ -48,6 +50,9 @@ const App = ({ children }: AppProps) => (
             <Route path="/search" element={<SearchPage />}>
               <Route path="list" element={<SearchResultPage />} />
             </Route>
+          </Route>
+          <Route path="chat" element={<Outlet />}>
+            <Route path=":roomId" element={<ChatDetail />} />
           </Route>
           {/* 404 처리 */}
           {/* <Route path="*" element={<NotFound />}></Route> */}

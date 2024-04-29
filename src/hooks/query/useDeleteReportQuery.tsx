@@ -2,13 +2,15 @@ import { useMutation } from '@tanstack/react-query';
 import { axiosAccess } from '@/apis';
 import useToast from '@/hooks/useToast';
 import { ReportDeleteType } from '@/types/Report/ReportDataType';
+import { useNavigate } from 'react-router-dom';
 
-const fetchAPI = async (reportId: number): Promise<ReportDeleteType> => {
-  const res = await axiosAccess.delete(`/reports/${reportId}`);
+const fetchAPI = async (reportId: number) => {
+  const res = await axiosAccess.delete(`/report/${reportId}`);
   return res.data;
 };
 
 const useDeleteReportQuery = () => {
+  const navigate = useNavigate();
   const { toastSuccess, toastError } = useToast();
   const {
     data: IsReportDelete,
@@ -24,6 +26,7 @@ const useDeleteReportQuery = () => {
     },
     onSuccess: () => {
       toastSuccess('일정 삭제가 완료되었습니다.');
+      navigate('/home');
     }
   });
 

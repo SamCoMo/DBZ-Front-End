@@ -1,33 +1,21 @@
-import { useRecoilState } from "recoil";
-import { modalAtom } from "@/recoil/atoms/modal/atom";
-
-/*
- * modalAtom: 기본 모달 state
- * modalAcceptOrRejectAtom: 친구 요청 수락/거절 모달 state
- */
+import { useState } from 'react';
+import { modalAtom } from '@/recoil/atoms/modal/atom';
 
 const useModalState = () => {
-  const [modalState, setModalState] = useRecoilState(modalAtom);
+  const [modalState, setModalState] = useState({ isOpen: false });
 
-  // 모달 오픈
   const openModal = () => {
-    (document.getElementById("Modal") as HTMLDialogElement).showModal();
-  };
-  const changeStatusState = (newStatus: string) => {
-    setModalState(newStatus);
+    setModalState({ isOpen: true });
   };
 
-  // 모달 닫기
   const closeModal = () => {
-    (document.getElementById('Modal') as HTMLDialogElement).close();
+    setModalState({ isOpen: false });
   };
-
 
   return {
     openModal,
-    modalState,
-    changeStatusState,
-    closeModal 
+    closeModal,
+    modalState
   };
 };
 

@@ -1,3 +1,6 @@
+window.global = window;
+
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 // msw setting

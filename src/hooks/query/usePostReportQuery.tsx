@@ -1,10 +1,10 @@
 import { axiosAccess, axiosAuth, axiosDefault } from "@/apis";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useToast from "../useToast";
-import { ReportDataType,ReportDetailIdType } from "@/types/Report/ReportDataType";
+import { ReportDataType,ReportDetailIdType, ReportDetailType } from "@/types/Report/ReportDataType";
 
 
-const fetchAPI = async (data: ReportDataType): Promise<ReportDetailIdType> => {
+const fetchAPI = async (data: ReportDetailType): Promise<ReportDetailIdType> => {
 
   const {title, petName, petType, showsPhone, descriptions, species, roadAddress, latitude,longitude,imageList} = data;
 
