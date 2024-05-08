@@ -20,7 +20,7 @@ const HomePage = ({}: HomePageProps) => {
   onMessage(messaging, (payload) => {
     toastSuccess(payload.notification?.body);
     setAlarmOn(true);
-    console.log("Message received. ", payload);
+    console.log("Message received.", payload);
   });
 
   const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {

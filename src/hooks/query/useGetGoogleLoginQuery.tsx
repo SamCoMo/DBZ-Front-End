@@ -4,7 +4,7 @@ import useUserState from "../useUserState";
 import { useNavigate } from "react-router-dom";
 
 const fetchAPI = async () => {
-  const res = await axiosDefault.get("/oauth2/authorization/google");
+  const res = await axiosAccess.get("/oauth2/authorization/google");
 
   return res.data;
 };

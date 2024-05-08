@@ -30,7 +30,7 @@ const ModalInSelectEdit = () => {
 
   const handleStatusChange = () => {
     if (window.confirm("해당 게시물을 완료 처리하시겠습니까?")) {
-      patchedReportStatusIsMutate({ reportId, status: 'COMPLETED' }); // 수정: 필요한 인수를 전달
+      patchedReportStatusIsMutate({ reportId, status: 'FOUND' }); // 수정: 필요한 인수를 전달
       closeModal();
     }
   };

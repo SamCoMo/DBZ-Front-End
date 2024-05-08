@@ -1,3 +1,4 @@
+import ModalInSelectEdit from "@/components/Report/ModalInSelectEdit";
 import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -5,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 interface HeaderTitleProps {
   title: string;
   back?: boolean;
+  edit?: boolean;
 }
 
-const HeaderTitle = ({ title, back }: HeaderTitleProps) => {
+const HeaderTitle = ({ title, back, edit }: HeaderTitleProps) => {
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1);
@@ -21,10 +23,11 @@ const HeaderTitle = ({ title, back }: HeaderTitleProps) => {
           onClick={handleBack}
         >
           <span className="sr-only">이전</span>
-          <IoIosArrowBack className=" text-2xl" />
+          <IoIosArrowBack className="text-2xl" />
         </button>
       )}
       <h1 className="text-h2">{title}</h1>
+      {edit && <ModalInSelectEdit/>}
     </div>
   );
 };

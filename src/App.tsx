@@ -19,7 +19,8 @@ import SearchPage from "./pages/SearchPage";
 import CreatePinPage from "./pages/report/Pinpage";
 import SearchResultPage from "./pages/SearchPage/SearchResultPage";
 import ChatPage from "./pages/ChatPage";
-import ChatDetail from "./pages/ChatPage/ChatDetail";
+// import ChatRoom from "./components/Chatting/ChatRoom";
+import ChatRoom from "./components/Chatting/FirebaseChatting";
 
 interface AppProps {
   children?: React.ReactNode;
@@ -51,8 +52,8 @@ const App = ({ children }: AppProps) => (
               <Route path="list" element={<SearchResultPage />} />
             </Route>
           </Route>
-          <Route path="chat" element={<Outlet />}>
-            <Route path=":roomId" element={<ChatDetail />} />
+          <Route path="/chat" element={<Outlet />}>
+            <Route path=":chatRoomId" element={<ChatRoom/>} />
           </Route>
           {/* 404 처리 */}
           {/* <Route path="*" element={<NotFound />}></Route> */}
