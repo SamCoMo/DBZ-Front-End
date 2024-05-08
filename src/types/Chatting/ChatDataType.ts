@@ -9,12 +9,19 @@ export interface ChatNewDataType {
 }
 
 export interface ChatPrevDataType {
-  sender: string;
+  chatMessageId: string;
+  senderId: number;
+  content: string;
   imageUrl: string;
-  message: string;
+  chatRoomId: string;
+  sender: string;
+  imageUrlList: string[];
+  createdAt: string;
 }
+
 export interface ChatListDataType {
-  chatRoomId: number;
-  title: string;
-  friendsName: string[];
+  chatRoomId: string;
+  memberIdList:string[];
+  lastChatMessageContent:string;
+  lastMessageSentAt:string;
 }

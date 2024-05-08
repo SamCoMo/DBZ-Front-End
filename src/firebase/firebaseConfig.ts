@@ -1,6 +1,8 @@
 import useToast from "@/hooks/useToast";
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import 'firebase/firestore';
+import { getFirestore, collection } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -24,5 +26,7 @@ export async function requestPermission() {
     });
   }
 }
+const db = getFirestore(app);
 
-const { toastSuccess } = useToast();
+export { db };
+
