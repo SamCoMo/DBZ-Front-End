@@ -102,11 +102,12 @@ const ReportEditPage = () => {
     });
   };
 
-  const handleSubmit =(e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
-    const reportUpdateData: ReportDataType = {
-      organizedId: userState.memberId,
+  
+    const reportEditData: ReportDetailType = {
+      // writerId: userState.memberId,
+      reportId:reportId,
       title: title,
       petType: petType,
       showsPhone: showsPhone,
@@ -119,15 +120,12 @@ const ReportEditPage = () => {
       imageList: images,
     };
 
-    if (reportId) {
-      patchedReportIsMutate({ reportId, report: reportUpdateData });
-    } else {
-      reportIsMutate(reportUpdateData);
-    }
+  
+    patchedReportIsMutate(reportEditData);
     navigate("/home");
-    console.log(reportUpdateData);
+    console.log(reportEditData);
+    console.log(reportId);
   };
-
 
   useEffect(() => {
     if (title && petType && showsPhone&&species&&petName&&content&&reportAddress) {

@@ -48,7 +48,7 @@ export interface ReportDefaultDataType {
   imageList: File[];
 }
 export interface ReportDataType {
-  organizedId:number;
+  writerId:number;
   forEach: any;
   map?: any;
   title: string;
@@ -63,9 +63,16 @@ export interface ReportDataType {
   imageUrl:string;
   imageList: File[];
 }
+export interface WriterDataType {
+    id: number;
+    nickname: string;
+    profileImageUrl: string;
+
+}
 export interface ReportDetailType {
   reportId:number;
-  writerId: number;
+  memberId:number;
+  writerProfile:WriterDataType;
   title: string;
   petType: string;
   showsPhone: boolean;

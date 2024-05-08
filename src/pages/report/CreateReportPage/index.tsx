@@ -74,7 +74,7 @@ const CreateReportPage = () => {
     e.preventDefault();
 
     const reportData: ReportDataType = {
-      organizedId: userState.memberId,
+      writerId: userState.memberId,
       title: title,
       petType: petType,
       showsPhone: showsPhone,
@@ -102,7 +102,7 @@ const CreateReportPage = () => {
 
   return (
     <>
-      <HeaderTitle title="게시글 작성" />
+      <HeaderTitle title="게시글 작성" back />
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
         <label htmlFor="images" className="inline-block">
