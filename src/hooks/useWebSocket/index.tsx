@@ -1,48 +1,58 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from 'react';
+import SockJS from 'sockjs-client';
+import Stomp, { Client, Frame } from 'stompjs';
+import { ChatPrevDataType } from '@/types/Chatting/ChatDataType';
 
-const host =
-  process.env.NODE_ENV === "production"
-    ? window.location.host
-    : "localhost:3308";
-
-const useWebsocket = () => {
-  const sendRef = useRef<any>(null);
-  const onMessageCallbackRef = useRef<any>(null);
+const useWebSocketService = (token: string): Client | null => {
+  const [stompClient, setStompClient] = useState<Client | null>(null);
 
   useEffect(() => {
-    const ws = new WebSocket(`ws://${host}/chat`) || {};
+    let socket: WebSocket | null = null;
 
-    // 연결
-    ws.onopen = () => {
-      console.log("opened ws connection");
-    };
-    // 연결 해제
-    ws.onclose = (e) => {
-      console.log("close ws connection: ", e.code, e.reason);
-    };
-    // 서버에서 메시지 수신될때 마다 호출
-    ws.onmessage = (e) => {
-      console.log("메시지 수신", e.data);
-      onMessageCallbackRef.current(e.data);
-    };
-    // 소켓 연결 오류
-    ws.onerror = (error) => {
-      console.log("소켓 연결 오류입니다. ", error);
+    // WebSocket 연결
+    const connect = () => {
+      socket = new SockJS('https://www.samcomo.site');
+      const client = Stomp.over(socket);
+
+      client.connect({'Access-Token': token}, () => {
+        console.log('Connected to WebSocket');
+
+        // 연결이 성공하면 stompClient 상태를 업데이트합니다.
+        setStompClient(client);
+      }, (error: string | Frame) => {
+        // 에러 핸들링
+        if (typeof error === 'string') {
+          console.error('Error connecting to WebSocket:', error);
+        } else if (error instanceof Frame) {
+          console.error('STOMP error:', error.headers['message']);
+        } else {
+          console.error('Unknown error type:', error);
+        }
+      });
     };
 
-    sendRef.current = ws.send.bind(ws);
+    // WebSocket 연결 해제
+    const disconnect = () => {
+      if (stompClient && stompClient.connected) {
+        stompClient.disconnect(() => {
+          console.log('Disconnected from WebSocket');
+          setStompClient(null);
+        });
+      }
 
+      if (socket) {
+        socket.close();
+      }
+    };
+
+    // 컴포넌트가 언마운트될 때 WebSocket 연결 해제
     return () => {
-      ws.close();
+      disconnect();
     };
-  }, []);
+  }, [token]);
 
-  // 메시지를 받으면 여기루 호출
-  const registerOnMessageCallback = (fn: any) => {
-    onMessageCallbackRef.current = fn;
-  };
-
-  return { send: sendRef, registerOnMessageCallback };
+  // stompClient 상태를 반환합니다.
+  return stompClient;
 };
 
-export default useWebsocket;
+export default useWebSocketService;
