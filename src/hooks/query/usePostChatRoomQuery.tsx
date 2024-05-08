@@ -2,19 +2,13 @@ import { useMutation } from '@tanstack/react-query';
 import { axiosAccess } from '@/apis';
 import useToast from '@/hooks/useToast';
 
-interface ChatRoomResponse {
-  chatRoomId: string;
-  memberIdList: string[];
-  lastChatMessageContent: string;
-  lastChatMessageAt: string;
-}
-interface CreateChatRoomPayload {
-  recipientId: number;  // 수신자의 Member ID
-}
-
-const fetchAPI = async (payload: CreateChatRoomPayload) => {
-  const res = await axiosAccess.post(`/chat/room`, payload);
-  return res.data;
+const fetchAPI = async (recipientId: string) => {
+  const response = await axiosAccess.post(`/chat/room?recipientId=${recipientId}`, {}, {
+    params: {
+      recipientId: recipientId
+    }
+  });
+  return response.data;
 };
 
 
@@ -27,9 +21,9 @@ const usePostChatRoomQuery = () => {
     data: chatRoomData
   } = useMutation({
     mutationKey: ['chatRoom'],
-    mutationFn: fetchAPI,
-    onSuccess: (data) => {
-      toastSuccess(`채팅방이 생성되었습니다: ${data.chatRoomId}`);
+    mutationFn:(recipientId: string) => fetchAPI(recipientId),
+    onSuccess: () => {
+      toastSuccess(`채팅방이 생성되었습니다!`);
     },
     onError: (err: any) => {
       console.error(err);
