@@ -3,6 +3,12 @@
 >😲 반려동물이 실종되었나요⁉️ 당장 저희 앱으로 오세요‼️ <br>
 동네 이웃분들이 당신의 소중한 반려동물을 찾아드립니다. 🐶🪿🐈
 
+<a href="https://www.notion.so/goo99/eaf12c76d5544be5b2c1e95fa9b49bdc">팀 노션</a>
+<br>
+<a href="https://documenter.getpostman.com/view/32901280/2sA2rDvL5y">API 명세</a>
+
+<br>
+
 ## 목차
 ### 1. [프로젝트 소개](#프로젝트-소개) <br>
 ### 2. [사용 기술 스택](#사용-기술-스택) <br>
@@ -49,14 +55,40 @@
 <img src="https://img.shields.io/badge/Daisy UI-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white">
 <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black">
 
-### Communication Tool
+### Colaboration Tool
 
-<img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+<img src="https://img.shields.io/badge/Github-000000?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white">
 
 <br>
 
 ## 주요 기능
 
+|회원가입|로그인|로그아웃|
+|:---:|:---:|:---:|
+|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/03329e0f-a43a-4aa1-b66a-d2dac7f8240d" width="200px"></img>|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/4e81e39e-331c-4731-b84e-049a19b05547" width="200px"></img>|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/abb9cdef-11a1-41c3-8ea1-3d4e88653ea5" width="200px"></img>|
+|회원가입을 할 수 있어요|로그인을 할 수 있어요|로그아웃을 할 수 있어요|
+
+|게시물 조회|게시글 검색|게시글 생성|
+|:---:|:---:|:---:|
+||||
+||||
+
+|핀 생성|핀 조회|채팅방 생성|
+|:---:|:---:|:---:|
+||||
+||||
+
+|프로필 변경|위치 변경|실시간 알림|
+|:---:|:---:|:---:|
+||||
+||||
+
 <br>
 
 ## 트러블 슈팅
+
+- <a href="https://www.notion.so/goo99/c1116ba0681a4f2da26b223c44eb6d64?pvs=4">버셀 배포 관련 빌드 오류</a>
+- <a href="https://www.notion.so/goo99/bca852ef87474ac6b1eabfd0780dae0c?pvs=4">버튼 컴포넌트 속성값 오류</a>
+- <a href="https://www.notion.so/goo99/React-Query-7be85c9b02e7413595248de9f206a34e?pvs=4">리액트 쿼리 캐싱 이슈</a>
+- <a href="https://www.notion.so/goo99/Infinite-Scroll-c76eb9f997804707a39b0b51d2aac10a?pvs=4">Infinite Scroll</a>
+- <a href="https://www.notion.so/goo99/403-Forbidden-88e5cbf44c3f448ca1914b611271f70b?pvs=4">요청 헤더 인증 오류 - 403 Forbidden</a>
