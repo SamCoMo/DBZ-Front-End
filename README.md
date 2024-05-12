@@ -3,6 +3,8 @@
 >😲 반려동물이 실종되었나요⁉️ 당장 저희 앱으로 오세요‼️ <br>
 동네 이웃분들이 당신의 소중한 반려동물을 찾아드립니다. 🐶🪿🐈
 
+<br>
+
 <a href="https://www.notion.so/goo99/eaf12c76d5544be5b2c1e95fa9b49bdc">팀 노션</a>
 <br>
 <a href="https://documenter.getpostman.com/view/32901280/2sA2rDvL5y">API 명세</a>
@@ -70,18 +72,18 @@
 
 |게시물 조회|게시글 검색|게시글 생성|
 |:---:|:---:|:---:|
-||||
-||||
+|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/2a380e71-c162-46df-8016-53ae953515ee" width="200px"></img>|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/a8826683-689c-484d-8a37-e7ac49074c7d" width="200px"></img>|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/8841c4e9-d033-4313-b216-0394d4104771" width="200px"></img>|
+|홈 화면에서 게시글을<br>조회할 수 있어요|게시글을 검색할 수 있어요|게시글을 작성할 수 있어요|
 
-|핀 생성|핀 조회|채팅방 생성|
+|핀 생성|핀 조회|실시간 채팅|
 |:---:|:---:|:---:|
-||||
-||||
+|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/d26c263c-c5f5-4575-ab83-c6b29fe2aaea" width="200px"></img>|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/74213a00-8401-416f-90f1-272dc86af749" width="200px"></img>|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/670a9ebb-09fd-4a1f-b4aa-85a9d6282981" width="200px"></img>|
+|게시글에 핀을 찍을 수 있어요|생성된 핀들을 조회할 수 있어요|반려자와 채팅을 할 수 있어요|
 
 |프로필 변경|위치 변경|실시간 알림|
 |:---:|:---:|:---:|
-||||
-||||
+|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/77c8c9b7-d48a-40a3-bf4f-bfb1144aec4f" width="200px"></img>|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/70234896-e468-4db6-a827-40e27c856613" width="200px"></img>|<img src="https://github.com/SamCoMo/DBZ-Front-End/assets/114340740/cd3d0a87-64f0-4f3a-a83d-87c75b30942b" width="200px"></img>|
+|프로필을 변경할 수 있어요|유저의 위치를 업데이트<br>할 수 있어요|실시간으로 알림을 받을 수<br>있어요|
 
 <br>
 
