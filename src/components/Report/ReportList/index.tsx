@@ -8,15 +8,14 @@ type ReportListProps = {
   latitude: number | null;
   longitude: number | null;
   InProcessOnly: boolean;
-  object:string;
 };
 
 const ReportList = (props: ReportListProps) => {
   const param = {
-    curlatitude: props.latitude,
-    curlongitude: props.longitude,
-    lastlatitude: props.latitude,
-    lastlongitude: props.longitude,
+    curLatitude: props.latitude,
+    curLongitude: props.longitude,
+    lastLatitude: props.latitude,
+    lastLongitude: props.longitude,
     InProcessOnly: props.InProcessOnly,
   };
 
@@ -37,18 +36,21 @@ const ReportList = (props: ReportListProps) => {
     reportListRefetch();
   }, [props.latitude, props.longitude, props.InProcessOnly]);
 
-  if (reportListIsFetching) return <SkeletonReportList />;
+  // if (reportListIsFetching) return <SkeletonReportList />;
 
   return (
     <>
       {reportListData?.pages.map((page) =>
-        page.map((list) => (
+        page.content.map((item) => (
           <ReportItem
-            key={list.reportId}
-            reportId={list.reportId}
-            title={list.title}
-            petName={list.petName}
-            reportStatus={list.reportStatus}
+            key={item.reportId}
+            imageUrl={item.imageUrl}
+            roadAddress={item.roadAddress}
+            species={item.species}
+            reportId={item.reportId}
+            title={item.title}
+            petName={item.petName}
+            reportStatus={item.reportStatus}
           ></ReportItem>
         ))
       )}

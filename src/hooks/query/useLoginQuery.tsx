@@ -1,4 +1,4 @@
-import { axiosAuth, axiosDefault } from "@/apis";
+import { axiosAccess, axiosDefault } from "@/apis";
 import { LoginDataType, LoginResponseType } from "@/types/auth/LoginDataType";
 
 import { useMutation } from "@tanstack/react-query";
@@ -6,13 +6,13 @@ import { useNavigate } from "react-router-dom";
 import useUserState from "../useUserState";
 
 const memberLogin = async (data: LoginDataType): Promise<LoginResponseType> => {
-  const { email, password, token } = data;
+  const { email, password, fcmToken } = data;
 
   const formData = new FormData();
 
   formData.append("email", email);
   formData.append("password", password);
-  formData.append("token", token);
+  formData.append("fcmToken", fcmToken);
 
   return await axiosDefault.post("/member/login", formData, {
     headers: {
@@ -32,18 +32,18 @@ const useLoginQuery = () => {
     isError: loginError,
   } = useMutation({
     mutationKey: ["login"],
-    mutationFn: ({ email, password, token }: LoginDataType) =>
-      memberLogin({ email, password, token }),
+    mutationFn: ({ email, password, fcmToken }: LoginDataType) =>
+      memberLogin({ email, password, fcmToken }),
     onSuccess: async (data) => {
       localStorage.setItem("Access-Token", data.headers["access-token"]);
-      const userInfo = await axiosAuth
+      const userInfo = await axiosAccess
         .get("/member/my")
         .then((res) => res.data);
       updateUser({
         ...userInfo,
         isLogin: true,
       });
-      navigate("/home");
+      navigate("/home", { replace: true });
     },
     onError: (error) => console.log(error),
   });

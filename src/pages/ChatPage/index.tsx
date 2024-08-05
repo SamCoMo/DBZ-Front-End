@@ -1,13 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import HeaderTitle from "@/components/common/HeaderTitle";
+// import ChatList from '@/components/common/ChatList';
+import HeaderTitle from '@/components/common/HeaderTitle';
+import ChatRoomList from './ChatDetail';
 
-const ChatPage = () => (
-  <ul>
-    <li>
-      <Link to="/chat/1">먼지엄마</Link>
-    </li>
-  </ul>
-);
+const ChatPage = () => {
+
+  return(
+  <>
+    <HeaderTitle title="채팅" back={true}/>
+    <ChatRoomList/>
+  </>
+)};
 
 export default ChatPage;

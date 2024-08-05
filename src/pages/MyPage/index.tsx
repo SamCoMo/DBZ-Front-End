@@ -37,7 +37,9 @@ const MyPage = () => {
       )
       .then((res) => {
         setNewLocation({
-          address: res.data.documents[0].road_address.address_name,
+          address:
+            res.data.documents[0].road_address?.address_name ||
+            "주소지를 받아오지 못했습니다.",
           latitude: lat,
           longitude: lon,
         });

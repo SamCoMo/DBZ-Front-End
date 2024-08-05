@@ -8,7 +8,7 @@ interface InputProps {
   disabled?: boolean;
   focus?: boolean;
   addStyle?: string;
-  handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = ({
@@ -19,7 +19,7 @@ const Input = ({
   placeholder,
   focus,
   addStyle,
-  handleChangeInput
+  onChange
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => {
@@ -36,7 +36,7 @@ const Input = ({
       }  ${width || 'w-full'}`}
       placeholder={placeholder}
       disabled={disabled}
-      onChange={handleChangeInput}
+      onChange={onChange}
     />
   );
 };

@@ -1,24 +1,23 @@
 import { LoginDataType } from "@/types/auth/LoginDataType";
 import { rest } from "msw";
 
-export const postSignUp = rest.post("/member/register", async (_, res, ctx) => {
-  return res(
-    ctx.status(200),
-    ctx.json({
-      memberId: 1,
-      memberInfo: {
-        email: "text@gmail.com",
-        nickname: "test",
-        profileImageUrl: "base url",
-        phone: "010-0000-0000",
-      },
-      status: "ACTIVE",
-      role: "MEMBER",
-      createdAt: "2024-03-03T00:25:35.196872",
-      updatedAt: "2024-03-03T00:25:35.196893",
-    })
-  );
-});
+export const postSignUp = rest.post(
+  "/member/register",
+  async (req, res, ctx) => {
+    const newUser = await req.json();
+    return res(
+      ctx.status(200),
+      ctx.json({
+        memberId: 1,
+        memberInfo: newUser,
+        status: "ACTIVE",
+        role: "MEMBER",
+        createdAt: "2024-03-03T00:25:35.196872",
+        updatedAt: "2024-03-03T00:25:35.196893",
+      })
+    );
+  }
+);
 
 export const postLogin = rest.post<LoginDataType>(
   "/member/login",

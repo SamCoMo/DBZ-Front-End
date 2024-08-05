@@ -1,3 +1,6 @@
+window.global = window;
+
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 // msw setting
@@ -7,13 +10,13 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import "./index.css";
-import worker from "./mocks/worker";
+// import worker from "./mocks/worker";
 
 const queryClient = new QueryClient();
 
-if (process.env.NODE_ENV === "development") {
-  worker.start();
-}
+// if (process.env.NODE_ENV === "development") {
+//   worker.start();
+// }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -5,15 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { BsCameraFill } from "react-icons/bs";
 import usePutProfileImgEditQuery from "@/hooks/query/usePutProfileImgEditQuery";
 import usePostWithDrawQuery from "@/hooks/query/usePostWithDrawQuery";
-import { axiosAuth } from "@/apis";
+import { axiosAccess } from "@/apis";
 import useLocationState from "@/hooks/useLocationState";
+import DefaultProfile from "../common/DefaultProfile";
 
 const UserProfile = () => {
   const { user } = useUserProfileQuery();
-  const { userState, updateUser } = useUserState();
+  const { userState, updateUser, userReset } = useUserState();
   const [profileImgUrl, setProfileImgUrl] = useState<
     string | ArrayBuffer | null
-  >(userState.profile_image_url);
+  >(userState.profileImageUrl);
   const { profileImgEditMutate } = usePutProfileImgEditQuery();
   const { withDrawMutate } = usePostWithDrawQuery();
 
@@ -34,7 +35,7 @@ const UserProfile = () => {
 
     if (!file) return;
 
-    formData.append("profile_image_url", file);
+    formData.append("profileImage", file);
 
     // 이미지 미리보기 처리
     const reader = new FileReader();
@@ -47,16 +48,16 @@ const UserProfile = () => {
   };
 
   const handleProfileImgDel = () => {};
+
   const { locationReset } = useLocationState();
 
   const handleLogout = async () => {
     const checkLogout = window.confirm("로그아웃을 하시겠습니까?");
     if (checkLogout) {
-      await axiosAuth.post("/member/logout").then(() => {
+      await axiosAccess.post("/member/logout").then(() => {
         locationReset();
+        userReset();
         localStorage.removeItem("Access-Token");
-        localStorage.removeItem("userInfo");
-        localStorage.removeItem("locationInfo");
       });
       navigate("/", { replace: true });
     }
@@ -73,12 +74,12 @@ const UserProfile = () => {
     <>
       <div className="mt-5 flex justify-center">
         <div className="avatar flex-col relative items-center">
-          {profileImgUrl ? (
+          {user?.profileImageUrl ? (
             <div className="w-24 rounded-full">
-              <img src={`${profileImgUrl}`} alt={userState?.nickname} />
+              <img src={`${profileImgUrl}`} alt={user?.nickname} />
             </div>
           ) : (
-            <div className="w-24 rounded-full bg-gray3"></div>
+            <DefaultProfile />
           )}
           <label
             htmlFor="profileImgEdit"
@@ -95,11 +96,11 @@ const UserProfile = () => {
             className="hidden"
           />
           <div className="justify-center">
-            <p className="mt-5 font-medium">{userState?.nickname}</p>
+            <p className="mt-5 font-medium">{user?.nickname}</p>
           </div>
         </div>
       </div>
-      {userState?.profile_image_url && (
+      {user?.profileImageUrl && (
         <div className="mt-4 text-center text-sm text-gray-500">
           <button type="button" onClick={handleProfileImgDel}>
             프로필 사진 삭제하기

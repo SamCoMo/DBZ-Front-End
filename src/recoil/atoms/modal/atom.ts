@@ -1,7 +1,9 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
-// basic 모달
 export const modalAtom = atom({
-  key: "modalAtom",
-  default: "",
+  key: 'modalState',
+  default: {
+    isOpen: false,
+    content: null||'',
+  },
 });

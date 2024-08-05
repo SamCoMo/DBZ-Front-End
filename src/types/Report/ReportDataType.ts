@@ -1,82 +1,114 @@
 export interface ReportParamsType {
-  curlatitude: number | null;
-  curlongitude: number | null;
+  curLatitude: number | null;
+  curLongitude: number | null;
   showsInprocessOnly: boolean;
   pageParam?: {
-    lastlatitude: number | null;
-    lastlongitude: number | null;
+    lastLatitude: number | null;
+    lastLongitude: number | null;
   };
 }
 
 export interface ReportListProps {
-  curlatitude: number | null;
-  curlongitude: number | null;
-  lastlatitude?: number | null;
-  lastlongitude?: number | null;
+  curLatitude: number | null;
+  curLongitude: number | null;
+  lastLatitude?: number | null;
+  lastLongitude?: number | null;
   InProcessOnly: boolean;
 }
 
 export interface ReportListDataType {
-  reportId: number;
-  memberId: number;
-  title: string;
-  petName: string;
-  petType: string;
-  species: string;
-  streetAddress: string;
-  roadAddress: string;
-  latitude: number;
-  longitude: number;
-  imageUrl: string;
-  reportStatus: string;
-  createdAt: string;
-  updatedAt: string;
+  content: {
+    reportId: number;
+    memberId: number;
+    title: string;
+    petName: string;
+    petType: string;
+    species: string;
+    streetAddress: string;
+    roadAddress: string;
+    latitude: number;
+    longitude: number;
+    imageUrl: string;
+    reportStatus: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  last?: boolean;
 }
-
-export interface ReportDataType {
-  reportId: number;
+export interface ReportDefaultDataType {
   title: string;
-  pet_type: string;
-  shows_phone: boolean;
+  petType: string;
+  showsPhone: boolean;
   species: string;
-  pet_name: string;
-  descriptions:string;
+  petName: string;
+  descriptions: string;
   roadAddress: string;
   latitude: number;
   longitude: number;
-  image_list: [];
-  pinId:number;
+  imageList: File[];
+}
+export interface ReportDataType {
+  writerId:number;
+  forEach: any;
+  map?: any;
+  title: string;
+  petType: string;
+  showsPhone: boolean;
+  species: string;
+  petName: string;
+  descriptions: string;
+  roadAddress: string;
+  latitude: number;
+  longitude: number;
+  imageUrl:string;
+  imageList: File[];
+}
+export interface WriterDataType {
+    id: number;
+    nickname: string;
+    profileImageUrl: string;
+
 }
 export interface ReportDetailType {
-  organizedId:number;
-  feature: string;
+  reportId:number;
+  memberId:number;
+  writerProfile:WriterDataType;
   title: string;
   petType: string;
-  shows_phone: boolean;
-  descriptions:string;
+  showsPhone: boolean;
+  descriptions: string;
   species: string;
   petName: string;
   roadAddress: string;
   latitude: number;
   longitude: number;
-  status?: string;
-  image_list: [];
-  createdAt:string,
+  reportStatus: string;
+  imageUrl:string;
+  imageList:File[];
+  createdAt: string;
   views: number;
-  phone:string;
-
+  phone: string;
 }
 export interface ReportDetailIdType {
-  reportId: string;
-  writer: boolean;
+  reportId: number;
 }
+
 export interface ReportPinDataType {
-  pinId: number;
+  description: string;
+  pinId:number;
+  reportId?:number;
   foundAt: string;
   address: string;
   latitude: number;
   longitude: number;
-  pinImageDtoList: [];
+  imageUrl?:string;
+  multipartFileList:File[];
+  pinImageDtoList:File[];
+  
+}
+export interface ReportPinRequestDataType {
+  reportId: number; // 보고서 ID
+  pinData: ReportPinDataType; // 핀 데이터
 }
 
 export interface ReportDeleteType {
@@ -85,4 +117,8 @@ export interface ReportDeleteType {
 export interface ReportEditDataType {
   report: ReportDetailType;
   reportId: number;
+}
+export interface ReportEditStatusType {
+  reportId: number;
+  status:string;
 }
