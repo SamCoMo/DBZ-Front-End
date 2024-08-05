@@ -9,8 +9,8 @@ import useGetReportPinDetailQuery from "@/hooks/query/useGetReportPinDetailQuery
 import Modal from "@/components/common/Modal";
 import useModalState from '@/hooks/useModalState';
 import { format } from 'date-fns';
-import CreateChatRoomButton from '@/hooks/query/FirebaseChat/useFirebaseChatQuery';
-// import CreateChatRoomButton from '@/components/common/Button/WideButton/ChattingButton';
+// import CreateChatRoomButton from '@/hooks/query/FirebaseChat/useFirebaseChatQuery';
+import CreateChatRoomButton from '@/components/common/Button/WideButton/ChattingButton';
 
 
 const ReportDetailPage = () => {
@@ -99,8 +99,8 @@ const ReportDetailPage = () => {
       </div>
       <div className="flex justify-evenly my-4">
         <button className="btn bg-defaultColor text-white" onClick={() => navigate(`/report/${reportId}/pin`)}>핀 찍기</button>
-        {/* <CreateChatRoomButton recipientId={recipientId} /> */}
-        <CreateChatRoomButton currentUserId={currentUserId} recipientId={recipientId}/>
+        <CreateChatRoomButton recipientId={recipientId} />
+        {/* <CreateChatRoomButton currentUserId={currentUserId} recipientId={recipientId}/> */}
       </div>
     </div>
   );

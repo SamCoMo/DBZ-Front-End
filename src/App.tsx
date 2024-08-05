@@ -19,8 +19,8 @@ import SearchPage from "./pages/SearchPage";
 import CreatePinPage from "./pages/report/Pinpage";
 import SearchResultPage from "./pages/SearchPage/SearchResultPage";
 import ChatPage from "./pages/ChatPage";
-// import ChatRoom from "./components/Chatting/ChatRoom";
-import ChatRoom from "./components/Chatting/FirebaseChatting";
+import ChatRoom from "./components/Chatting/ChatRoom";
+// import ChatRoom from "./components/Chatting/FirebaseChatting";
 
 interface AppProps {
   children?: React.ReactNode;

@@ -6,7 +6,7 @@ import { ReportPinDataType } from "@/types/Report/ReportDataType";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { BsCameraFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
-import PinDatePicker from "@/components/common/PinDatePicker";
+import PinDatePicker from "@/components/common/PinDatePIcker";
 import { format } from "date-fns";
 
 

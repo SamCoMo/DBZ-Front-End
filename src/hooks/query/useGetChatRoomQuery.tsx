@@ -3,7 +3,7 @@ import { ChatPrevDataType } from '@/types/Chatting/ChatDataType';
 import { axiosAccess } from '@/apis';
 
 const useGetChatRoomQuery = (chatRoomId:string) => {
-  const fetchAPI = async () => {
+  const fetchAPI = async (): Promise<ChatPrevDataType[]>=> {
     try {
       const res = await axiosAccess.get(`/chat/room/${chatRoomId}/message-list`, {
         params: {
