@@ -1,137 +1,106 @@
-import React from "react";
+import  { useState } from 'react';
 import HeaderTitle from "@/components/common/HeaderTitle";
 import useGetReportDetailQuery from "@/hooks/query/useGetReportQuery";
 import { BsFillPinAngleFill, BsPhoneFill } from "react-icons/bs";
 import ReportDetailKakaoMap from "@/components/common/KakaoMap/ReportDetailMap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useUserState from "@/hooks/useUserState";
-import ModalInSelectEdit from "@/components/Report/ModalInSelectEdit";
-import useGetReportPinListQuery from "@/hooks/query/useGetReportPinsQuery";
 import useGetReportPinDetailQuery from "@/hooks/query/useGetReportPinDetailQuery";
+import Modal from "@/components/common/Modal";
+import useModalState from '@/hooks/useModalState';
+import { format } from 'date-fns';
+// import CreateChatRoomButton from '@/hooks/query/FirebaseChat/useFirebaseChatQuery';
+import CreateChatRoomButton from '@/components/common/Button/WideButton/ChattingButton';
+
 
 const ReportDetailPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const reportId = Number(id);
-  
+  const {openModal, closeModal, modalState } = useModalState();
   // 상세 정보를 가져오는 훅 사용
   const { reportDetail } = useGetReportDetailQuery(reportId);
-  
+  const [selectedPinId, setSelectedPinId] = useState<number | null>(null); // 상태의 타입을 number | null로 명시적으로 설정
+
   // 현재 사용자 정보 가져오기
   const { userState } = useUserState();
+  const { reportPinDetail, reportPinDetailIsLoading } = useGetReportPinDetailQuery(reportId, selectedPinId);
 
-  // 핀 리스트 쿼리 사용
-  const { reportPinList } = useGetReportPinListQuery(reportId);
-
-  // 각 핀에 대한 클릭 이벤트 핸들러
-  const handlePinClick = async (pinId: number) => {
-    // 해당 핀의 상세 정보를 가져오는 쿼리 호출
-    const { reportPinDetail } = await useGetReportPinDetailQuery(reportId, pinId);
-    
-    // reportPinDetail을 활용하여 인포윈도우 표시
-    if (reportPinDetail) {
-      // 인포윈도우 내용 설정
-      const content = `
-        <div className = "w-36 h-9 rounded">
-          <h3>${reportPinDetail.address}</h3>
-          <p>${reportPinDetail.foundAt}</p>
-          <img src="${reportPinDetail.pinImageDtoList}" alt="Report Image" />
-        </div>
-      `;
-      
-      // 인포윈도우 생성
-      const infoWindow = new window.kakao.maps.InfoWindow({
-        content: content,
-      });
-  
-      // 해당 핀의 위치로 인포윈도우를 표시합니다.
-      infoWindow.open();
-    }
+  // 채팅방 생성
+  const recipientId = reportDetail?.writerProfile.nickname;
+  const currentUserId = userState.nickname;
+  const handlePinClick = (pinId: number) => {
+    setSelectedPinId(pinId);
+    openModal();
   };
 
   if (!reportDetail) {
     return <div>No report detail available.</div>;
   }
-  
-  const myPin = {
-    lat: reportDetail.latitude,
-    lng: reportDetail.longitude,
-    pinId: reportDetail.pinId,
-  };
-
+  const [date, time] = (reportDetail.createdAt ?? '').split('T');
+  const  [ pinDate ] = (reportPinDetail?.foundAt ?? '').split('T');
   return (
-    <div>
-      <div className="flex justify-center">
-        <HeaderTitle title={reportDetail.title} />
-        {userState && userState.memberId === reportDetail.organizedId && (
-          <ModalInSelectEdit />
+    <div>      
+      <div>
+        <HeaderTitle title={reportDetail.title} back={true} edit={userState && userState.nickname === reportDetail.writerProfile.nickname}/>
+
+      </div>
+      <div className="info-section">
+        {reportDetail.imageList && reportDetail.imageList.length > 0 && (
+          <img src={reportDetail.imageList[0].url} alt="Report Image" className="w-full h-80" />
         )}
-      </div>
-      <div className="w-full h-80 carousel align-center mx-auto flex ">
-        <div className="carousel align-center mx-auto flex">
-          {reportDetail.image_list &&
-            reportDetail.image_list.map((imageUrl, index) => (
-              <div className="carousel-item w-full" key={index}>
-                <img
-                  src={imageUrl}
-                  className="w-full"
-                  alt={`Image ${index + 1}`}
-                />
+        <div className="flex align-middle mx-3 my-3">
+          <img className="w-14 h-14 rounded-full" src={reportDetail.writerProfile.profileImageUrl} alt="Profile" />
+          <div className="mx-2">
+            <p>{reportDetail.writerProfile.nickname}</p>
+            <p>📌 {date} {time.slice(0, -10)}</p>
+          </div>
+          <div className="ml-auto">{reportDetail.views}</div>
+        </div>
+        <div>
+          <p className="flex justify-start mb-2">
+            <BsFillPinAngleFill className="mr-2 text-defaultColor" /> 이름 : {reportDetail.petName}
+          </p>
+          <p className="flex justify-start mb-2">
+            <BsFillPinAngleFill className="mr-2 text-defaultColor" /> 종 : {reportDetail.species}
+          </p>
+          <p className="flex justify-start mb-2">
+            <BsFillPinAngleFill className="mr-2 text-defaultColor" /> 실종 위치: {reportDetail.roadAddress}
+          </p>
+          <ReportDetailKakaoMap
+            center={{ lat: reportDetail.latitude, lng: reportDetail.longitude }}
+            reportId={reportId}
+            onPinSelect={handlePinClick}
+          />
+
+        {modalState.isOpen && (
+          <Modal isOpen={modalState.isOpen} onClose={closeModal}>
+            {reportPinDetailIsLoading ? <p>Loading...</p> : (
+              <div>
+                <h2 className='font-bold text-lg'>핀 상세 정보</h2>
+                <h3>📍 발견 장소: {reportPinDetail?.address}</h3>
+                <p>📍 발견 일시: {pinDate}</p>
+                <img src={reportPinDetail?.pinImageDtoList[0].url} alt="Pin" />                
+                <p className='mt-2'>📍 상세설명:{reportPinDetail?.description}</p>
+
               </div>
-            ))}
-        </div>
-      </div>
-      <div className="flex align-middle mx-3 my-3">
-        <img
-          className="w-14 h-14 rounded-full "
-          src="/Users/pinn/Desktop/스크린샷 2024-03-15 오후 9.44.15.png"
-        />
-        <div className="mx-2">
-          <p></p>
-          <p>{reportDetail.createdAt}</p>
-        </div>
-        <div className="ml-56 flex justify-end">
-          <span>{reportDetail.views}</span>
+            )}
+          </Modal>
+        )}
         </div>
       </div>
       <div>
-        <div>
-          <p className="flex justify-start mb-2">
-            <BsFillPinAngleFill className="mr-2 text-defaultColor" />
-            이름 : {reportDetail.petName}
+      <p className="flex justify-start mb-2 mt-4">
+            <BsPhoneFill className="mr-2 text-defaultColor" /> 제보연락: {reportDetail.phone}
           </p>
-          <p className="flex justify-start mb-2">
-            <BsFillPinAngleFill className="mr-2 text-defaultColor" />종 :{" "}
-            {reportDetail.species}
+          <p className="flex justify-start mb-2 mt-4">
+          <BsFillPinAngleFill className="mr-2 text-defaultColor" /> {reportDetail.descriptions}            
           </p>
-          <p className="flex justify-start mb-2">
-            <BsFillPinAngleFill className="mr-2 text-defaultColor" />
-            실종 위치: {reportDetail.roadAddress}
-          </p>
-          {/* <지도> */}
-          <ReportDetailKakaoMap
-            center={{
-              lat: reportDetail.latitude,
-              lng: reportDetail.longitude,
-            }}
-            myPin={myPin}
-            otherPins={reportPinList ? reportPinList.pins : []}
-            onMarkerClick={handlePinClick}
-          />
-        </div>
-        <hr className="w-full border bg-gray-200" />
-        <div className="my-2">
-          <p className="flex justify-start mb-2">
-            <BsPhoneFill className="mr-2 text-defaultColor" />
-            {reportDetail.phone}
-          </p>
-        </div>
-        <div className="my-2">{reportDetail.descriptions}</div>
       </div>
-      <div className="flex justify-evenly">
-        <button className="btn w-36 bg-defaultColor text-white">핀 찍기</button>
-        <button className="btn w-36 bg-defaultColor text-white">
-          채팅하기
-        </button>
+      <div className="flex justify-evenly my-4">
+        <button className="btn bg-defaultColor text-white" onClick={() => navigate(`/report/${reportId}/pin`)}>핀 찍기</button>
+        <CreateChatRoomButton recipientId={recipientId} />
+        {/* <CreateChatRoomButton currentUserId={currentUserId} recipientId={recipientId}/> */}
       </div>
     </div>
   );

@@ -6,11 +6,21 @@ import { messaging } from "@/firebase/firebaseConfig";
 import useLoginQuery from "@/hooks/query/useLoginQuery";
 import useInput from "@/hooks/useInput";
 import useLocationState from "@/hooks/useLocationState";
+import useUserState from "@/hooks/useUserState";
 import { getToken } from "firebase/messaging";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const { locationState, updateLocation } = useLocationState();
+  const { userState } = useUserState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userState.isLogin) {
+      navigate("/home", { replace: true });
+    }
+  }, []);
 
   const [email, , handleChangeEmail] = useInput("");
   const [password, , handleChangePassword] = useInput("");
@@ -44,11 +54,11 @@ const LoginPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    loginMutate({ email, password, token: fcmToken });
+    loginMutate({ email, password, fcmToken });
   };
 
   useEffect(() => {
-    if (email && password.length === 8 && fcmToken && locationState) {
+    if (email && password && fcmToken && locationState) {
       setAllCheck(true);
     } else {
       setAllCheck(false);

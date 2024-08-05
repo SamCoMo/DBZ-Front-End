@@ -1,10 +1,10 @@
-import { axiosAuth } from "@/apis";
+import { axiosAccess } from "@/apis";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import useLocationState from "../useLocationState";
 
 const fetchAPI = async () => {
-  const res = await axiosAuth.post("/member/withdraw");
+  const res = await axiosAccess.post("/member/withdraw");
   return res.data;
 };
 

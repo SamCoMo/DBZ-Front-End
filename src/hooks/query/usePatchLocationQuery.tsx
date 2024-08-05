@@ -1,4 +1,4 @@
-import { axiosAcces } from "@/apis";
+import { axiosAccess } from "@/apis";
 import { useMutation } from "@tanstack/react-query";
 import useToast from "../useToast";
 
@@ -10,7 +10,7 @@ type UpdateLocationType = {
 
 const fetchAPI = async (data: UpdateLocationType) => {
   const { address, latitude, longitude } = data;
-  const res = await axiosAcces.patch("/member/location", {
+  const res = await axiosAccess.patch("/member/location", {
     address,
     latitude,
     longitude,
